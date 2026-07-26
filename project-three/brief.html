@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Brief مشروع مصروفي لتعلم JavaScript وLocalStorage.">
+    <title>Brief | مشروع مصروفي</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="learning-page">
+    <a class="skip-link" href="#main-content">انط للمحتوى الرئيسي</a>
+    <header class="course-header"><a class="brand" href="index.html"><span class="brand-mark">03</span><span>مصروفي</span></a><a class="quiet-link" href="simulation.html">افتح الـ Simulation</a></header>
+    <main id="main-content" class="shell">
+        <header class="brief-hero"><p class="level-label">Project Brief · المستوى الثالث</p><h1>ابني Expense Tracker ببيانات حقيقية</h1><p>في المشروع ده الـ Array هي مصدر الحقيقة. الـ Form تغيّر البيانات، والواجهة تتعمل Render من البيانات، وLocalStorage تحفظها. لو فهمت الدورة دي، هتقدر تبني عشرات التطبيقات.</p><div class="note"><strong>قبل ما تبدأ:</strong> جرّب Add/Edit/Delete والفلاتر في الـ Simulation، وبعدها اكتب الـ Data Shape على ورقة. متبدأش برسم Rows من JavaScript قبل ما تفهم كل Object بيمثل إيه.</div></header>
+        <div class="brief-layout">
+            <nav class="brief-toc" aria-label="فهرس الـ Brief"><h2>فهرس المشروع</h2><ol><li><a href="#idea">الفكرة والهدف</a></li><li><a href="#build">هتبني إيه؟</a></li><li><a href="#skills">المهارات</a></li><li><a href="#html">هيكل HTML</a></li><li><a href="#css">تنسيق CSS</a></li><li><a href="#javascript">منطق JavaScript</a></li><li><a href="#features">شرح الـ Features</a></li><li><a href="#order">ترتيب التنفيذ</a></li><li><a href="#examples">أمثلة صغيرة</a></li><li><a href="#mistakes">أخطاء شائعة</a></li><li><a href="#testing">Checklist الاختبار</a></li><li><a href="#done">شروط الاكتمال</a></li><li><a href="#bonus">Bonus Challenges</a></li></ol></nav>
+            <div class="brief-content">
+                <section class="brief-section" id="idea"><h2>1. فكرة المشروع والهدف النهائي</h2><p>مصروفي تطبيق شخصي يسجل أي دخل أو مصروف. المستخدم يدخل الوصف والمبلغ والنوع والفئة والتاريخ، وبعد الحفظ تظهر العملية في القائمة وتتحدث 3 أرقام: الدخل، المصروفات، والرصيد.</p><p>الهدف الحقيقي مش العمليات الحسابية؛ الهدف تعمل <strong>Single Source of Truth</strong>. يعني متخزنش الرصيد في مكان والعمليات في مكان. خزّن العمليات فقط، وكل رقم ظاهر يتحسب منها.</p><p>البيانات تفضل موجودة بعد Reload باستخدام LocalStorage، ولو البيانات المحفوظة بايظة، التطبيق يتعافى بدل ما ينهار.</p></section>
+                <section class="brief-section" id="build"><h2>2. إنت هتبني إيه؟</h2><ul><li>3 Summary Cards للرصيد والدخل والمصروفات.</li><li>Form فيها وصف، مبلغ، نوع، فئة، وتاريخ.</li><li>قائمة Operations بتترسم من Array.</li><li>Add وEdit وSave Edit وCancel Edit وDelete.</li><li>فلتر بالنوع وفلتر بالفئة وزر Reset.</li><li>LocalStorage بمفتاح مستقل.</li><li>Empty State لأول استخدام، No Results للفلاتر، Error للـ Form، وStatus للنجاح أو Recovery.</li></ul></section>
+                <section class="brief-section" id="skills"><h2>3. المهارات والمفاهيم اللي هتتدرّب عليها</h2><h3>Data</h3><p>Arrays، Objects، Stable IDs، <code>map</code>، <code>filter</code>، <code>find</code>، <code>reduce</code>، و<code>sort</code>.</p><h3>Functions</h3><p>Functions صغيرة لكل مسؤولية: Load، Save، Validate، Render Summary، Render List، Start Edit، Reset Form.</p><h3>DOM</h3><p><code>createElement</code>، <code>textContent</code>، <code>append</code>، <code>replaceChildren</code>، وEvent Delegation على القائمة.</p><h3>Persistence</h3><p><code>JSON.stringify</code> و<code>JSON.parse</code>، Try/Catch، وفحص شكل البيانات قبل استخدامها.</p></section>
+                <section class="brief-section" id="html"><h2>4. هيكل HTML المطلوب</h2><p>اعمل Sections منفصلة للـ Summary، Form، والTransactions. HTML توفر الـ Static Shell فقط؛ Rows نفسها هتتولد من JavaScript.</p><h3>الـ Form</h3><p>كل حقل له Label وName وType مناسب. المبلغ <code>type="number"</code> مع <code>min="0.01"</code> و<code>step="0.01"</code>. التاريخ <code>type="date"</code>. زر الحفظ Submit وزر إلغاء التعديل Button عادي ومخفي في البداية.</p><h3>الـ States</h3><p>جهز عنصر Error بـ <code>role="alert"</code> وعنصر Status بـ <code>role="status" aria-live="polite"</code>. اعمل Empty State وNo-results State كعناصر مستقلة JavaScript تظهر وتخفي بينهم.</p><h3>القائمة</h3><p>استخدم <code>ul</code> لأن دي مجموعة عمليات. كل عملية هتكون <code>li</code>، وأزرارها تحمل <code>data-action</code> و<code>data-id</code>.</p></section>
+                <section class="brief-section" id="css"><h2>5. تنسيق CSS المطلوب</h2><p>استخدم Dashboard مفتوحة: Summary في صف، Form في Band كبيرة، وبعدها List واضحة. متحطش كل قيمة في Card صغيرة لمجرد إنها Card.</p><h3>الفرق بين النوعين</h3><p>الدخل أخضر والمصروف Coral/أحمر، لكن متعتمدش على اللون بس: اكتب “دخل ↑” و“مصروف ↓”.</p><h3>القائمة Responsive</h3><p>على Desktop خليها شبه Table باستخدام Grid Columns. على Mobile اخفي Header وحوّل كل Row لتخطيط من عمودين مع الوصف والإجراءات بعرض كامل.</p><h3>الحالات</h3><p>صمم Error، Success، Empty، No Results، Edit Mode، Hover، Focus، وDisabled. الحالة جزء من المنتج، مش حاجة تتضاف في الآخر.</p></section>
+                <section class="brief-section" id="javascript"><h2>6. منطق JavaScript المطلوب</h2><h3>شكل الـ Transaction</h3><pre class="code-sample"><code>{
+  id: "stable-id",
+  description: "راتب شهر مايو",
+  amount: 1500,
+  type: "income",
+  category: "salary",
+  date: "2026-07-26"
+}</code></pre><p>ابدأ بـ <code>let transactions = []</code> و<code>let editingId = null</code>. وقت Submit، اجمع القيم واعمل Validate. لو إضافة: Push Object جديد. لو تعديل: استخدم Map واستبدل Object اللي ID بتاعه يساوي editingId.</p><p>بعد أي Mutation نفّذ نفس السلسلة: <strong>Save → Reset Form عند الحاجة → Render</strong>. الفلاتر تعمل Render فقط ومينفعش تغير الـ Array الأصلية.</p><p>Storage Key لازم يكون <code>codehub-expense-tracker-v1</code>. النسخة في الاسم تديك فرصة تغير شكل البيانات مستقبلاً من غير ما تلخبط القديم.</p></section>
+                <section class="brief-section" id="features"><h2>7. كل Feature شغّالة إزاي وليه</h2><h3>Add</h3><p>Validate القيم، اعمل ID ثابت، ضيف Object، Save، وبعدها Render كل شيء. متضيفش Row مباشرة وبس؛ الـ Row لازم تكون نتيجة للـ Array.</p><h3>Edit</h3><p>Find العملية بالـ ID، املأ الحقول، خزّن ID في editingId، وغير عنوان وزر الـ Form. عند الحفظ استبدل نفس الـ Object مع الحفاظ على ID.</p><h3>Cancel</h3><p>امسح editingId، Reset الحقول، رجع النصوص للوضع الأساسي، وانقل Focus لأول حقل.</p><h3>Delete</h3><p>Filter الـ Array وخلي كل العناصر اللي ID بتاعها مختلف. Save وRender وعلن رسالة نجاح.</p><h3>Totals</h3><p>Filter الدخل والمصروف، وبعدها Reduce لكل مجموعة. الرصيد = الدخل − المصروف. احسب من كل البيانات حتى لو القائمة مفلترة.</p><h3>Filters</h3><p>اشتغل على نسخة مشتقة: Type Filter ثم Category Filter ثم Sort. متغيرش transactions نفسها.</p><h3>LocalStorage</h3><p>Load مرة في البداية، Save بعد Mutation فقط. Wrap الـ Parse في Try/Catch وافحص إن الناتج Array وإن كل Item له الشكل المتوقع.</p></section>
+                <section class="brief-section" id="order"><h2>8. ترتيب التنفيذ المقترح</h2><ol><li>ابني Static HTML وكل الـ UI States.</li><li>اكتب Data Shape وConstants للفئات والأنواع.</li><li>نفذ Add بدون Storage واطبع Array في Console.</li><li>اعمل Row Renderer آمن واعرض القائمة.</li><li>اعمل Summary بـ Filter + Reduce.</li><li>وصل Delete، وبعدها Edit/Cancel.</li><li>وصل Type وCategory Filters.</li><li>ضيف Empty وNo-results States.</li><li>ضيف Save/Load وفحص البيانات.</li><li>اختبر السيناريوهات الصعبة والـ Focus.</li></ol></section>
+                <section class="brief-section" id="examples"><h2>9. أمثلة صغيرة للمفاهيم الصعبة</h2><h3>مجموع القيم</h3><pre class="code-sample"><code>const total = items.reduce(function (sum, item) {
+  return sum + item.price;
+}, 0);</code></pre><h3>تعديل Object واحد</h3><pre class="code-sample"><code>items = items.map(function (item) {
+  return item.id === targetId
+    ? { ...item, title: "عنوان جديد" }
+    : item;
+});</code></pre><h3>رسم نص المستخدم بأمان</h3><pre class="code-sample"><code>const title = document.createElement("strong");
+title.textContent = userValue;
+row.append(title);</code></pre><h3>Load آمن</h3><pre class="code-sample"><code>try {
+  const value = JSON.parse(localStorage.getItem(KEY));
+  items = Array.isArray(value) ? value : [];
+} catch (error) {
+  items = [];
+}</code></pre></section>
+                <section class="brief-section" id="mistakes"><h2>10. أخطاء شائعة وإزاي تتجنبها</h2><ul><li><strong>تخزين totals:</strong> خزن العمليات واحسب totals منها.</li><li><strong>المبلغ String:</strong> استخدم Number وتأكد إنه finite وأكبر من صفر.</li><li><strong>index كـ ID:</strong> الترتيب يتغير؛ استخدم ID ثابت.</li><li><strong>فلترة الـ State الأصلية:</strong> اعمل Derived Array وسيب الأصل كما هو.</li><li><strong>innerHTML مع Input:</strong> استخدم createElement وtextContent.</li><li><strong>Parse من غير Try/Catch:</strong> قيمة تالفة ممكن توقف التطبيق كله.</li><li><strong>Edit يضيف نسخة:</strong> افصل وضع الإضافة عن التعديل بـ editingId.</li><li><strong>نسيان Save بعد Delete/Edit:</strong> خلي كل Mutation واضحة وتتبعها Save.</li><li><strong>تحديث جزء واحد:</strong> نادِ Render المركزية بعد التغيير.</li></ul></section>
+                <section class="brief-section" id="testing"><h2>11. Checklist الاختبار</h2><ul class="check-list"><li>أول فتح يظهر Empty State.</li><li>وصف قصير أو مبلغ صفر يظهر Error.</li><li>عملية دخل صحيحة تحدث القائمة والدخل والرصيد.</li><li>عملية مصروف تحدث المصروفات وتقلل الرصيد.</li><li>Edit يحفظ فوق نفس ID ولا يكرر العملية.</li><li>Cancel لا يغير البيانات.</li><li>Delete تحدث كل الإجماليات.</li><li>كل Filter وحده والاتنين مع بعض صحيحين.</li><li>No-results تظهر فقط لو عندك بيانات ومفيش Match.</li><li>Reset Filter يرجع القائمة كلها.</li><li>Reload يرجع البيانات.</li><li>JSON تالف يتشال والتطبيق يفضل شغال.</li><li>النص اللي فيه &lt;tag&gt; يظهر كنص مش HTML.</li><li>كل شيء قابل للاستخدام بالـ Keyboard.</li><li>360px من غير Scroll أفقي.</li></ul></section>
+                <section class="brief-section" id="done"><h2>12. شروط اكتمال المشروع</h2><ul class="check-list"><li>Array of Objects هي مصدر الحقيقة الوحيد.</li><li>Add/Edit/Cancel/Delete مكتملين.</li><li>Validation تمنع القيم غير الصحيحة.</li><li>Totals مشتقة ودقيقة.</li><li>Filters لا تغيّر البيانات الأصلية.</li><li>LocalStorage آمنة ومفتاحها مستقل.</li><li>Empty/Error/No-results/Success States موجودة.</li><li>رسم مدخلات المستخدم آمن.</li><li>الـ Layout Responsive وAccessible.</li><li>Console من غير Errors.</li></ul></section>
+                <section class="brief-section" id="bonus"><h2>13. Bonus Challenges اختيارية</h2><ol><li>ضيف Search في الوصف من غير ما تغير الـ State.</li><li>ضيف Sort بالتاريخ أو المبلغ.</li><li>ضيف Confirm داخل الواجهة قبل الحذف بدل Browser Alert.</li><li>ضيف زر Export JSON ينزل نسخة من البيانات.</li><li>ضيف Budget Limit شهري وتحذير بسيط، من غير Charts.</li></ol><div class="note">خلي Bonus بعد ما تختبر Corrupted Storage وEdit Flow؛ دول أهم من Feature جديدة.</div></section>
+            </div>
+        </div>
+    </main>
+    <footer class="course-footer"><a href="index.html">صفحة المشروع</a><a href="simulation.html">الـ Simulation</a></footer>
+</body>
+</html>

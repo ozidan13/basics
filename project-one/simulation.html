@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio شخصي تجريبي لمطور Frontend مبتدئ.">
+    <title>مساحتي | Portfolio محمد علي</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="portfolio-page">
+    <a class="skip-link" href="#portfolio-main">انط للمحتوى الرئيسي</a>
+
+    <header class="portfolio-header">
+        <div class="portfolio-nav shell">
+            <a class="portfolio-logo" href="#home" aria-label="الصفحة الرئيسية لمحمد علي">محمد<span>.</span></a>
+            <nav aria-label="التنقل الرئيسي">
+                <ul class="nav-list">
+                    <li><a href="#about">عني</a></li>
+                    <li><a href="#skills">مهاراتي</a></li>
+                    <li><a href="#work">شغلي</a></li>
+                    <li><a href="#contact">تواصل</a></li>
+                </ul>
+            </nav>
+            <a class="small-course-link" href="index.html">صفحة المشروع</a>
+        </div>
+    </header>
+
+    <main id="portfolio-main">
+        <section class="portfolio-hero shell" id="home">
+            <div class="portfolio-intro">
+                <p class="availability"><span aria-hidden="true"></span>متاح لمشاريع جديدة</p>
+                <h1>أهلاً، أنا محمد.<br><strong>ببني تجارب ويب بسيطة وجميلة.</strong></h1>
+                <p>Frontend Developer في بداية رحلتي، بحوّل الأفكار لصفحات سريعة، واضحة، وسهلة الاستخدام على أي شاشة.</p>
+                <div class="action-row">
+                    <a class="button button-primary" href="#work">شوف شغلي</a>
+                    <a class="button button-secondary" href="#contact">كلّمني</a>
+                </div>
+                <ul class="quick-facts" aria-label="معلومات سريعة">
+                    <li><strong>3</strong><span>مشاريع مكتملة</span></li>
+                    <li><strong>100%</strong><span>حب للتعلّم</span></li>
+                    <li><strong>24h</strong><span>متوسط الرد</span></li>
+                </ul>
+            </div>
+            <div class="portrait-card" aria-label="بطاقة تعريف محمد علي">
+                <div class="portrait-glow"></div>
+                <div class="portrait-avatar" aria-hidden="true">م</div>
+                <div class="portrait-meta">
+                    <p>محمد علي</p>
+                    <span>Frontend Developer · Cairo</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="portfolio-section shell" id="about" aria-labelledby="about-title">
+            <div class="portfolio-section-title">
+                <span>01</span>
+                <h2 id="about-title">نبذة عني</h2>
+            </div>
+            <div class="about-grid">
+                <p class="large-copy">بدأت أتعلم تطوير الويب علشان بحب أشوف الفكرة وهي بتتحول لحاجة الناس تقدر تستخدمها.</p>
+                <div class="body-copy">
+                    <p>بركز دلوقتي على كتابة HTML منظم، CSS مرن، وتجارب بتشتغل كويس على الموبايل قبل الكمبيوتر.</p>
+                    <p>هدفي إني أتعلم كل يوم حاجة جديدة وأشارك في مشاريع ليها تأثير حقيقي ومحتوى واضح.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="portfolio-section shell" id="skills" aria-labelledby="skills-heading">
+            <div class="portfolio-section-title">
+                <span>02</span>
+                <h2 id="skills-heading">مهاراتي</h2>
+            </div>
+            <div class="skills-board">
+                <article>
+                    <span class="skill-number">01</span>
+                    <h3>HTML</h3>
+                    <p>هيكل Semantic واضح، Forms منظمة، ومحتوى Accessible.</p>
+                </article>
+                <article>
+                    <span class="skill-number">02</span>
+                    <h3>CSS</h3>
+                    <p>Flexbox، Responsive Design، وأسلوب بصري متناسق.</p>
+                </article>
+                <article>
+                    <span class="skill-number">03</span>
+                    <h3>JavaScript</h3>
+                    <p>تفاعلات بسيطة بتخلي الواجهة أوضح وأسهل للمستخدم.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="portfolio-section shell" id="work" aria-labelledby="work-title">
+            <div class="portfolio-section-title">
+                <span>03</span>
+                <h2 id="work-title">شغل مختار</h2>
+            </div>
+            <div class="project-gallery">
+                <article class="work-card work-card-featured">
+                    <div class="work-art art-one"><span>01</span><strong>نور</strong></div>
+                    <div class="work-copy">
+                        <p class="work-type">Landing Page</p>
+                        <h3>منصة نور التعليمية</h3>
+                        <p>صفحة تعريفية لمنصة تعليم أونلاين، مركزة على سهولة القراءة والاشتراك من الموبايل.</p>
+                        <ul class="tag-list"><li>HTML</li><li>CSS</li><li>Responsive</li></ul>
+                    </div>
+                </article>
+                <article class="work-card">
+                    <div class="work-art art-two"><span>02</span><strong>بُن</strong></div>
+                    <div class="work-copy">
+                        <p class="work-type">Restaurant Website</p>
+                        <h3>كافيه بُن</h3>
+                        <p>موقع بسيط يعرض المنيو والمكان وساعات العمل.</p>
+                        <ul class="tag-list"><li>Semantic HTML</li><li>Flexbox</li></ul>
+                    </div>
+                </article>
+                <article class="work-card">
+                    <div class="work-art art-three"><span>03</span><strong>موج</strong></div>
+                    <div class="work-copy">
+                        <p class="work-type">Event Page</p>
+                        <h3>فعالية موج</h3>
+                        <p>صفحة تسجيل لفعالية شبابية بتجربة واضحة وسريعة.</p>
+                        <ul class="tag-list"><li>Forms</li><li>Accessibility</li></ul>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="portfolio-section contact-section shell" id="contact" aria-labelledby="contact-title">
+            <div class="contact-copy">
+                <p class="eyebrow">خلينا نعمل حاجة حلوة</p>
+                <h2 id="contact-title">عندك فكرة مشروع؟ ابعتلي تفاصيلها.</h2>
+                <p>املى البيانات، وهرد عليك في أقرب وقت. الفورم هنا Demo ومش بيبعت بيانات لسيرفر.</p>
+                <a href="mailto:hello@example.com">hello@example.com</a>
+            </div>
+
+            <form class="contact-form" id="contact-form" action="#contact">
+                <div class="field-row">
+                    <div class="field">
+                        <label for="name">اسمك</label>
+                        <input id="name" name="name" type="text" minlength="2" autocomplete="name" required placeholder="مثال: سارة أحمد">
+                    </div>
+                    <div class="field">
+                        <label for="email">البريد الإلكتروني</label>
+                        <input id="email" name="email" type="email" autocomplete="email" required placeholder="name@example.com" dir="ltr">
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="service">محتاج مساعدة في إيه؟</label>
+                    <select id="service" name="service" required>
+                        <option value="">اختار نوع المشروع</option>
+                        <option>Landing Page</option>
+                        <option>Portfolio</option>
+                        <option>تطوير واجهة موجودة</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="message">احكيلي عن فكرتك</label>
+                    <textarea id="message" name="message" minlength="20" rows="5" required placeholder="اكتب الهدف من المشروع وأهم حاجة محتاجها..."></textarea>
+                </div>
+                <button class="button button-primary submit-button" type="submit">ابعت الرسالة</button>
+                <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+            </form>
+        </section>
+    </main>
+
+    <footer class="portfolio-footer">
+        <div class="shell">
+            <p>© <span id="current-year">2026</span> محمد علي. اتبنى بحب وHTML وCSS.</p>
+            <a href="#home">ارجع لفوق ↑</a>
+        </div>
+    </footer>
+</body>
+</html>

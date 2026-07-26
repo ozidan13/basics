@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Brief مشروع CaseCraft لتعلم DOM وResponsive UI.">
+    <title>Brief | CaseCraft</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="learning-page">
+    <a class="skip-link" href="#main-content">انط للمحتوى الرئيسي</a>
+    <header class="course-header">
+        <a class="brand" href="index.html"><span class="brand-mark">02</span><span>CaseCraft</span></a>
+        <a class="quiet-link" href="simulation.html">جرّب الـ Simulation</a>
+    </header>
+
+    <main id="main-content" class="shell">
+        <header class="brief-hero">
+            <p class="level-label">Project Brief · المستوى الثاني</p>
+            <h1>ابني Product Customizer تفاعلي</h1>
+            <p>هتبدأ بواجهة منتج ثابتة، وبعدها تربط كل اختيار بتغيير مباشر في الشكل والنص والسعر. الهدف مش حفظ أوامر DOM؛ الهدف إنك تفهم رحلة الـ Event من ضغطة المستخدم لحد النتيجة اللي قدامه.</p>
+            <div class="note"><strong>طريقة الاستخدام:</strong> جرّب الـ Simulation علشان تعرف الـ Features، اقفلها، وابني الهيكل بنفسك. ارجع لها للمقارنة بعد كل Milestone، مش علشان تنقل الحل كامل.</div>
+        </header>
+
+        <div class="brief-layout">
+            <nav class="brief-toc" aria-label="فهرس الـ Brief">
+                <h2>فهرس المشروع</h2>
+                <ol>
+                    <li><a href="#idea">الفكرة والهدف</a></li><li><a href="#build">هتبني إيه؟</a></li>
+                    <li><a href="#skills">المهارات</a></li><li><a href="#html">هيكل HTML</a></li>
+                    <li><a href="#css">تنسيق CSS</a></li><li><a href="#javascript">منطق JavaScript</a></li>
+                    <li><a href="#features">شرح الـ Features</a></li><li><a href="#order">ترتيب التنفيذ</a></li>
+                    <li><a href="#examples">أمثلة صغيرة</a></li><li><a href="#mistakes">أخطاء شائعة</a></li>
+                    <li><a href="#testing">Checklist الاختبار</a></li><li><a href="#done">شروط الاكتمال</a></li>
+                    <li><a href="#bonus">Bonus Challenges</a></li>
+                </ol>
+            </nav>
+
+            <div class="brief-content">
+                <section class="brief-section" id="idea">
+                    <h2>1. فكرة المشروع والهدف النهائي</h2>
+                    <p>CaseCraft أداة تخلي العميل يشوف جراب الموبايل قبل ما يطلبه. يختار الموديل واللون والنقشة، يكتب اسمه، يحدد الكمية، والواجهة تعرض الشكل والسعر والملخص فوراً.</p>
+                    <p>التحدي هنا إن عندك كذا Control بيأثر على كذا مكان. لازم تعرف إيه العنصر اللي أطلق الـ Event، تقرأ قيمته، تحدّث الـ Preview، وتخلي كل المعلومات متوافقة.</p>
+                    <p><strong>الهدف النهائي:</strong> واجهة Responsive شغالة بالكامل من غير Framework، ومن غير تخزين بيانات أو رسم خيارات من Array.</p>
+                </section>
+
+                <section class="brief-section" id="build">
+                    <h2>2. إنت هتبني إيه؟</h2>
+                    <ul>
+                        <li>Workspace متقسم Preview، Controls، وOrder Summary.</li>
+                        <li>3 أزرار لموديلات بأسعار مختلفة.</li>
+                        <li>3 Color Swatches تغير لون الجراب.</li>
+                        <li>3 Pattern Controls تغير Class على الـ Preview.</li>
+                        <li>Input للاسم بحد أقصى 12 حرف وعدّاد.</li>
+                        <li>Quantity Stepper من 1 إلى 5.</li>
+                        <li>حساب Total، Reset، ورسالة Add to Cart تجريبية.</li>
+                    </ul>
+                    <div class="warning">مفيش Checkout حقيقي ومفيش بيانات بتتبعت. “السلة” هنا Feedback بصري فقط علشان تتدرب على UI State.</div>
+                </section>
+
+                <section class="brief-section" id="skills">
+                    <h2>3. المهارات والمفاهيم اللي هتتدرّب عليها</h2>
+                    <h3>Layout</h3><p>CSS Grid للـ Workspace الرئيسي، Flexbox لمجموعات الاختيارات، وBreakpoints لتحويل 3 أعمدة لعمود واحد.</p>
+                    <h3>DOM</h3><p><code>querySelector</code> و<code>querySelectorAll</code>، Event Listeners، <code>event.currentTarget</code>، <code>dataset</code>، <code>classList</code>، و<code>textContent</code>.</p>
+                    <h3>حالة الواجهة</h3><p>قيم بسيطة للموديل والسعر والنقشة والكمية. مش هتعمل Array منتجات ولا State Manager؛ ده ييجي في المستوى الجاي.</p>
+                    <h3>Accessibility</h3><p><code>button</code> حقيقية، <code>fieldset</code> و<code>legend</code> للمجموعات، <code>aria-pressed</code> للاختيار، و<code>aria-live</code> للرسائل.</p>
+                </section>
+
+                <section class="brief-section" id="html">
+                    <h2>4. هيكل HTML المطلوب</h2>
+                    <p>خلي الـ Main Container فيه 3 أجزاء: Section للـ Preview، Form أو Section للـ Controls، وAside للملخص. استخدم Footer صغير للحالة المباشرة لو حابب.</p>
+                    <h3>الأزرار وقيم data-*</h3>
+                    <p>كل اختيار لازم يبقى <code>button type="button"</code>. حط القيمة اللي JavaScript محتاجاها في Attribute واضح: <code>data-price</code>، <code>data-color</code>، أو <code>data-pattern</code>. النص الظاهر يشرح الاختيار للإنسان، والـ Data Attribute تدي الكود قيمة منظمة.</p>
+                    <h3>تجميع الاختيارات</h3>
+                    <p>استخدم <code>fieldset</code> حوالين كل مجموعة و<code>legend</code> بعنوانها. ده يوضح العلاقة بين الأزرار لمستخدم Screen Reader.</p>
+                    <h3>الملخص</h3>
+                    <p>عنصر <code>dl</code> مناسب جداً لمفتاح وقيمة: “الموديل / iPhone 14 Pro”. كل صف يحتوي <code>dt</code> و<code>dd</code>. السعر النهائي ممكن يكون <code>output</code> أو عنصر نصي واضح.</p>
+                </section>
+
+                <section class="brief-section" id="css">
+                    <h2>5. تنسيق CSS المطلوب</h2>
+                    <h3>Grid الرئيسي</h3><p>على Desktop استخدم 3 أعمدة: Preview أوسع، Controls متوسطة، Summary أصغر. على Tablet خلي Summary صف كامل، وعلى Mobile خليهم تحت بعض.</p>
+                    <h3>الجراب من CSS</h3><p>اعمل Rectangle طويل بـ Border Radius كبير، Border غامق، وCamera Bump. لون الجراب يبقى CSS Custom Property مثل <code>--case-color</code> علشان JavaScript تغيره بسطر واحد.</p>
+                    <h3>النقشات</h3><p>اعمل Classes منفصلة مثل <code>.pattern-dots</code> و<code>.pattern-lines</code>. كل Class تستخدم Gradient مختلف على Pseudo-element فوق اللون الأساسي.</p>
+                    <h3>الحالات</h3><p>اعمل Class واحدة اسمها <code>.is-selected</code> تتكرر على كل أنواع الاختيارات. لازم الاختيار الحالي يبقى واضح بالـ Border والـ Background، مش باللون لوحده.</p>
+                    <h3>Controls</h3><p>خلي أقل ارتفاع للزر مناسب للمس، والـ Disabled Button واضح. متصغّرش النص علشان كل الأعمدة تدخل؛ سيب الـ Layout يتغير.</p>
+                </section>
+
+                <section class="brief-section" id="javascript">
+                    <h2>6. منطق JavaScript المطلوب</h2>
+                    <p>قسم الكود لخمس أجزاء واضحة:</p>
+                    <ol>
+                        <li><strong>Selectors:</strong> امسك مجموعات الأزرار والـ Inputs والـ Outputs.</li>
+                        <li><strong>Current values:</strong> متغير للسعر الأساسي، سعر النقشة، الكمية، وأسماء الاختيارات.</li>
+                        <li><strong>Helper:</strong> Function تشيل <code>.is-selected</code> من المجموعة وتضيفها للزر الجديد، وتحدّث <code>aria-pressed</code>.</li>
+                        <li><strong>Render/update:</strong> Function واحدة تحسب الإجمالي وتحدث كل النصوص والأزرار.</li>
+                        <li><strong>Events:</strong> Event Listener لكل مجموعة، وInput Event للاسم، وClick للكمية والـ Reset.</li>
+                    </ol>
+                    <p>الحساب: <code>(basePrice + patternPrice) * quantity</code>. حوّل قيم <code>dataset</code> من String إلى Number قبل الجمع.</p>
+                </section>
+
+                <section class="brief-section" id="features">
+                    <h2>7. كل Feature شغّالة إزاي وليه</h2>
+                    <h3>اختيار الموديل</h3><p>الضغط يحدد الزر، يقرأ الاسم والسعر من Dataset، وبعدها ينادي Update واحدة. كده الحساب والملخص يتغيروا من مكان مركزي.</p>
+                    <h3>اختيار اللون</h3><p>JavaScript تحدث CSS Custom Property على عنصر الجراب. CSS يفضل مسؤول عن الرسم، وJavaScript مسؤول عن اختيار القيمة فقط.</p>
+                    <h3>اختيار النقشة</h3><p>شيل كل Pattern Classes المعروفة، وضيف Class الاختيار الجديد. متسيبش Class قديمة وإلا النقشات تتداخل.</p>
+                    <h3>كتابة الاسم</h3><p>استخدم Event اسمه <code>input</code> علشان التغيير يحصل مع كل حرف. لو القيمة فاضية، اعرض نص بديل مفهوم بدل مساحة فارغة.</p>
+                    <h3>الكمية</h3><p>استخدم <code>Math.max</code> و<code>Math.min</code> أو Conditions تمنع النزول عن 1 والزيادة عن 5. عطّل الزر عند الحد المناسب.</p>
+                    <h3>Reset</h3><p>رجّع كل قيمة للـ Default، رجّع الـ Classes وaria-pressed، امسح الرسالة القديمة، وبعدها Update واحدة.</p>
+                </section>
+
+                <section class="brief-section" id="order">
+                    <h2>8. ترتيب التنفيذ المقترح</h2>
+                    <ol>
+                        <li>ابني HTML كاملة بكل الـ Controls والملخص من غير JavaScript.</li>
+                        <li>ظبط Grid وResponsive Layout واختبر ترتيب القراءة.</li>
+                        <li>ارسم الجراب والنقشات في CSS.</li>
+                        <li>اعمل Selected State يدوياً وتأكد إنها واضحة.</li>
+                        <li>وصل موديلات المنتج الأول واختبر السعر.</li>
+                        <li>وصل الألوان، وبعدها النقشات.</li>
+                        <li>وصل الاسم والعداد.</li>
+                        <li>وصل الكمية والإجمالي والـ Disabled State.</li>
+                        <li>اعمل Reset وAdd Status في الآخر.</li>
+                        <li>اختبر بالـ Keyboard والموبايل.</li>
+                    </ol>
+                </section>
+
+                <section class="brief-section" id="examples">
+                    <h2>9. أمثلة صغيرة للمفاهيم الصعبة</h2>
+                    <h3>قراءة Dataset</h3>
+                    <pre class="code-sample"><code>&lt;button data-size="large" data-extra="30"&gt;Large&lt;/button&gt;
+
+const button = document.querySelector("[data-size]");
+const size = button.dataset.size;
+const extra = Number(button.dataset.extra);</code></pre>
+                    <h3>Selected State موحدة</h3>
+                    <pre class="code-sample"><code>buttons.forEach(function (button) {
+  const selected = button === clickedButton;
+  button.classList.toggle("is-selected", selected);
+  button.setAttribute("aria-pressed", selected);
+});</code></pre>
+                    <h3>تغيير CSS Variable</h3>
+                    <pre class="code-sample"><code>preview.style.setProperty("--accent-color", "#ff5f82");</code></pre>
+                    <h3>حماية رقم بين حدين</h3>
+                    <pre class="code-sample"><code>count = Math.min(10, count + 1);
+count = Math.max(1, count - 1);</code></pre>
+                </section>
+
+                <section class="brief-section" id="mistakes">
+                    <h2>10. أخطاء شائعة وإزاي تتجنبها</h2>
+                    <ul>
+                        <li><strong>نسيان type="button":</strong> الزر داخل Form ممكن يعمل Submit بالغلط.</li>
+                        <li><strong>جمع Strings:</strong> قيمة Dataset نص؛ استخدم Number قبل العمليات الحسابية.</li>
+                        <li><strong>Selected على كذا زر:</strong> شيل الحالة من المجموعة كلها قبل ما تضيف الجديدة.</li>
+                        <li><strong>تحديث مكان ونسيان التاني:</strong> خلي Function واحدة مسؤولة عن الملخص والحساب.</li>
+                        <li><strong>استخدام innerHTML للاسم:</strong> استخدم textContent لأن القيمة جاية من المستخدم.</li>
+                        <li><strong>لون من غير وصف:</strong> Swatch لازم لها اسم ظاهر أو aria-label.</li>
+                        <li><strong>Stepper خارج الحدود:</strong> اختبر 1 و5 وعطّل الزر المناسب.</li>
+                        <li><strong>كل حاجة Absolute:</strong> Absolute مناسب لرسم الجراب، مش للـ Layout الرئيسي.</li>
+                    </ul>
+                </section>
+
+                <section class="brief-section" id="testing">
+                    <h2>11. Checklist الاختبار</h2>
+                    <ul class="check-list">
+                        <li>كل موديل يغيّر الاسم والسعر.</li><li>اختيار واحد فقط فعال في كل مجموعة.</li>
+                        <li>aria-pressed تساوي الحالة البصرية.</li><li>كل لون يظهر على الجراب ونقطة الملخص.</li>
+                        <li>كل نقشة تشيل النقشة القديمة.</li><li>الاسم يتحدث مع كل حرف ولا يزيد عن 12.</li>
+                        <li>الاسم الفاضي له بديل مفهوم.</li><li>الكمية لا تقل عن 1 ولا تزيد عن 5.</li>
+                        <li>الإجمالي صحيح مع كل تركيبة.</li><li>Reset يرجع كل Default.</li>
+                        <li>Add to Cart تعرض رسالة واحدة واضحة.</li><li>كل Control يشتغل بالـ Keyboard.</li>
+                        <li>الواجهة بدون Scroll أفقي عند 360px.</li><li>Reload يرجع Defaults لأن مفيش تخزين.</li>
+                    </ul>
+                </section>
+
+                <section class="brief-section" id="done">
+                    <h2>12. شروط اكتمال المشروع</h2>
+                    <ul class="check-list">
+                        <li>Workspace واضح من Preview وControls وSummary.</li>
+                        <li>Grid وFlexbox مستخدمين في أدوار مختلفة.</li>
+                        <li>كل الاختيارات والتحديثات والحساب شغالة.</li>
+                        <li>Selected وDisabled وFocus وStatus States واضحة.</li>
+                        <li>الكود يستخدم Dataset وclassList وtextContent.</li>
+                        <li>مفيش Array Rendering أو LocalStorage.</li>
+                        <li>الصفحة Responsive وAccessible.</li>
+                        <li>Console مفيهاش Errors.</li>
+                    </ul>
+                </section>
+
+                <section class="brief-section" id="bonus">
+                    <h2>13. Bonus Challenges اختيارية</h2>
+                    <ol>
+                        <li>ضيف اختيار Font للاسم باستخدام Class أو CSS Variable.</li>
+                        <li>ضيف Checkbox لتغليف هدية بسعر إضافي.</li>
+                        <li>ضيف زر Randomize يختار لون ونقشة عشوائيين من الأزرار الموجودة.</li>
+                        <li>اعرض السعر قبل الخصم وبعده لما الكمية توصل 3، من غير ما تدخل في نظام Coupons.</li>
+                        <li>ضيف Preview صغير للموبايل عند Breakpoint مختلف.</li>
+                    </ol>
+                    <div class="note">اختار Bonus واحدة بعد ما كل الـ Core Tests تعدي. متحولش المشروع لمتجر كامل؛ الهدف DOM Basics.</div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="course-footer"><a href="index.html">صفحة المشروع</a><a href="simulation.html">الـ Simulation</a></footer>
+</body>
+</html>

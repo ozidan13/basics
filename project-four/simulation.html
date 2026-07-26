@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="رحّال: اكتشف وجهات مصر وابني خطة رحلتك.">
+    <title>رحّال | Egypt Trip Planner</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="app-page">
+    <a class="skip-link" href="#app-main">انط للتطبيق</a>
+    <header class="app-header">
+        <a class="back-link" href="index.html">← صفحة المشروع</a>
+        <a class="app-logo" href="#app-main"><span class="logo-sun" aria-hidden="true"></span>رحّال</a>
+        <nav class="view-tabs" aria-label="مساحات التطبيق">
+            <button type="button" data-view="discover" aria-pressed="true" class="is-active">اكتشف</button>
+            <button type="button" data-view="favorites" aria-pressed="false">المفضلة <span id="favorite-count">0</span></button>
+            <button type="button" data-view="itinerary" aria-pressed="false">رحلتي <span id="trip-count">0</span></button>
+        </nav>
+    </header>
+
+    <main id="app-main" class="app-shell">
+        <section class="app-view" id="discover-view" data-panel="discover" aria-labelledby="discover-title">
+            <header class="view-heading">
+                <div><h1 id="discover-title" tabindex="-1">اكتشف مصر على مهلك.</h1><p>اختار مكان يناسب مودك وميزانيتك، وبعدها ضيفه لخطة الرحلة.</p></div>
+                <p class="results-count">لقينا <strong id="result-count">0</strong> وجهة</p>
+            </header>
+
+            <form class="discover-toolbar" id="discover-toolbar" role="search">
+                <div class="search-field"><label for="search">ابحث عن وجهة أو تجربة</label><input id="search" type="search" placeholder="مثال: بحر، تاريخ، سيوة..." autocomplete="off"></div>
+                <div class="toolbar-field"><label for="region-filter">المنطقة</label><select id="region-filter"><option value="all">كل المناطق</option><option value="western">الصحراء الغربية</option><option value="upper">صعيد مصر</option><option value="sinai">سيناء</option><option value="coast">الساحل والدلتا</option></select></div>
+                <div class="toolbar-field"><label for="category-filter">نوع الرحلة</label><select id="category-filter"><option value="all">كل الأنواع</option><option value="nature">طبيعة</option><option value="history">تاريخ</option><option value="adventure">مغامرة</option><option value="culture">ثقافة ومدينة</option></select></div>
+                <div class="toolbar-field"><label for="sort-select">الترتيب</label><select id="sort-select"><option value="recommended">مقترحة ليك</option><option value="rating">الأعلى تقييماً</option><option value="budget">الأقل تكلفة</option><option value="name">الاسم</option></select></div>
+                <button id="reset-discovery" class="reset-discovery" type="button">مسح البحث والفلاتر</button>
+            </form>
+
+            <div class="destination-results" id="destination-results"></div>
+            <div class="empty-state" id="no-destinations" hidden><span aria-hidden="true">⌕</span><h2>ملقيناش مكان بالمواصفات دي</h2><p>غيّر كلمة البحث أو الفلاتر وجرب تاني.</p><button type="button" data-action="reset-discovery">اعرض كل الوجهات</button></div>
+        </section>
+
+        <section class="app-view" id="favorites-view" data-panel="favorites" aria-labelledby="favorites-title" hidden>
+            <header class="view-heading"><div><h1 id="favorites-title" tabindex="-1">أماكنك المفضلة.</h1><p>كل مكان حفظته موجود هنا علشان تقارن وتقرر.</p></div></header>
+            <div class="destination-results favorites-results" id="favorite-results"></div>
+            <div class="empty-state" id="empty-favorites"><span aria-hidden="true">♡</span><h2>لسه مفيش مفضلة</h2><p>ارجع لاكتشف واضغط القلب على أي وجهة عجبتك.</p><button type="button" data-action="show-discover">اكتشف الوجهات</button></div>
+        </section>
+
+        <section class="app-view itinerary-view" id="itinerary-view" data-panel="itinerary" aria-labelledby="itinerary-title" hidden>
+            <header class="view-heading"><div><h1 id="itinerary-title" tabindex="-1">ابني رحلتك.</h1><p>حدد المكان والميعاد وعدد الأيام والمسافرين، وإحنا نحسب تقدير الميزانية.</p></div><span class="edit-mode" id="trip-form-mode">إضافة محطة</span></header>
+
+            <div class="itinerary-layout">
+                <section class="trip-builder" aria-labelledby="trip-form-title">
+                    <h2 id="trip-form-title">تفاصيل المحطة</h2>
+                    <form id="itinerary-form" novalidate>
+                        <div class="form-field wide"><label for="trip-destination">الوجهة <span>*</span></label><select id="trip-destination" required></select></div>
+                        <div class="form-field"><label for="trip-start-date">تاريخ البداية <span>*</span></label><input id="trip-start-date" type="date" required></div>
+                        <div class="form-field"><label for="trip-days">عدد الأيام <span>*</span></label><input id="trip-days" type="number" min="1" max="30" value="3" required></div>
+                        <div class="form-field"><label for="trip-travelers">المسافرين <span>*</span></label><input id="trip-travelers" type="number" min="1" max="10" value="2" required></div>
+                        <div class="form-field wide"><label for="trip-note">ملاحظة اختيارية</label><textarea id="trip-note" maxlength="120" rows="3" placeholder="مثال: نحجز رحلة سفاري أول يوم"></textarea></div>
+                        <div class="form-buttons wide"><button class="save-trip" id="save-trip" type="submit">ضيف لرحلتي</button><button class="cancel-trip" id="cancel-trip-edit" type="button" hidden>إلغاء التعديل</button></div>
+                    </form>
+                    <p class="trip-error" id="trip-error" role="alert"></p>
+                </section>
+
+                <aside class="trip-summary" aria-labelledby="trip-summary-title">
+                    <h2 id="trip-summary-title">ملخص رحلتي</h2>
+                    <dl><div><dt>المحطات</dt><dd id="summary-stops">0</dd></div><div><dt>إجمالي الأيام</dt><dd id="summary-days">0</dd></div><div><dt>إجمالي المسافرين</dt><dd id="summary-travelers">0</dd></div><div class="budget-total"><dt>الميزانية التقديرية</dt><dd id="summary-budget">٠ ج.م.‏</dd></div></dl>
+                    <p>التقدير = الميزانية اليومية × الأيام × المسافرين.</p>
+                </aside>
+            </div>
+
+            <section class="trip-stops-section" aria-labelledby="trip-stops-title"><div class="stops-heading"><h2 id="trip-stops-title">محطات الرحلة</h2><p><strong id="visible-trip-count">0</strong> محطة</p></div><ol class="trip-stops" id="trip-stops"></ol><div class="empty-state compact" id="empty-itinerary"><span aria-hidden="true">＋</span><h2>رحلتك لسه فاضية</h2><p>استخدم الفورم أو ضيف وجهة من صفحة اكتشف.</p></div></section>
+        </section>
+
+        <p class="global-status" id="global-status" role="status" aria-live="polite"></p>
+    </main>
+
+    <dialog class="destination-dialog" id="destination-dialog" aria-labelledby="dialog-title">
+        <button class="dialog-close" id="dialog-close" type="button" aria-label="اقفل التفاصيل">×</button>
+        <div class="dialog-art" id="dialog-art"></div>
+        <div class="dialog-copy"><p id="dialog-meta"></p><h2 id="dialog-title"></h2><p id="dialog-description"></p><dl><div><dt>التقييم</dt><dd id="dialog-rating"></dd></div><div><dt>ميزانية يومية</dt><dd id="dialog-budget"></dd></div><div><dt>مدة مقترحة</dt><dd id="dialog-duration"></dd></div></dl><button class="dialog-add" id="dialog-add" type="button">ضيفها لرحلتي</button></div>
+    </dialog>
+</body>
+</html>

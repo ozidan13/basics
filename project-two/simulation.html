@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="أداة CaseCraft لتخصيص جراب موبايل بشكل تفاعلي.">
+    <title>CaseCraft | مخصّص جراب الموبايل</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="app-page">
+    <a class="skip-link" href="#customizer">انط لأداة التخصيص</a>
+    <header class="app-header">
+        <a class="back-link" href="index.html">← صفحة المشروع</a>
+        <a class="app-logo" href="#customizer" aria-label="CaseCraft الرئيسية"><span>Case</span>Craft</a>
+        <p>مشروع 2 · DOM مباشر</p>
+    </header>
+
+    <main id="customizer" class="customizer-shell">
+        <section class="preview-panel" aria-labelledby="preview-title">
+            <div class="preview-copy">
+                <h1 id="preview-title">شاهد التخصيص<br><strong>يتحدّث مباشرة.</strong></h1>
+                <p>كل اختيار بيغير الـ DOM ويظهر في المنتج والملخص في نفس اللحظة.</p>
+            </div>
+
+            <div class="phone-stage">
+                <div class="phone-case pattern-brush" id="case-preview">
+                    <div class="camera-bump" aria-hidden="true"><span></span><span></span><span></span></div>
+                    <div class="case-decoration" aria-hidden="true">✦</div>
+                    <p id="case-name">Mazen</p>
+                </div>
+            </div>
+
+            <ul class="concept-list" aria-label="المفاهيم المستخدمة">
+                <li><code>CSS Grid</code><span>لتقسيم الواجهة</span></li>
+                <li><code>classList</code><span>للنقشة والاختيار</span></li>
+                <li><code>dataset</code><span>لقيم كل زر</span></li>
+                <li><code>input event</code><span>لتحديث الاسم</span></li>
+            </ul>
+        </section>
+
+        <form class="controls-panel" id="customizer-form">
+            <fieldset class="control-group">
+                <legend><span>1</span> اختار الموديل</legend>
+                <div class="option-row model-options">
+                    <button class="option-button" type="button" data-model="iPhone 14" data-price="169" aria-pressed="false">iPhone 14</button>
+                    <button class="option-button is-selected" type="button" data-model="iPhone 14 Pro" data-price="199" aria-pressed="true">iPhone 14 Pro</button>
+                    <button class="option-button" type="button" data-model="iPhone 15" data-price="229" aria-pressed="false">iPhone 15</button>
+                </div>
+            </fieldset>
+
+            <fieldset class="control-group">
+                <legend><span>2</span> اختار اللون</legend>
+                <div class="option-row color-options">
+                    <button class="swatch is-selected" type="button" data-color="#713aa4" data-color-name="بنفسجي" aria-label="بنفسجي" aria-pressed="true"><i style="--swatch:#713aa4"></i><span>بنفسجي</span></button>
+                    <button class="swatch" type="button" data-color="#19356f" data-color-name="كحلي" aria-label="كحلي" aria-pressed="false"><i style="--swatch:#19356f"></i><span>كحلي</span></button>
+                    <button class="swatch" type="button" data-color="#202020" data-color-name="أسود" aria-label="أسود" aria-pressed="false"><i style="--swatch:#202020"></i><span>أسود</span></button>
+                </div>
+            </fieldset>
+
+            <fieldset class="control-group">
+                <legend><span>3</span> اختار النقشة</legend>
+                <div class="option-row pattern-options">
+                    <button class="pattern-choice" type="button" data-pattern="dots" data-pattern-name="نقط" data-pattern-price="0" aria-pressed="false"><i class="pattern-sample sample-dots"></i><span>نقط</span></button>
+                    <button class="pattern-choice is-selected" type="button" data-pattern="brush" data-pattern-name="فرشات" data-pattern-price="25" aria-pressed="true"><i class="pattern-sample sample-brush"></i><span>فرشات +25</span></button>
+                    <button class="pattern-choice" type="button" data-pattern="lines" data-pattern-name="خطوط" data-pattern-price="15" aria-pressed="false"><i class="pattern-sample sample-lines"></i><span>خطوط +15</span></button>
+                </div>
+            </fieldset>
+
+            <div class="control-group name-control">
+                <label for="personal-name"><span>4</span> اكتب اسمك</label>
+                <input id="personal-name" type="text" maxlength="12" value="Mazen" autocomplete="off" aria-describedby="name-help">
+                <p id="name-help"><span id="name-count">5</span>/12 حرف</p>
+            </div>
+
+            <div class="control-group quantity-control">
+                <p class="control-title"><span>5</span> الكمية</p>
+                <div class="stepper" aria-label="اختيار الكمية">
+                    <button id="decrease" type="button" aria-label="قلل الكمية">−</button>
+                    <output id="quantity" aria-live="polite">1</output>
+                    <button id="increase" type="button" aria-label="زود الكمية">+</button>
+                </div>
+                <p>الحد الأدنى 1 والحد الأقصى 5</p>
+            </div>
+        </form>
+
+        <aside class="summary-panel" aria-labelledby="summary-title">
+            <h2 id="summary-title">ملخص الطلب</h2>
+            <dl class="order-details">
+                <div><dt>الموديل</dt><dd id="summary-model">iPhone 14 Pro</dd></div>
+                <div><dt>اللون</dt><dd><i id="summary-color-dot"></i><span id="summary-color">بنفسجي</span></dd></div>
+                <div><dt>النقشة</dt><dd id="summary-pattern">فرشات</dd></div>
+                <div><dt>الاسم</dt><dd id="summary-name">Mazen</dd></div>
+                <div><dt>الكمية</dt><dd id="summary-quantity">1</dd></div>
+            </dl>
+            <div class="price-row"><span>الإجمالي</span><strong><span id="total-price">224</span> ج.م</strong></div>
+            <button class="cart-button" id="add-to-cart" type="button">ضيف للسلة</button>
+            <button class="reset-button" id="reset-customizer" type="button">ابدأ من جديد</button>
+            <p class="status-message" id="customizer-status" role="status" aria-live="polite"></p>
+        </aside>
+
+        <footer class="live-strip">
+            <p><span class="live-dot" aria-hidden="true"></span><strong>الحالة المباشرة</strong></p>
+            <p>الاختيارات الحالية: <code id="live-code">color=purple · pattern=brush · quantity=1</code></p>
+        </footer>
+    </main>
+</body>
+</html>
