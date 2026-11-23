@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Brief مشروع مساحتي لتعلم HTML وCSS خطوة بخطوة.">
+    <title>Brief | مشروع مساحتي</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="learning-page">
+    <a class="skip-link" href="#main-content">انط للمحتوى الرئيسي</a>
+
+    <header class="course-header">
+        <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">01</span><span>مشروع مساحتي</span></a>
+        <a class="text-link" href="simulation.html">افتح الـ Simulation</a>
+    </header>
+
+    <main id="main-content" class="shell">
+        <header class="brief-hero">
+            <p class="eyebrow">Project Brief · المستوى الأول</p>
+            <h1>ابني أول Portfolio شخصي بإيدك</h1>
+            <p>الـ Brief ده هيمشي معاك من أول هيكل الصفحة لحد الاختبار النهائي. نفّذ كل مرحلة قبل ما تنتقل للي بعدها، ومتفتحش كود الـ Simulation غير بعد ما تحاول لوحدك.</p>
+            <div class="learning-note"><strong>قبل ما تبدأ:</strong> اعمل فولدر جديد فيه <code>index.html</code> و<code>style.css</code> و<code>script.js</code>. افتح الـ Simulation علشان تفهم النتيجة المطلوبة، وبعدها ارجع هنا وابني نسختك بمحتواك أنت.</div>
+        </header>
+
+        <div class="brief-layout">
+            <nav class="brief-toc" aria-label="فهرس الـ Brief">
+                <h2>محتويات المشروع</h2>
+                <ol>
+                    <li><a href="#idea">الفكرة والهدف</a></li>
+                    <li><a href="#build">هتبني إيه؟</a></li>
+                    <li><a href="#skills">المهارات</a></li>
+                    <li><a href="#html">هيكل HTML</a></li>
+                    <li><a href="#css">تنسيق CSS</a></li>
+                    <li><a href="#javascript">منطق JavaScript</a></li>
+                    <li><a href="#features">كل Feature بتشتغل إزاي</a></li>
+                    <li><a href="#order">ترتيب التنفيذ</a></li>
+                    <li><a href="#examples">أمثلة صغيرة</a></li>
+                    <li><a href="#mistakes">أخطاء شائعة</a></li>
+                    <li><a href="#testing">Checklist الاختبار</a></li>
+                    <li><a href="#done">شروط الاكتمال</a></li>
+                    <li><a href="#bonus">Bonus Challenges</a></li>
+                </ol>
+            </nav>
+
+            <div class="brief-content">
+                <section class="brief-section" id="idea">
+                    <h2>1. فكرة المشروع والهدف النهائي</h2>
+                    <p>هتعمل صفحة Portfolio لشخص بدأ شغله كـ Frontend Developer. الصفحة مش مجرد CV مكتوب؛ هي تجربة قصيرة تقنع الزائر إن صاحبها منظم، فاهم الأساسيات، وعنده شغل يقدر يعرضه.</p>
+                    <p>الهدف التعليمي إنك تستخدم HTML علشان توصف <strong>معنى</strong> كل جزء، وبعدها تستخدم CSS علشان تعمل ترتيب بصري واضح من غير ما تعتمد على مكتبة جاهزة. JavaScript هنا دوره صغير جداً؛ لأن التركيز الأساسي على الهيكل والشكل.</p>
+                    <div class="success-note">اعتبر المشروع مكتمل لما حد يفتحه لأول مرة ويعرف بسرعة: إنت مين، بتعمل إيه، عندك إيه من مهارات، عملت إيه قبل كده، وإزاي يتواصل معاك.</div>
+                </section>
+
+                <section class="brief-section" id="build">
+                    <h2>2. إنت هتبني إيه؟</h2>
+                    <ul>
+                        <li>Header فيه اسمك وروابط داخلية لأقسام الصفحة.</li>
+                        <li>Hero فيه جملة قوية عنك، وصف صغير، وزرارين واضحين.</li>
+                        <li>About Section يشرح رحلتك وهدفك.</li>
+                        <li>Skills Section فيها 3 بطاقات على الأقل.</li>
+                        <li>Projects Section فيها 3 نماذج شغل مختلفة.</li>
+                        <li>Contact Section فيها Form كاملة ورسالة نجاح تجريبية.</li>
+                        <li>Footer فيه السنة الحالية ولينك يرجع لأول الصفحة.</li>
+                    </ul>
+                    <p>اكتب محتوى حقيقي على قد ما تقدر. لو لسه معندكش مشاريع، اكتب مشاريع تدريبية نفسك تعملها ووضح إنها Concepts.</p>
+                </section>
+
+                <section class="brief-section" id="skills">
+                    <h2>3. المهارات والمفاهيم اللي هتتدرّب عليها</h2>
+                    <h3>HTML</h3>
+                    <p>هيكل الملف، Semantic Tags، ترتيب العناوين، Links، Lists، Forms، Labels، Input Types، وRequired Validation.</p>
+                    <h3>CSS</h3>
+                    <p>Selectors، Colors، Typography، Box Model، Spacing، Borders، Backgrounds، Flexbox، Hover/Focus، وMedia Queries.</p>
+                    <h3>JavaScript</h3>
+                    <p>اختيار عنصر واحد بـ <code>querySelector</code>، الاستماع لحدث <code>submit</code>، منع التحميل التجريبي بـ <code>preventDefault</code>، وتعديل نص رسالة.</p>
+                    <p><strong>مش مطلوب دلوقتي:</strong> Arrays، Objects، Loops، LocalStorage، أو رسم المحتوى من JavaScript.</p>
+                </section>
+
+                <section class="brief-section" id="html">
+                    <h2>4. هيكل HTML المطلوب</h2>
+                    <p>ابدأ بـ <code>&lt;!DOCTYPE html&gt;</code>، وحدد <code>lang="ar"</code> و<code>dir="rtl"</code>. داخل <code>head</code> حط الترميز، الـ viewport، عنوان واضح، ووصل ملف CSS.</p>
+                    <h3>الـ Landmarks الأساسية</h3>
+                    <ul>
+                        <li><code>header</code> للهوية والـ Navigation.</li>
+                        <li><code>nav</code> حوالين قائمة الروابط، ومعاه وصف مناسب لو عندك أكتر من Navigation.</li>
+                        <li><code>main</code> مرة واحدة حوالين المحتوى الأساسي.</li>
+                        <li><code>section</code> لكل جزء له عنوان واضح.</li>
+                        <li><code>article</code> لكل Skill أو Project Card تقدر تقراها لوحدها.</li>
+                        <li><code>footer</code> لمعلومات النهاية.</li>
+                    </ul>
+                    <h3>العناوين</h3>
+                    <p>استخدم <code>h1</code> واحد لرسالتك الأساسية. كل Section تاخد <code>h2</code>، وعنوان كل Card يكون <code>h3</code>. متختارش مستوى العنوان علشان حجمه؛ الحجم مسؤولية CSS.</p>
+                    <h3>الـ Form</h3>
+                    <p>اعمل حقول للاسم، الإيميل، نوع المشروع، والرسالة. كل Input لازم يبقى له <code>label</code> مربوط عن طريق إن قيمة <code>for</code> تساوي الـ <code>id</code>. استخدم <code>type="email"</code> و<code>required</code> و<code>minlength</code> علشان المتصفح يساعدك في التحقق.</p>
+                    <div class="warning-note"><strong>مهم:</strong> الـ Placeholder مش بديل للـ Label. أول ما المستخدم يكتب، الـ Placeholder بيختفي؛ إنما الـ Label بيفضل يوضح معنى الحقل.</div>
+                </section>
+
+                <section class="brief-section" id="css">
+                    <h2>5. تنسيق CSS المطلوب</h2>
+                    <h3>ابدأ بالأساس</h3>
+                    <p>استخدم <code>box-sizing: border-box</code> لكل العناصر، شيل الـ margin الافتراضي من body، وحدد لون الخلفية والنص و<code>line-height</code> مريح. اعمل Class اسمه مثلاً <code>.container</code> يحدد أقصى عرض ويترك مساحة جانبية.</p>
+                    <h3>النظام البصري</h3>
+                    <p>اختار خلفية غامقة، لون Accent واحد واضح، لون نص أساسي، ولون نص ثانوي. كرر نفس قيم الـ Border Radius والمسافات علشان الصفحة تحس إنها نظام واحد مش أجزاء منفصلة.</p>
+                    <h3>Flexbox</h3>
+                    <p>استخدمه في الـ Navigation، صف الأزرار، بطاقات الـ Skills، ومعلومات الـ Footer. اسأل نفسك الأول: العناصر ماشية في صف ولا عمود؟ بعدها حدد <code>display: flex</code> و<code>gap</code>، وبعدين ظبط المحاذاة.</p>
+                    <h3>Responsive Design</h3>
+                    <p>ابدأ بشكل الموبايل. عند مساحة أكبر، خلي الـ Hero عمودين والبطاقات جنب بعض. متعتمدش على عرض ثابت؛ استخدم <code>max-width</code>، نسب، و<code>flex-wrap</code>.</p>
+                    <h3>حالات التفاعل</h3>
+                    <p>الأزرار والروابط لازم يبقى لها Hover، والأهم <code>:focus-visible</code> علشان مستخدم الـ Keyboard يعرف هو واقف فين. متشيلش الـ Outline من غير بديل أوضح.</p>
+                </section>
+
+                <section class="brief-section" id="javascript">
+                    <h2>6. منطق JavaScript المطلوب</h2>
+                    <p>المشروع ده محتاج Feature واحدة أساسية: لما المستخدم يبعت Form صحيحة، امنع الإرسال الحقيقي واعرض رسالة نجاح باسمه. محتاج كمان Feature صغيرة اختيارية لتحديث سنة الـ Footer.</p>
+                    <ol>
+                        <li>اختار الـ Form ورسالة الحالة.</li>
+                        <li>ضيف Event Listener لحدث <code>submit</code>.</li>
+                        <li>استخدم <code>event.preventDefault()</code> لأن مفيش Server يستقبل البيانات.</li>
+                        <li>خلي HTML Validation تشتغل قبل النجاح.</li>
+                        <li>اقرأ الاسم، وعدّل <code>textContent</code> لرسالة الحالة.</li>
+                        <li>اعمل Reset بعد النجاح فقط.</li>
+                    </ol>
+                    <p>حط <code>role="status"</code> و<code>aria-live="polite"</code> على مكان الرسالة علشان Screen Reader يعلن التغيير.</p>
+                </section>
+
+                <section class="brief-section" id="features">
+                    <h2>7. كل Feature شغّالة إزاي وليه</h2>
+                    <h3>التنقل داخل الصفحة</h3>
+                    <p>كل لينك في الـ Nav بيشير لـ ID موجود على Section: لينك <code>href="#work"</code> يروح لعنصر <code>id="work"</code>. دي Navigation حقيقية من غير JavaScript.</p>
+                    <h3>البطاقات المرنة</h3>
+                    <p>الحاوية تستخدم Flexbox أو Grid، والبطاقات تاخد مساحة متساوية. لما الشاشة تصغر، العناصر تلف أو تتحول لعمود، فالمحتوى يفضل مقروء.</p>
+                    <h3>الـ HTML Validation</h3>
+                    <p>المتصفح يوقف الإرسال لو Required فاضي أو شكل الإيميل غلط. JavaScript تتعامل مع النجاح بس؛ كده كل تقنية بتعمل الدور المناسب ليها.</p>
+                    <h3>رسالة النجاح</h3>
+                    <p>حدث Submit يقرأ الاسم ويكتب رسالة شخصية. استخدام <code>textContent</code> أنسب من <code>innerHTML</code> لأننا بنعرض نص المستخدم ومش محتاجين HTML.</p>
+                    <h3>الـ Responsive Layout</h3>
+                    <p>الصفحة تبدأ بعمود واحد. Media Query واحدة أو اتنين يحولوا الأجزاء المناسبة لأعمدة لما العرض يسمح، من غير ما يصغر النص أو الأزرار زيادة.</p>
+                </section>
+
+                <section class="brief-section" id="order">
+                    <h2>8. ترتيب التنفيذ المقترح</h2>
+                    <ol>
+                        <li><strong>المحتوى الخام:</strong> اكتب كل الأقسام والعناوين والفقرات من غير CSS.</li>
+                        <li><strong>Semantic Review:</strong> راجع إن كل عنصر مستخدم لمعناه وإن العناوين مرتبة.</li>
+                        <li><strong>الأساس البصري:</strong> Body، Container، ألوان، خطوط، ومسافات.</li>
+                        <li><strong>ترتيب الأقسام:</strong> Nav، Hero، Skills، Projects، Form باستخدام Flexbox.</li>
+                        <li><strong>التفاصيل:</strong> Borders، Backgrounds، Buttons، Hover، وFocus.</li>
+                        <li><strong>الموبايل:</strong> اختبر من 360px وخلي كل حاجة عمود واحد ومريحة.</li>
+                        <li><strong>الشاشات الأكبر:</strong> ضيف Media Query للأعمدة والمسافات الأكبر.</li>
+                        <li><strong>JavaScript:</strong> ضيف رسالة الـ Form بعد ما الصفحة نفسها تبقى كاملة.</li>
+                        <li><strong>الاختبار:</strong> نفذ الـ Checklist كلها وسجل أي مشكلة تصلحها.</li>
+                    </ol>
+                </section>
+
+                <section class="brief-section" id="examples">
+                    <h2>9. أمثلة صغيرة للمفاهيم الصعبة</h2>
+                    <h3>ربط Label بـ Input</h3>
+                    <pre class="code-sample"><code>&lt;label for="student-name"&gt;اسم الطالب&lt;/label&gt;
+&lt;input id="student-name" name="studentName" type="text" required&gt;</code></pre>
+                    <h3>Flexbox بيلف العناصر</h3>
+                    <pre class="code-sample"><code>.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.card {
+  flex: 1 1 240px;
+}</code></pre>
+                    <h3>Media Query بسيطة</h3>
+                    <pre class="code-sample"><code>@media (min-width: 768px) {
+  .intro {
+    display: flex;
+    align-items: center;
+  }
+}</code></pre>
+                    <h3>الاستماع لإرسال Form صغيرة</h3>
+                    <pre class="code-sample"><code>const form = document.querySelector("#newsletter-form");
+
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+  console.log("Form is valid and ready");
+});</code></pre>
+                    <p>الأمثلة متعمدة تستخدم أسماء مختلفة ومش بتديك حل الـ Portfolio كامل. دورك تركب المفهوم في المكان الصح.</p>
+                </section>
+
+                <section class="brief-section" id="mistakes">
+                    <h2>10. أخطاء شائعة وإزاي تتجنبها</h2>
+                    <ul>
+                        <li><strong>كل حاجة div:</strong> ارجع لمعنى المحتوى واستخدم header/nav/main/section/article/footer.</li>
+                        <li><strong>أكتر من h1:</strong> خلي الرسالة الأساسية h1 وباقي عناوين الأقسام h2.</li>
+                        <li><strong>لينك من غير هدف:</strong> اتأكد إن كل <code>href="#..."</code> له ID مطابق بالظبط.</li>
+                        <li><strong>مسافات عشوائية:</strong> اختار مجموعة ثابتة زي 8، 12، 16، 24، 32px بدل أرقام مختلفة كل مرة.</li>
+                        <li><strong>عرض ثابت كبير:</strong> متكتبش width: 1200px لعنصر أساسي؛ استخدم width مرن وmax-width.</li>
+                        <li><strong>Placeholder بدل Label:</strong> اكتب الاتنين؛ كل واحد له وظيفة مختلفة.</li>
+                        <li><strong>Button من غير type:</strong> داخل Form حدد <code>type="submit"</code> أو <code>type="button"</code>.</li>
+                        <li><strong>شيل الـ Outline:</strong> لو شلته لازم تضيف Focus Style أوضح، وإلا الصفحة تبقى صعبة بالـ Keyboard.</li>
+                        <li><strong>بدء JavaScript بدري:</strong> خلص المحتوى والـ CSS الأول؛ التفاعل هنا آخر خطوة.</li>
+                    </ul>
+                </section>
+
+                <section class="brief-section" id="testing">
+                    <h2>11. Checklist الاختبار</h2>
+                    <ul class="check-list">
+                        <li>الصفحة لها Title ووصف مناسب في Head.</li>
+                        <li>فيه h1 واحد وكل Section لها h2 واضح.</li>
+                        <li>كل روابط الـ Nav بتوصل للقسم الصح.</li>
+                        <li>كل Project Card فيها عنوان ووصف وتقنيات.</li>
+                        <li>كل Label مربوط بالحقل الصح.</li>
+                        <li>الفورم ترفض اسم قصير، إيميل غلط، ورسالة قصيرة.</li>
+                        <li>رسالة النجاح تظهر مرة واحدة باسم المستخدم.</li>
+                        <li>الصفحة كاملة تتستخدم بالـ Keyboard والـ Focus واضح.</li>
+                        <li>مفيش Scroll أفقي عند عرض 360px.</li>
+                        <li>البطاقات تنتقل من عمود على الموبايل لأكتر من عمود على الشاشة الكبيرة.</li>
+                        <li>الألوان مقروءة والنص الثانوي مش باهت زيادة.</li>
+                        <li>Console مفيهاش Errors.</li>
+                    </ul>
+                </section>
+
+                <section class="brief-section" id="done">
+                    <h2>12. شروط اكتمال المشروع</h2>
+                    <p>المشروع يعتبر Core Complete لما يحقق كل النقط دي:</p>
+                    <ul class="check-list">
+                        <li>ملفات HTML وCSS وJavaScript منفصلة ومتصلة صح.</li>
+                        <li>Header، Hero، About، Skills، Projects، Contact، وFooter موجودين.</li>
+                        <li>HTML Semantic والعناوين مرتبة.</li>
+                        <li>3 Skills و3 Projects على الأقل.</li>
+                        <li>Form Accessible فيها Validation ورسالة نجاح تجريبية.</li>
+                        <li>Flexbox مستخدم بوضوح في جزئين على الأقل.</li>
+                        <li>Responsive من 360px لحد شاشة Desktop.</li>
+                        <li>Hover وFocus واضحين.</li>
+                        <li>المحتوى مكتوب بصوتك ومش نسخة من الـ Simulation.</li>
+                    </ul>
+                </section>
+
+                <section class="brief-section" id="bonus">
+                    <h2>13. Bonus Challenges اختيارية</h2>
+                    <p>خلص الـ Core الأول، وبعدها اختار تحدي واحد فقط:</p>
+                    <ol>
+                        <li>ضيف Download Link لملف CV تجريبي باستخدام <code>download</code>، من غير ما تكسر الصفحة لو الملف مش موجود.</li>
+                        <li>اعمل Section آراء عملاء باستخدام <code>blockquote</code> و<code>cite</code>.</li>
+                        <li>ضيف CSS Animation خفيفة للـ Hero مع احترام <code>prefers-reduced-motion</code>.</li>
+                        <li>ضيف عدّاد حروف للرسالة بـ JavaScript، وحد أقصى واضح.</li>
+                        <li>اعمل Theme فاتح باستخدام Class واحدة على Body وزر بسيط، من غير LocalStorage في المستوى ده.</li>
+                    </ol>
+                    <div class="learning-note"><strong>افتكر:</strong> Bonus كتير مش معناها مشروع أقوى. مشروع أساسي منظم، Accessible، ومختبر أهم من Features زيادة فيها مشاكل.</div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="course-footer">
+        <a href="index.html">الرجوع لصفحة المشروع</a>
+        <a href="simulation.html">مقارنة النتيجة بالـ Simulation</a>
+    </footer>
+</body>
+</html>

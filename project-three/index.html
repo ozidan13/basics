@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="مشروع مصروفي لتعلم Arrays وObjects وCRUD وLocalStorage.">
+    <title>مصروفي | مشروع JavaScript تفاعلي</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="learning-page">
+    <a class="skip-link" href="#main-content">انط للمحتوى الرئيسي</a>
+    <header class="course-header">
+        <a class="brand" href="../index.html"><span class="brand-mark">03</span><span>CodeHub Projects</span></a>
+        <a class="quiet-link" href="../index.html">الرجوع للكورس</a>
+    </header>
+
+    <main id="main-content">
+        <section class="gateway shell">
+            <div class="gateway-copy">
+                <p class="level-label">المستوى الثالث · Interactive JavaScript App</p>
+                <h1>مصروفي<span>.</span></h1>
+                <p class="lead">ابني Expense Tracker يحوّل بيانات الـ Form لـ Objects، يحفظها في Array، يرسمها في الصفحة، ويفضل فاكرها بعد الـ Reload.</p>
+                <div class="actions"><a class="button primary" href="brief.html">ادرس المطلوب</a><a class="button secondary" href="simulation.html">افتح التطبيق</a></div>
+            </div>
+            <div class="finance-preview" aria-label="معاينة Dashboard مصروفي">
+                <div class="balance-block"><span>الرصيد</span><strong>12,450</strong><small>ج.م</small></div>
+                <div class="money-lines"><span class="income"></span><span class="expense"></span><span class="income short"></span><span class="expense mid"></span></div>
+            </div>
+        </section>
+
+        <section class="learning-flow shell" aria-labelledby="flow-title">
+            <div><h2 id="flow-title">من Input بسيط لبيانات بتعيش.</h2><p>كل عملية هتعدّي بنفس المسار، وده أهم Mental Model في المشروع.</p></div>
+            <ol class="flow-steps">
+                <li><span>01</span><strong>Validate</strong><p>اتأكد إن القيم منطقية.</p></li>
+                <li><span>02</span><strong>Update State</strong><p>ضيف أو عدّل Object في الـ Array.</p></li>
+                <li><span>03</span><strong>Save</strong><p>حوّل البيانات لـ JSON واحفظها.</p></li>
+                <li><span>04</span><strong>Render</strong><p>ارسم القائمة والإجماليات من جديد.</p></li>
+            </ol>
+        </section>
+
+        <section class="requirements shell">
+            <div><h2>الـ Core اللي لازم يشتغل</h2><ul><li>Add / Edit / Cancel / Delete</li><li>Income / Expense totals</li><li>Type + Category filters</li><li>LocalStorage آمن</li><li>Empty وNo-results وError States</li></ul></div>
+            <aside><p>المشروع ده أول مرة الـ UI كلها تبقى نتيجة للبيانات، مش HTML ثابت بنغير فيه أجزاء.</p><a class="button primary" href="brief.html">افهم الـ State خطوة بخطوة</a></aside>
+        </section>
+    </main>
+
+    <footer class="course-footer"><p>المشروع الثالث · Data-driven DOM + LocalStorage</p></footer>
+</body>
+</html>

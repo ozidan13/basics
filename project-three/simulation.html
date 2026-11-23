@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="مصروفي: تطبيق بسيط لإدارة الدخل والمصروفات.">
+    <title>مصروفي | Expense Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="app-page">
+    <a class="skip-link" href="#app-main">انط للتطبيق</a>
+    <header class="app-header">
+        <a class="back-link" href="index.html">← صفحة المشروع</a>
+        <a class="app-logo" href="#app-main"><span aria-hidden="true">◈</span> مصروفي</a>
+        <p>بياناتك محفوظة محلياً على جهازك</p>
+    </header>
+
+    <main id="app-main" class="app-shell">
+        <section class="summary-grid" aria-label="ملخص الحساب">
+            <article class="summary-card balance-card">
+                <div><p>الرصيد الحالي</p><strong id="balance-total">٠٫٠٠ ج.م.‏</strong><span>إجمالي الدخل − إجمالي المصروفات</span></div>
+                <i aria-hidden="true">◈</i>
+            </article>
+            <article class="summary-card income-card">
+                <div><p>إجمالي الدخل</p><strong id="income-total">٠٫٠٠ ج.م.‏</strong><span><b id="income-count">0</b> عملية دخل</span></div>
+                <i aria-hidden="true">↗</i>
+            </article>
+            <article class="summary-card expense-card">
+                <div><p>إجمالي المصروفات</p><strong id="expense-total">٠٫٠٠ ج.م.‏</strong><span><b id="expense-count">0</b> عملية صرف</span></div>
+                <i aria-hidden="true">↘</i>
+            </article>
+        </section>
+
+        <section class="transaction-form-section" aria-labelledby="form-title">
+            <div class="section-title-row">
+                <div><h1 id="form-title">إضافة عملية جديدة</h1><p>اكتب التفاصيل، وإحنا هنحدّث الرصيد والقائمة.</p></div>
+                <span class="mode-badge" id="form-mode">وضع الإضافة</span>
+            </div>
+
+            <form id="transaction-form" novalidate>
+                <div class="field description-field">
+                    <label for="description">الوصف <span>*</span></label>
+                    <input id="description" name="description" type="text" minlength="2" maxlength="60" autocomplete="off" required placeholder="مثال: مرتب شهر مايو">
+                </div>
+                <div class="field">
+                    <label for="amount">المبلغ (ج.م) <span>*</span></label>
+                    <input id="amount" name="amount" type="number" min="0.01" step="0.01" inputmode="decimal" required placeholder="1500">
+                </div>
+                <div class="field">
+                    <label for="type">النوع <span>*</span></label>
+                    <select id="type" name="type" required>
+                        <option value="income">دخل</option>
+                        <option value="expense">مصروف</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="category">الفئة <span>*</span></label>
+                    <select id="category" name="category" required>
+                        <option value="salary">راتب</option><option value="freelance">عمل حر</option>
+                        <option value="food">أكل</option><option value="transport">مواصلات</option>
+                        <option value="bills">فواتير</option><option value="shopping">مشتريات</option>
+                        <option value="entertainment">ترفيه</option><option value="other">أخرى</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="date">التاريخ <span>*</span></label>
+                    <input id="date" name="date" type="date" required>
+                </div>
+                <div class="form-actions">
+                    <button class="save-button" id="save-transaction" type="submit">حفظ العملية</button>
+                    <button class="cancel-button" id="cancel-edit" type="button" hidden>إلغاء التعديل</button>
+                </div>
+            </form>
+            <p class="form-error" id="form-error" role="alert"></p>
+            <p class="app-status" id="app-status" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="transactions-section" aria-labelledby="transactions-title">
+            <div class="transactions-heading">
+                <div><h2 id="transactions-title">العمليات</h2><p>ظاهر <strong id="visible-count">0</strong> من <strong id="total-count">0</strong></p></div>
+                <div class="filters" aria-label="فلاتر العمليات">
+                    <div class="filter-field"><label for="type-filter">النوع</label><select id="type-filter"><option value="all">كل الأنواع</option><option value="income">دخل</option><option value="expense">مصروف</option></select></div>
+                    <div class="filter-field"><label for="category-filter">الفئة</label><select id="category-filter"><option value="all">كل الفئات</option><option value="salary">راتب</option><option value="freelance">عمل حر</option><option value="food">أكل</option><option value="transport">مواصلات</option><option value="bills">فواتير</option><option value="shopping">مشتريات</option><option value="entertainment">ترفيه</option><option value="other">أخرى</option></select></div>
+                    <button class="clear-filter" id="clear-filters" type="button">مسح الفلاتر</button>
+                </div>
+            </div>
+
+            <div class="list-head" aria-hidden="true"><span>التاريخ</span><span>الوصف</span><span>الفئة</span><span>النوع</span><span>المبلغ</span><span>الإجراءات</span></div>
+            <ul class="transaction-list" id="transaction-list" aria-live="polite"></ul>
+
+            <div class="empty-state" id="empty-state">
+                <span aria-hidden="true">＋</span><h3>لسه مفيش عمليات</h3><p>ضيف أول دخل أو مصروف علشان تشوف الرصيد هنا.</p>
+            </div>
+            <div class="empty-state" id="no-results-state" hidden>
+                <span aria-hidden="true">⌕</span><h3>مفيش نتائج للفلاتر دي</h3><p>غيّر النوع أو الفئة، أو امسح الفلاتر وجرب تاني.</p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
