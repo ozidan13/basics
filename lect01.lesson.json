@@ -1,0 +1,860 @@
+{
+  "id": "basics-lect01",
+  "title": "مقدمة في تكنولوجيا المعلومات والويب",
+  "subtitle": "المحاضرة الأولى — أساسيات الـ IT ومفاتيح HTML و CSS و JS بالعامية المصرية",
+  "accent": "#38bdf8",
+  "accent2": "#f59e0b",
+  "theme": "it",
+  "lang": "html",
+  "readUrl": "draft/lect01.html",
+  "summary": [
+    "تعريف الـ Information Technology (إنتاج ومعالجة وتخزين وتوصيل المعلومات) والجزئين الأساسيين: Computer Technology و Communications Technology.",
+    "تأثير الـ IT على التعليم (والاستخدام الغلط زي التشتيت في الحصة)، الطب (Telemedicine والروبوتات)، الفلوس (Virtual Money و Showrooming)، الحكومة (فوائد ومشاكل الخصوصية)، والشغل (أي حاجة بتتكتب عالنت بتفضل للأبد).",
+    "الفرق بين Cyberspace و Internet (الشبكة والسلك) و World Wide Web (الصفحات والمواقع).",
+    "مكونات الكمبيوتر الأساسية (Input → Process → Output)، الهاردوير (CPU, RAM المؤقتة, Motherboard)، وحدات التخزين (Byte → KB → MB → GB → TB)، والسوفتوير (System OS vs Application).",
+    "تلات أعمدة الويب: HTML للهيكل (الهيكل العظمي)، CSS للشكل والتنسيق (الـ Box Model والـ Selectors)، و JavaScript للحركة والتفاعل (Variables, Functions, DOM, Events)."
+  ],
+  "levels": [
+    {
+      "id": "l1-core",
+      "num": 1,
+      "title": "يعني إيه IT ومكوّناته؟",
+      "en": "Core Concepts — Data, Info & Two Parts of IT",
+      "docs": [
+        {
+          "tab": "مفهوم الـ IT",
+          "heading": "إيه هي تكنولوجيا المعلومات (IT) أصلاً؟",
+          "body": [
+            "الـ <strong>Information Technology (IT)</strong> هي أي تكنولوجيا بتساعدنا ننتج، نعالج، نخزّن، نوصل أو ننشر المعلومات — من أول الموبايل والتابلت لحد السيرفرات العملاقة.",
+            "بسبب التطور السريع في الـ IT، الموبايلات والتابلت غيّروا تقريباً كل تفصيلة بنعملها في يومنا."
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "بالبساطة كده",
+            "text": "الكمبيوتر آلة بندّيها <strong>Data</strong> (بيانات خام: أرقام وحقائق زي المكونات) وهي تطبخها وتطلّعلنا <strong>Information</strong> (معلومة مفيدة جاهزة للأكل)."
+          },
+          "cards": [
+            { "title": "Data (بيانات خام)", "desc": "حقائق وأرقام لوحدها قبل ما تتعالج — زي درجات طالب متفرقة." },
+            { "title": "Process (معالجة)", "desc": "الكمبيوتر يحسب ويرتّب ويجمع البيانات دي حسب البرنامج." },
+            { "title": "Information (معلومة)", "desc": "النتيجة النهائية المفيدة — زي شهادة التقدير والمجموع الكلي." }
+          ]
+        },
+        {
+          "tab": "جزئين الـ IT",
+          "heading": "الـ IT بيتكوّن من جناحين أساسيين",
+          "body": [
+            "عشان تكنولوجيا المعلومات تشتغل صح، لازم يشتغل معاها حاجتين: <strong>Computer Technology</strong> و <strong>Communications Technology</strong>.",
+            "الكمبيوتر لوحده بيعالج البيانات، والاتصالات هي اللي بتنقلها لأي مكان في العالم في ثانية."
+          ],
+          "table": {
+            "headers": ["الجزء", "التعريف", "مثال عملي"],
+            "rows": [
+              ["<strong>Computer Technology</strong>", "آلة قابلة للبرمجة متعددة الاستخدامات بتحوّل الـ Data لـ Information", "اللابتوب، الموبايل، السيرفر"],
+              ["<strong>Communications (Telecom)</strong>", "أجهزة وأنظمة كهرومغناطيسية للتواصل ونقل الداتا لأي مسافة", "الإنترنت، شبكات الموبايل، الواي فاي"]
+            ]
+          },
+          "tip": "لو حد سألك الـ IT كمبيوتر بس ولا اتصالات بس؟ الإجابة دايماً: الاتنين مع بعض!"
+        }
+      ],
+      "stages": [
+        {
+          "id": "l1-s1",
+          "type": "choice",
+          "prompt": "إيه التعريف الأدق للـ Information Technology (IT)؟",
+          "options": [
+            { "t": "أي تكنولوجيا بتساعد ننتج ونعالج ونخزّن ونوصل المعلومات", "why": "بالظبط! ده جوهر الـ IT: إنتاج، معالجة، تخزين، وتوصيل المعلومات." },
+            { "t": "تصليح الكمبيوترات وتغيير قطع الهاردوير بس", "why": "لأ، الصيانة جزء صغير — الـ IT بيشمل معالجة وتخزين وتوصيل المعلومات كلها." },
+            { "t": "لعب ألعاب الفيديو واستخدام السوشيال ميديا بس", "why": "دي استخدامات ترفيهية بس، مش تعريف تكنولوجيا المعلومات." }
+          ],
+          "answer": 0,
+          "hint": "افتكر الـ 4 أفعال: إنتاج، معالجة، تخزين، وتوصيل."
+        },
+        {
+          "id": "l1-s2",
+          "type": "buckets",
+          "layout": "columns",
+          "prompt": "صنّف كل حاجة تبع جزئها الصح في الـ IT:",
+          "buckets": [
+            { "id": "comp", "label": "Computer Technology" },
+            { "id": "comm", "label": "Communications (Telecom)" }
+          ],
+          "items": [
+            { "t": "تحويل البيانات الخام لمعلومة مفيدة", "b": "comp", "why": "الكمبيوتر هو اللي بيعالج الـ Data ويطلّع Information." },
+            { "t": "نقل الداتا عبر المسافات بالواي فاي والإنترنت", "b": "comm", "why": "الاتصالات (Telecom) وظيفتها نقل الداتا لأي مكان." },
+            { "t": "آلة قابلة للبرمجة متعددة الاستخدامات", "b": "comp", "why": "ده تعريف الـ Computer نفسه." },
+            { "t": "أجهزة كهرومغناطيسية للتواصل عن بُعد", "b": "comm", "why": "الأنظمة الكهرومغناطيسية هي أساس الـ Communications Technology." }
+          ],
+          "hint": "اللي بيعالج ويحسب = Computer، واللي بينقل ويوصّل = Communications."
+        },
+        {
+          "id": "l1-s3",
+          "type": "order",
+          "prompt": "رتّب رحلة البيانات جوا الكمبيوتر من البداية للنهاية:",
+          "items": [
+            "Data (بيانات خام: أرقام وحقائق)",
+            "Processing (معالجة وتنسيق جوا الكمبيوتر)",
+            "Information (معلومة مفيدة جاهزة للقرار)"
+          ],
+          "why": "الكمبيوتر بياخد Data خام، يعملها Processing، ويطلّعلك Information مفيدة.",
+          "hint": "ابدأ بالبيانات الخام وانتهي بالمعلومة المفيدة."
+        }
+      ]
+    },
+    {
+      "id": "l2-life",
+      "num": 2,
+      "title": "الـ IT في التعليم والطب والفلوس",
+      "en": "IT in Education, Health & Money",
+      "docs": [
+        {
+          "tab": "التعليم والتعلّم عن بُعد",
+          "heading": "إزاي الـ IT غيّر شكل التعليم؟",
+          "body": [
+            "التكنولوجيا خلت التعليم تفاعلي ومتفصّل على مقاس كل طالب: بتقلل العبء الإداري على المدرسين، وتدّينا عروض توضيحية ومحاكاة (<strong>Simulations</strong>) و <strong>Distance Learning</strong> (التعليم أونلاين) بأقل تكلفة وللناس في المناطق البعيدة."
+          ],
+          "callout": {
+            "kind": "warn",
+            "title": "الاستخدام الغلط (Misuse)",
+            "text": "الشات مع صحابك أثناء المحاضرة، فتح مواقع ترفيه، عمل واجب مادة تانية في الحصة، أو الغش ومشاركة الإجابات — ده كله سوء استخدام للتكنولوجيا!"
+          },
+          "tip": "قبل ما تشترك في أي كورس أو جامعة أونلاين، اتأكد دايماً من الاعتماد (Accreditation) — مش كل المدارس الأونلاين معتمدة."
+        },
+        {
+          "tab": "الطب والفلوس",
+          "heading": "الطب الذكي (Health) وعالم الفلوس الرقمية",
+          "body": [
+            "في الطب: بقى عندنا <strong>Telemedicine</strong> (الدكتور يعالج مريض عن بُعد عبر الاتصالات)، نماذج كمبيوتر <strong>3D</strong> تحدد مكان الورم بدقة مع أشعة X-ray و MRI، <strong>Robots</strong> لعمليات دقيقة جداً، وملفات صحية إلكترونية.",
+            "في الفلوس والشغل: بقينا متجهين لمجتمع بدون كاش (<strong>Cashless Society</strong>) بالـ <strong>Virtual Money</strong> زي المحافظ الإلكترونية (PayPal)، تحويل المرتبات إلكترونياً، دفع الفواتير أونلاين، والـ <strong>Micropayments</strong>."
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "يعني إيه Showrooming و Telecommute؟",
+            "text": "<strong>Showrooming</strong>: تنزل تتفرج على المنتج وتجرّبه في المحل، وبعدين تطلبه أونلاين أرخص! و <strong>Telecommute (E-work)</strong>: تشتغل وتفتح مشروعك وإنت في بيتك."
+          },
+          "cards": [
+            { "title": "Telemedicine", "desc": "رعاية طبية وعلاج للمرضى عن بُعد باستخدام الاتصالات." },
+            { "title": "Virtual Money", "desc": "فلوس رقمية زي المحافظ الإلكترونية وكروت القيمة المدفوعة." },
+            { "title": "Showrooming", "desc": "تعاين المنتج في المحل وتشتريه أونلاين بسعر أحسن." },
+            { "title": "Surgical Robots", "desc": "روبوتات طبية تعمل جراحات مجهرية بدقة أعلى من إيد البشر." }
+          ]
+        }
+      ],
+      "stages": [
+        {
+          "id": "l2-s1",
+          "type": "buckets",
+          "layout": "columns",
+          "prompt": "فرّق بين الاستخدام الصح والاستخدام الغلط (Misuse) للـ IT في التعليم:",
+          "buckets": [
+            { "id": "good", "label": "استخدام صح ومفيد" },
+            { "id": "bad", "label": "سوء استخدام (Misuse)" }
+          ],
+          "items": [
+            { "t": "محاكاة تفاعلية (Simulations) وعروض PowerPoint", "b": "good", "why": "دي أدوات بتساعدك تفهم أسرع وتطبّق عملي." },
+            { "t": "الشات مع صحابك عالواتس أثناء الحصة", "b": "bad", "why": "تشتيت لنفسك وللي حواليك — ده Misuse صريح." },
+            { "t": "التعليم عن بُعد (Online Learning) لطلاب المناطق البعيدة", "b": "good", "why": "بيوفر تكلفة وبيوصل التعليم لأي مكان." },
+            { "t": "مشاركة إجابات الامتحان والغش أونلاين", "b": "bad", "why": "مشاركة الإجابات والغش من أشهر صور الـ Misuse." }
+          ],
+          "hint": "اسأل نفسك: ده بيساعدك تتعلم ولا بيضيع وقتك ويغششك؟"
+        },
+        {
+          "id": "l2-s2",
+          "type": "match",
+          "prompt": "وصّل كل مصطلح بمعناه الصح:",
+          "pairs": [
+            ["Telemedicine", "علاج المرضى عن بُعد عبر الاتصالات"],
+            ["Virtual Money", "المحافظ الإلكترونية وكروت الدفع الرقمية"],
+            ["Showrooming", "تعاين المنتج في المحل وتشتريه أونلاين أرخص"],
+            ["Telecommute", "الشغل عن بُعد من البيت باستخدام التكنولوجيا"]
+          ],
+          "hint": "كلمة Tele دايماً معناها عن بُعد."
+        },
+        {
+          "id": "l2-s3",
+          "type": "choice",
+          "prompt": "إيه أهم حاجة لازم تتأكد منها قبل ما تسجّل في مدرسة أو جامعة Online؟",
+          "options": [
+            { "t": "إنها معتمدة (Accredited) لأن مش كل المدارس الأونلاين معتمدة", "why": "مظبوط ١٠٠٪! الاعتماد (Accreditation) أساسي عشان شهادتك تبقى معترف بيها." },
+            { "t": "إن لون الموقع بتاعها أزرق وشيك", "why": "الشكل مش دليل اعتماد — لازم تتأكد من الـ Accreditation." },
+            { "t": "إن مفيهاش امتحانات خالص", "why": "مفيش دراسة معتمدة من غير تقييم حقيقي." }
+          ],
+          "answer": 0,
+          "hint": "افتكر كلمة Accreditation."
+        }
+      ]
+    },
+    {
+      "id": "l3-gov-jobs",
+      "num": 3,
+      "title": "الحكومة، الشغل، والخصوصية",
+      "en": "Government, Careers & Digital Footprint",
+      "docs": [
+        {
+          "tab": "الحكومة الرقمية",
+          "heading": "فوائد التكنولوجيا في الحكومة والتحديات بتاعتها",
+          "body": [
+            "الـ IT بيساعد الحكومات تحسّن خدماتها وتعمل قواعد بيانات للشرطة وتصويت إلكتروني وجمع تبرعات أسهل — بس في نفس الوقت ظهرت تحديات خطيرة لازم نكون واعيين ليها."
+          ],
+          "cards": [
+            { "title": "الفوائد (Benefits)", "desc": "خدمات إلكترونية سريعة، قواعد بيانات للشرطة، تصويت أونلاين، وتنظيم أسهل." },
+            { "title": "Gerrymandering", "desc": "إعادة رسم الدوائر الانتخابية باستخدام الكمبيوتر لصالح حزب معين." },
+            { "title": "مشاكل ماكينات التصويت", "desc": "أعطال أو ثغرات في أجهزة التصويت الإلكتروني ممكن تأثّر على النتائج." },
+            { "title": "Invasion of Privacy", "desc": "انتهاك الخصوصية وجمع بيانات المواطنين بدون إذن." }
+          ]
+        },
+        {
+          "tab": "الشغل وحياتك الشخصية",
+          "heading": "مهارات سوق العمل وبصمتك الرقمية",
+          "body": [
+            "عشان تلاقي شغل أو تبدأ مشروعك، الـ IT بيساعدك تعمل <strong>Resume/CV</strong> و <strong>Blog/Portfolio</strong> أونلاين. بس سوق العمل محتاج أساسيات كمبيوتر ضرورية: <strong>Keyboarding, Email, Word, Spreadsheet, Database</strong> وفهم أحجام الملفات ومكونات الجهاز.",
+            "وحتى حياتنا الشخصية وعلاقاتنا الاجتماعية بقت متداخلة مع العالم الرقمي — زي ما بيقولوا: <em>Digital is embedded into the fiber of our culture</em>."
+          ],
+          "warning": "تحذير ذهبي: أي حاجة بتكتبها أو تنشرها على الإنترنت بتعيش للأبد (Internet postings live forever)! فكّر كويس قبل ما تنشر أي بوست أو كومنت ممكن يضرك في شغلك بعدين."
+        }
+      ],
+      "stages": [
+        {
+          "id": "l3-s1",
+          "type": "buckets",
+          "layout": "columns",
+          "prompt": "صنّف كل عنصر: فائدة للحكومة الإلكترونية ولا تحدّي ومشكلة؟",
+          "buckets": [
+            { "id": "pro", "label": "فوائد (Benefits)" },
+            { "id": "con", "label": "تحديات ومخاطر" }
+          ],
+          "items": [
+            { "t": "قواعد بيانات سريعة للشرطة والخدمات", "b": "pro", "why": "ده من أكبر فوائد الـ IT في تحسين الخدمات الحكومية." },
+            { "t": "Gerrymandering (تلاعب بتقسيم الدوائر)", "b": "con", "why": "ده تلاعب حزبي بالدوائر الانتخابية — تحدي خطير." },
+            { "t": "Invasion of Privacy (اختراق الخصوصية)", "b": "con", "why": "انتهاك خصوصية البيانات من أكبر مخاطر العصر الرقمي." },
+            { "t": "تصويت أونلاين وخدمات إلكترونية أسرع", "b": "pro", "why": "تسهيل الخدمات للمواطنين فائدة مباشرة." }
+          ],
+          "hint": "اللي بيحسّن الخدمة = فائدة، واللي فيه تلاعب أو انتهاك = تحدي."
+        },
+        {
+          "id": "l3-s2",
+          "type": "choice",
+          "prompt": "إيه التحذير الأهم وانت بتبني حضورك أونلاين عشان تلاقي شغل؟",
+          "options": [
+            { "t": "أي بوست بتكتبه عالنت بيفضل موجود للأبد (Internet postings live forever)", "why": "بالظبط! الشركات بتراجع حساباتك أونلاين، فخلي بالك من اللي بتنشره." },
+            { "t": "امسح إيميلك كل أسبوع عشان محدش يوصلك", "why": "لأ طبعاً، الإيميل مهارة أساسية للشغل!" },
+            { "t": "مش مهم تتعلم Word أو Excel في الشغل", "why": "بالعكس، Word و Spreadsheets و Email مهارات أساسية مطلوبة." }
+          ],
+          "answer": 0,
+          "hint": "البصمة الرقمية مش بتتمسح بسهولة."
+        }
+      ]
+    },
+    {
+      "id": "l4-pervasive",
+      "num": 4,
+      "title": "الـ IT في كل مكان — Pervasive IT",
+      "en": "Phones, Email, Cyberspace, Internet vs Web",
+      "docs": [
+        {
+          "tab": "الموبايل والرسايل والـ Cyberspace",
+          "heading": "إزاي التواصل اتطور حوالينا؟",
+          "body": [
+            "<strong>الموبايل كبر وبقى كمبيوتر في جيبك:</strong> أول مكالمة موبايل كانت سنة <strong>1973</strong> للمكالمات بس، النهارده موبايلك بيعمل مكالمات، نت، صور، خرائط، ودفع فلوس.",
+            "<strong>Email & Texting:</strong> الإيميل ظهر سنة <strong>1981</strong> ولسه أساسي في الشغل الرسمي والشركات، لكن الـ Texting (الشات) بقى أسرع وأكتر استخداماً في الكلام الشخصي.",
+            "<strong>Cyberspace:</strong> مش الإنترنت وبس — ده العالم كله بتاع الاتصالات السلكية واللاسلكية (Wired & Wireless)."
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "الفرق اللي ناس كتير بتتلخبط فيه",
+            "text": "الـ <strong>Internet (The Net)</strong> هو السلك والشبكة الفيزيائية اللي بتربط شبكات العالم ببعضها، أما الـ <strong>World Wide Web (The Web)</strong> فهو الصفحات والمواقع اللي فيها نصوص وصور وفيديو اللي بتفتحها فوق الشبكة دي!"
+          }
+        },
+        {
+          "tab": "Internet vs Web",
+          "heading": "مقارنة سريعة بين الـ Net والـ Web والـ Server",
+          "body": [
+            "عشان تفهم الويب صح من أول يوم، احفظ التلات مصطلحات دول بالظبط لأنهم أساس كل شغلنا في البرمجة."
+          ],
+          "table": {
+            "headers": ["المصطلح", "معناه ببساطة", "تشبيه من الواقع"],
+            "rows": [
+              ["<strong>Cyberspace</strong>", "كل عالم الاتصالات السلكية واللاسلكية", "خريطة الكوكب الرقمي كله"],
+              ["<strong>The Internet</strong>", "الشبكة العالمية الفيزيائية اللي بتربط شبكات أصغر", "الطرق والكباري والأسلاك"],
+              ["<strong>The Web (WWW)</strong>", "الصفحات والمواقع (Multimedia Documents) عالشبكة", "المحلات والبيوت اللي مبنية عالطريق"],
+              ["<strong>Server</strong>", "كمبيوتر مركزي بيخزّن الداتا والبرامج ويخدم الـ Clients", "المخزن المركزي اللي بيبعتلك الطلبات"]
+            ]
+          }
+        }
+      ],
+      "stages": [
+        {
+          "id": "l4-s1",
+          "type": "match",
+          "prompt": "وصّل كل مصطلح من عالم الاتصالات بمعناه الصح:",
+          "pairs": [
+            ["Cyberspace", "عالم الاتصالات السلكية واللاسلكية كله"],
+            ["The Internet", "الشبكة العالمية اللي بتربط الشبكات ببعضها"],
+            ["The World Wide Web", "الصفحات والمواقع اللي بنفتحها على الشبكة"],
+            ["Server", "كمبيوتر مركزي بيقدّم الداتا والخدمات للـ Clients"]
+          ],
+          "hint": "الـ Internet = الشبكة، والـ Web = الصفحات."
+        },
+        {
+          "id": "l4-s2",
+          "type": "choice",
+          "prompt": "لو صاحبك قالك «الإنترنت والويب نفس الحاجة بالظبط»، هترد عليه بإيه؟",
+          "options": [
+            { "t": "لأ — الإنترنت هو الشبكة والسلك، والويب هو الصفحات والمواقع اللي عليها", "why": "معلّم! الإنترنت بنية تحتية (شبكة شبكات)، والويب خدمة صفحات فوقيها." },
+            { "t": "أيوه فعلاً الاتنين معناهم Google بس", "why": "لأ خالص، Google مجرد موقع واحد جوا الـ Web." },
+            { "t": "الويب هو السلك والإنترنت هو المتصفح", "why": "العكس تماماً! الإنترنت هو الشبكة والويب هو المستندات والصفحات." }
+          ],
+          "answer": 0,
+          "hint": "افتكر تشبيه الطرق (Internet) والمحلات (Web)."
+        }
+      ]
+    },
+    {
+      "id": "l5-basics",
+      "num": 5,
+      "title": "الهاردوير والتخزين والسوفتوير",
+      "en": "Unit 1B — Computers, Hardware, Storage & Software",
+      "docs": [
+        {
+          "tab": "أنواع الكمبيوتر والهاردوير",
+          "heading": "إزاي الكمبيوتر بيشتغل من جوه؟",
+          "body": [
+            "الكمبيوتر مش اللابتوب بس: عندنا <strong>Desktop PC</strong>، و <strong>Laptop</strong>، و <strong>Tablet</strong>، وحتى <strong>Micro-controllers</strong> (متحكمات دقيقة جوا عربيتك، الغسالة، والميكروويف!).",
+            "وأي عملية جوا الكمبيوتر بتمشي في 3 خطوات ثابتة: <strong>Input → Process → Output</strong>."
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "زي الفرن بالظبط",
+            "text": "بتدخّل العجين (<strong>Input</strong>) ← الفرن يسوّيه (<strong>Process</strong>) ← يطلعلك عيش سخن (<strong>Output</strong>)!"
+          },
+          "cards": [
+            { "title": "CPU (المعالج)", "desc": "مخ الكمبيوتر اللي بينفّذ كل العمليات والحسابات." },
+            { "title": "RAM (الذاكرة المؤقتة)", "desc": "Random Access Memory — سريعة بس مؤقتة (Volatile)، بتتمسح أول ما الكهربا تفصل!" },
+            { "title": "Motherboard", "desc": "اللوحة الأم (العمود الفقري) اللي بتوصّل كل القطع ببعض." },
+            { "title": "Peripherals", "desc": "Input (كيبورد)، Output (شاشة)، Storage (هارد HDD/SSD)، و Comms (مودم)." }
+          ]
+        },
+        {
+          "tab": "وحدات التخزين والسوفتوير",
+          "heading": "إزاي بنقيس حجم الملفات؟ وإيه أنواع البرامج؟",
+          "body": [
+            "زي ما بنقيس الوزن بالجرام والكيلو، بنقيس حجم البيانات بالـ <strong>Byte</strong> (حرف واحد). وكل ما الحجم يكبر بنطلع درجة في السلم: <strong>Byte → KB → MB → GB → TB → PB</strong>.",
+            "أما الـ <strong>Software</strong> فبينقسم لنوعين: <strong>System Software (OS)</strong> زي Windows و Linux اللي بيشغّل الجهاز كله، و <strong>Application Software</strong> زي Word والألعاب لعمل مهمة محددة."
+          ],
+          "table": {
+            "headers": ["الوحدة", "الرمز", "الحجم التقريبي"],
+            "rows": [
+              ["Byte", "<code>B</code>", "حرف واحد (1 character)"],
+              ["Kilobyte", "<code>KB</code>", "≈ 1,000 حرف (بدقة 1024 byte)"],
+              ["Megabyte", "<code>MB</code>", "≈ مليون byte"],
+              ["Gigabyte", "<code>GB</code>", "≈ مليار byte"],
+              ["Terabyte", "<code>TB</code>", "≈ تريليون byte"]
+            ]
+          },
+          "warning": "خد بالك في الامتحانات: 1 Kilobyte بدقة في الكمبيوتر = 1024 Bytes (مش 1000 بالظبط)، وذاكرة الـ RAM مؤقتة (Volatile) بتتمسح لما تقفل الجهاز."
+        }
+      ],
+      "stages": [
+        {
+          "id": "l5-s1",
+          "type": "order",
+          "prompt": "رتّب وحدات التخزين من الأصغر للأكبر:",
+          "items": [
+            "Byte (حرف واحد)",
+            "Kilobyte (KB)",
+            "Megabyte (MB)",
+            "Gigabyte (GB)",
+            "Terabyte (TB)"
+          ],
+          "why": "الترتيب التصاعدي الصح: Byte → KB → MB → GB → TB.",
+          "hint": "ابدأ بالـ Byte وبعدها كيلو، ميجا، جيجا، تيرا."
+        },
+        {
+          "id": "l5-s2",
+          "type": "buckets",
+          "layout": "columns",
+          "prompt": "صنّف كل برنامج: System Software (نظام تشغيل) ولا Application Software (تطبيق)؟",
+          "buckets": [
+            { "id": "sys", "label": "System Software (OS)" },
+            { "id": "app", "label": "Application Software" }
+          ],
+          "items": [
+            { "t": "Windows 11", "b": "sys", "why": "Windows نظام تشغيل (OS) بيدير الجهاز كله." },
+            { "t": "Linux", "b": "sys", "why": "Linux نظام تشغيل أساسي (System Software)." },
+            { "t": "Microsoft Word", "b": "app", "why": "Word تطبيق لمهمة محددة (كتابة مستندات)." },
+            { "t": "Video Games", "b": "app", "why": "الألعاب Application Software مش نظام تشغيل." }
+          ],
+          "hint": "اللي بيشغّل الجهاز كله = System، واللي بتسطّبه لمهمة معينة = Application."
+        },
+        {
+          "id": "l5-s3",
+          "type": "choice",
+          "prompt": "أنهي نوع ذاكرة مؤقت (Volatile) وبيتمسح أول ما الكهربا تفصل؟",
+          "options": [
+            { "t": "RAM (Random Access Memory)", "why": "صح الصح! الـ RAM ذاكرة أساسية مؤقتة بتتمسح أول ما الجهاز يطفي." },
+            { "t": "Hard Drive (HDD)", "why": "الهارد تخزين دائم — ملفاتك بتفضل عليه حتى لو قفلت الجهاز." },
+            { "t": "Flash Memory (USB)", "why": "الفلاشة تخزين دائم مش مؤقت." }
+          ],
+          "answer": 0,
+          "hint": "دي الذاكرة المؤقتة اللي جوا الكيسة واسمها اختصار لـ Random Access Memory."
+        }
+      ]
+    },
+    {
+      "id": "l6-future",
+      "num": 6,
+      "title": "مستقبل الـ IT رايح على فين؟",
+      "en": "Where Is IT Headed — Cloud & AI",
+      "docs": [
+        {
+          "tab": "اتجاهات التطور",
+          "heading": "التكنولوجيا بتتحرك في 3 اتجاهات ثابتة",
+          "body": [
+            "في عالم الكمبيوتر، التطور ماشي في 3 خطوط واضحة: <strong>Miniaturization</strong> (الأجهزة بتصغر في الحجم)، <strong>Speed</strong> (بتبقى أسرع بكتير)، و <strong>Affordability</strong> (سعرها بيقل وتبقى في متناول الناس).",
+            "وفي الاتصالات: تركيز أكبر على <strong>Connectivity</strong> (إن كل حاجة متوصلة بالنت) و <strong>Interactivity</strong> (تفاعل لحظي في الاتجاهين)."
+          ],
+          "cards": [
+            { "title": "Miniaturization", "desc": "أجهزة أصغر وأخف — من أوضة كاملة لموبايل في جيبك." },
+            { "title": "Speed & Affordability", "desc": "سرعة أعلى بكتير وتكلفة أقل مع كل جيل جديد." },
+            { "title": "Cloud Computing", "desc": "ملفاتك وبرامجك على سيرفرات الإنترنت مش على جهازك بس، فتفتحها من أي مكان." },
+            { "title": "Artificial Intelligence (AI)", "desc": "آلات بتحاكي ذكاء الإنسان زي التعلّم والتفكير (زي الروبوتات و ChatGPT)." }
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "يعني إيه Convergence؟",
+            "text": "يعني الأجهزة والخدمات بتلتقي وتندمج في بعضها: موبايلك بقى كاميرا + كمبيوتر + خريطة + محفظة + تليفزيون في جهاز واحد!"
+          }
+        }
+      ],
+      "stages": [
+        {
+          "id": "l6-s1",
+          "type": "match",
+          "prompt": "وصّل كل اتجاه مستقبلي في الـ IT بمعناه:",
+          "pairs": [
+            ["Miniaturization", "تصغير حجم الأجهزة مع زيادة قوتها"],
+            ["Cloud Computing", "تخزين الملفات وتشغيل البرامج على سيرفرات الإنترنت"],
+            ["Artificial Intelligence", "آلات بتحاكي صفات الإنسان زي التعلّم والتفكير"],
+            ["Connectivity", "ربط الأجهزة ببعضها بالإنترنت في كل مكان"]
+          ],
+          "hint": "Cloud = سحابة عالنت، Mini = تصغير."
+        },
+        {
+          "id": "l6-s2",
+          "type": "choice",
+          "prompt": "إيه ميزة الـ Cloud Computing مقارنة بالتخزين على جهازك بس؟",
+          "options": [
+            { "t": "ملفاتك متخزّنة على سيرفرات عالنت فتقدر تفتحها من أي جهاز ومكان", "why": "بالظبط! ده معنى الحوسبة السحابية." },
+            { "t": "مش محتاج إنترنت نهائياً عشان تفتح ملفاتك", "why": "الـ Cloud أصلاً قايم على سيرفرات الإنترنت." },
+            { "t": "بيخلي الكمبيوتر يشتغل من غير RAM", "why": "أي جهاز لسه محتاج RAM عشان يشغّل المتصفح والنظام." }
+          ],
+          "answer": 0,
+          "hint": "فكّر في Google Drive أو iCloud."
+        }
+      ]
+    },
+    {
+      "id": "l7-web-html",
+      "num": 7,
+      "title": "أساسيات الويب — HTML",
+      "en": "Web Development Basics: HTML Skeleton",
+      "docs": [
+        {
+          "tab": "إيه هي HTML وهيكلها؟",
+          "heading": "HTML — الهيكل العظمي لكل صفحة ويب",
+          "body": [
+            "<strong>HTML (HyperText Markup Language)</strong> هي اللغة القياسية اللي بتبني هيكل ومحتوى أي صفحة ويب باستخدام <strong>Tags</strong> بيفهمها الـ browser.",
+            "<strong>HyperText</strong> يعني نص فيه لينكات لصفحات تانية، و <strong>Markup</strong> يعني تعليم المحتوى بتاجات تدّيله معنى."
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "فكّر فيها كده",
+            "text": "الـ <code>&lt;head&gt;</code> زي معلومات بطاقتك الشخصية (عنوان الصفحة والملفات المرتبطة، مش باينة في المحتوى)، والـ <code>&lt;body&gt;</code> هو إنت نفسك — كل حاجة الناس بتشوفها في الصفحة!"
+          },
+          "filename": "index.html",
+          "code": "[[0|<!DOCTYPE html>]]\n[[1|<html>]]\n  [[2|<head>]]\n    <title>My First Page</title>\n  </head>\n  [[3|<body>]]\n    <h1>Hello World!</h1>\n    <p>My first web page</p>\n  </body>\n</html>",
+          "spots": [
+            { "title": "<!DOCTYPE html>", "say": "بيقول للـ browser إن الصفحة مكتوبة بـ HTML5." },
+            { "title": "<html>", "say": "الـ root element اللي بيحتوي الصفحة كلها." },
+            { "title": "<head>", "say": "فيه الـ meta info زي title ولينكات الـ CSS." },
+            { "title": "<body>", "say": "كل المحتوى المرئي: عناوين، فقرات، صور، ولينكات." }
+          ],
+          "preview": "<h1 style='margin:0 0 6px'>Hello World!</h1><p style='margin:0'>أول صفحة ويب ليا.</p>",
+          "previewUrl": "file:///index.html"
+        },
+        {
+          "tab": "أشهر Tags والـ Semantic HTML",
+          "heading": "أهم التاجات + التاجات المعبرة (Semantic)",
+          "body": [
+            "كل tag في HTML ليه وظيفة زي أجزاء العربية: <code>&lt;h1&gt;–&lt;h6&gt;</code> للعناوين، <code>&lt;p&gt;</code> للفقرات، <code>&lt;a&gt;</code> للروابط، <code>&lt;img&gt;</code> للصور، و <code>&lt;ul&gt;/&lt;ol&gt;</code> للقوائم.",
+            "وبدل ما نحط كل حاجة في <code>&lt;div&gt;</code>، بنستخدم <strong>Semantic HTML</strong> (<code>header, nav, main, section, article, footer</code>) عشان Google وقارئات الشاشة يفهموا صفحتنا أحسن."
+          ],
+          "table": {
+            "headers": ["الـ Tag", "الوظيفة", "مثال"],
+            "rows": [
+              ["<code>&lt;h1&gt;–&lt;h6&gt;</code>", "العناوين (h1 الأكبر)", "<code>&lt;h1&gt;Title&lt;/h1&gt;</code>"],
+              ["<code>&lt;p&gt;</code>", "فقرة نصية", "<code>&lt;p&gt;Hello&lt;/p&gt;</code>"],
+              ["<code>&lt;a&gt;</code>", "رابط لصفحة تانية", "<code>&lt;a href=\"#\"&gt;Click&lt;/a&gt;</code>"],
+              ["<code>&lt;img&gt;</code>", "صورة (بدون closing tag)", "<code>&lt;img src=\"a.jpg\" alt=\"desc\"&gt;</code>"],
+              ["<code>&lt;div&gt; / &lt;span&gt;</code>", "حاوية Block / حاوية Inline", "<code>&lt;div&gt;...&lt;/div&gt;</code>"]
+            ]
+          }
+        }
+      ],
+      "stages": [
+        {
+          "id": "l7-s1",
+          "type": "explore",
+          "prompt": "اضغط على الأجزاء المنوّرة في هيكل صفحة HTML عشان تكتشف دور كل Tag:",
+          "code": "[[0|<!DOCTYPE html>]]\n<html>\n  [[1|<head>]]<title>CodeHub</title></head>\n  [[2|<body>]]\n    [[3|<a href=\"https://codehub.monster\">زور الموقع</a>]]\n  </body>\n</html>",
+          "spots": [
+            { "title": "DOCTYPE", "say": "إعلان للـ browser إن الملف HTML5." },
+            { "title": "<head>", "say": "معلومات وصفية عن الصفحة مش بتظهر جوا جسم الصفحة." },
+            { "title": "<body>", "say": "هنا بيتحط كل المحتوى اللي المستخدم بيشوفه." },
+            { "title": "<a href=\"...\">", "say": "تاغ الرابط (Anchor) اللي بينقل المستخدم لصفحة تانية." }
+          ],
+          "hint": "اضغط على الـ 4 أجزاء المتحددة جوا الكود."
+        },
+        {
+          "id": "l7-s2",
+          "type": "slot",
+          "prompt": "كمّل التاجات الناقصة لعنوان رئيسي وفقرة تحته:",
+          "code": "[[0]]أهلاً بيك في الويب</h1>\n[[1]]دي أول فقرة ليا.[[2]]",
+          "tokens": ["<h1>", "<p>", "</p>", "<div>"],
+          "answer": ["<h1>", "<p>", "</p>"],
+          "why": "العنوان الرئيسي بيفتح بـ <h1> والفقرة بتفتح بـ <p> وتقفل بـ </p>.",
+          "hint": "بص على تاغ الإغلاق </h1> في أول سطر."
+        },
+        {
+          "id": "l7-s3",
+          "type": "buckets",
+          "layout": "wireframe",
+          "prompt": "رتّب التاجات المعبرة (Semantic HTML) في أماكنها الصح في الصفحة:",
+          "buckets": [
+            { "id": "header", "area": "header", "label": "رأس الصفحة" },
+            { "id": "nav", "area": "nav", "label": "قائمة الروابط" },
+            { "id": "main", "area": "main", "label": "المحتوى الرئيسي" },
+            { "id": "aside", "area": "aside", "label": "شريط جانبي" },
+            { "id": "footer", "area": "footer", "label": "تذييل الصفحة" }
+          ],
+          "items": [
+            { "t": "<header>", "b": "header", "why": "<header> بيكون في أعلى الصفحة." },
+            { "t": "<nav>", "b": "nav", "why": "<nav> مخصص لروابط التنقل." },
+            { "t": "<main>", "b": "main", "why": "<main> للمحتوى الأساسي في الصفحة." },
+            { "t": "<aside>", "b": "aside", "why": "<aside> للمحتوى الجانبي المساعد." },
+            { "t": "<footer>", "b": "footer", "why": "<footer> لتذييل الصفحة وحقوق النشر." }
+          ],
+          "hint": "اسم كل Semantic tag بيشرح مكانه بالإنجليزي!"
+        }
+      ]
+    },
+    {
+      "id": "l8-web-css",
+      "num": 8,
+      "title": "أساسيات الويب — CSS",
+      "en": "Web Development Basics: Style, Selectors & Box Model",
+      "docs": [
+        {
+          "tab": "طرق CSS والـ Selectors",
+          "heading": "CSS — الهدوم والتنسيق بتاع الصفحة",
+          "body": [
+            "<strong>CSS (Cascading Style Sheets)</strong> هي اللي بتتحكم في الألوان والخطوط والمسافات والتوزيع. عندنا 3 طرق لإضافتها: <strong>Inline</strong> (جوا الـ tag ومش مفضل للمشاريع الكبيرة)، <strong>Internal</strong> (جوا <code>&lt;style&gt;</code>)، و <strong>External</strong> (ملف <code>.css</code> منفصل مربوط بـ <code>&lt;link&gt;</code> — وده الأفضل دايماً!).",
+            "والـ <strong>Selectors</strong> بتقول للـ CSS يلوّن مين: <code>p</code> (Element)، <code>.highlight</code> (Class ينفع يتكرر)، و <code>#header</code> (ID فريد لعنصر واحد)."
+          ],
+          "filename": "style.css",
+          "lang": "css",
+          "code": "[[0|.card]] {\n  color: #ffffff;\n  background-color: #1e293b;\n  [[1|padding: 15px;]]\n  [[2|border: 1px solid #3b82f6;]]\n  [[3|margin: 20px;]]\n  border-radius: 10px;\n}",
+          "spots": [
+            { "title": "Class Selector (.card)", "say": "النقطة معناها Class — ينفع تطبقه على أكتر من كارد في الصفحة." },
+            { "title": "padding", "say": "المسافة الداخلية بين المحتوى والإطار." },
+            { "title": "border", "say": "الإطار اللي بيحوط العنصر." },
+            { "title": "margin", "say": "المسافة الخارجية اللي بتفصل العنصر عن اللي حواليه." }
+          ],
+          "preview": "<div style='background:#1e293b;color:#fff;padding:14px;border:2px solid #3b82f6;border-radius:10px;font-weight:700'>بطاقة منسّقة بالـ CSS</div>",
+          "previewUrl": "file:///card-demo.html"
+        },
+        {
+          "tab": "الـ Box Model",
+          "heading": "تشبيه البرتقالة للـ Box Model",
+          "body": [
+            "أهم مفهوم في CSS إن كل عنصر عبارة عن صندوق من 4 طبقات من جوه لبره: <strong>Content → Padding → Border → Margin</strong>."
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "فكّر فيها زي البرتقالة",
+            "text": "اللب جوه هو الـ <strong>Content</strong>، القشرة البيضا الداخلية هي الـ <strong>Padding</strong>، القشرة البرتقالي الخارجية هي الـ <strong>Border</strong>، والهوا اللي بيفصل بين برتقالتين هو الـ <strong>Margin</strong>!"
+          },
+          "cards": [
+            { "title": "Element Selector", "code": "p { }", "desc": "يستهدف كل عناصر نفس النوع." },
+            { "title": "Class Selector", "code": ".box { }", "desc": "بيبدأ بنقطة (.) وينفع يتكرر على كذا عنصر." },
+            { "title": "ID Selector", "code": "#hero { }", "desc": "بيبدأ بهاش (#) ولازم يكون فريد لعنصر واحد." }
+          ]
+        }
+      ],
+      "stages": [
+        {
+          "id": "l8-s1",
+          "type": "order",
+          "prompt": "رتّب طبقات الـ Box Model من جوه لبره (زي البرتقالة):",
+          "items": [
+            "Content (المحتوى الداخلي)",
+            "Padding (المسافة الداخلية)",
+            "Border (الإطار)",
+            "Margin (المسافة الخارجية)"
+          ],
+          "why": "من جوه لبره دايماً: Content → Padding → Border → Margin.",
+          "hint": "ابدأ باللب (Content) وانتهي بالهوا بره (Margin)."
+        },
+        {
+          "id": "l8-s2",
+          "type": "bughunt",
+          "lang": "css",
+          "prompt": "المبرمج عايز يستهدف class اسمه card ويدّيه مسافة داخلية — اصطاد الغلطة في الـ selector:",
+          "code": "[[0|#card]] {\n  [[ok|color: white;]]\n  [[ok|padding: 15px;]]\n}",
+          "bugs": [
+            { "why": "الـ # ده بتاع الـ ID! عشان تستهدف Class لازم تبدأ بنقطة: .card مش #card." }
+          ],
+          "hint": "الـ Class بيبدأ بـ . ولا # ؟"
+        },
+        {
+          "id": "l8-s3",
+          "type": "patch",
+          "lang": "css",
+          "prompt": "عدّل الـ CSS عشان تخلي الـ card لونه أزرق (#1e293b) وليه حواف دائرية (border-radius):",
+          "start": ".card {\n  color: white;\n  padding: 14px;\n}",
+          "previewHtml": "<div class='card'>أول كارد بتاعي بالـ CSS!</div>",
+          "chips": ["background: #1e293b;", "border-radius: 12px;", "border: 2px solid #38bdf8;"],
+          "checks": [
+            { "regex": "background(-color)?\\s*:", "fail": "لسه مضفتش خلفية (background أو background-color) للكارد!" },
+            { "regex": "border-radius\\s*:", "fail": "ضيف border-radius عشان الحواف تبقى دائرية." }
+          ],
+          "solution": ".card {\n  color: white;\n  background: #1e293b;\n  padding: 14px;\n  border-radius: 12px;\n}",
+          "why": "عاش! الكارد دلوقتي بخلفية وحواف ناعمة.",
+          "hint": "اضغط على الزرارين الزرق فوق عشان تضيف الخصائص بسرعة."
+        }
+      ]
+    },
+    {
+      "id": "l9-web-js",
+      "num": 9,
+      "title": "أساسيات الويب — JavaScript",
+      "en": "Web Development Basics: Variables, Functions, DOM & Events",
+      "docs": [
+        {
+          "tab": "المتغيرات والـ Functions",
+          "heading": "JavaScript — الروح والتفاعل في الصفحة",
+          "body": [
+            "<strong>JavaScript</strong> هي لغة البرمجة اللي بتشتغل جوا الـ browser عشان تخلي الصفحة حية وتستجيب لضغطات المستخدم بدون ما تعمل Reload.",
+            "بنخزّن البيانات في متغيرات بـ <code>let</code> (ممكن يتغير) أو <code>const</code> (ثابت مش بيتغير — وتجنّب <code>var</code> القديمة). والـ <strong>Function</strong> ماكينة بتاخد Input وترجّع Output وتعيد استخدامها بدل التكرار."
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "المثلث الذهبي للويب",
+            "text": "<strong>HTML</strong> = الهيكل العظمي، <strong>CSS</strong> = الهدوم والشكل، <strong>JavaScript</strong> = الأعصاب والحركة والتفاعل!"
+          },
+          "filename": "basics.js",
+          "lang": "js",
+          "code": "[[0|let name = \"Ahmed\";]]\n[[1|const PI = 3.14;]]\nlet colors = [\"red\", \"green\", \"blue\"];\n\n[[2|const add = (a, b) => a + b;]]\nconsole.log(add(5, 3));",
+          "spots": [
+            { "title": "let", "say": "متغير تقدر تغيّر قيمته بعدين زي الاسم أو النقط." },
+            { "title": "const", "say": "ثابت — مينفعش تعيد تعيينه بقيمة جديدة." },
+            { "title": "Arrow Function", "say": "طريقة حديثة ومختصرة لكتابة الـ Function." }
+          ],
+          "console": ["8"]
+        },
+        {
+          "tab": "الـ DOM والـ Events",
+          "heading": "إزاي JS بتغيّر الصفحة وتسمع للمستخدم؟",
+          "body": [
+            "الـ <strong>DOM (Document Object Model)</strong> بيحوّل صفحتك لشجرة — فـ JavaScript تقدر تمسك أي عنصر بـ <code>document.getElementById()</code> أو <code>querySelectorAll()</code> وتغيّر نصه ولونه.",
+            "والـ <strong>Events</strong> هي الأحداث اللي بيعملها المستخدم زي الضغط (<code>click</code>)، الكتابة، أو إرسال نموذج (<code>submit</code>) — وبنربطها بـ <code>addEventListener</code>."
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "زي جرس الباب",
+            "text": "الـ <strong>Event</strong> زي لما حد يدق جرس الباب (<code>click</code>)، والـ <code>addEventListener</code> هو إنت لما تسمع الجرس وتقوم تفتحله!"
+          },
+          "filename": "dom-event.js",
+          "lang": "js",
+          "code": "const title = document.getElementById(\"main-title\");\ntitle.textContent = \"New Title!\";\ntitle.style.color = \"#38bdf8\";\n\nbtn.addEventListener(\"click\", () => {\n  title.classList.add(\"highlighted\");\n});"
+        }
+      ],
+      "stages": [
+        {
+          "id": "l9-s1",
+          "type": "match",
+          "prompt": "وصّل كل تقنية من تلات أعمدة الويب بدورها الصح:",
+          "pairs": [
+            ["HTML", "الهيكل والمحتوى (Structure & Content)"],
+            ["CSS", "الشكل والألوان والتوزيع (Style & Layout)"],
+            ["JavaScript", "الحركة والسلوك والتفاعل (Behavior & Interactivity)"],
+            ["DOM", "خريطة الشجرة اللي JS بتعدّل بيها عناصر الصفحة"]
+          ],
+          "hint": "هيكل = HTML، لبس = CSS، حركة = JS."
+        },
+        {
+          "id": "l9-s2",
+          "type": "slot",
+          "lang": "js",
+          "prompt": "كمّل كود الـ Event Listener عشان يشتغل لما المستخدم يضغط على الزرار:",
+          "code": "const btn = document.[[0]](\"myBtn\");\nbtn.[[1]](\"[[2]]\", () => {\n  console.log(\"Clicked!\");\n});",
+          "tokens": ["getElementById", "addEventListener", "click", "style"],
+          "answer": ["getElementById", "addEventListener", "click"],
+          "why": "بنمسك العنصر بـ getElementById، وبعدين نسمع للـ click بـ addEventListener.",
+          "hint": "إيه الدالة اللي بتمسك عنصر بالـ ID؟ وإيه اسم حدث الضغطة؟"
+        },
+        {
+          "id": "l9-s3",
+          "type": "bughunt",
+          "lang": "js",
+          "prompt": "في غلطة في الكود ده هتعمل Error لما يشتغل — اصطادها:",
+          "code": "[[ok|const PI = 3.14;]]\n[[ok|let score = 10;]]\n[[ok|score = 20;]]\n[[0|PI = 3.15;]]",
+          "bugs": [
+            { "why": "PI متعرّف بـ const (ثابت) — مينفعش تغيّر قيمته بعد التعريف!" }
+          ],
+          "hint": "مين في المتغيرات مينفعش يتغيّر؟"
+        }
+      ]
+    },
+    {
+      "id": "l10-boss",
+      "num": 10,
+      "title": "الاختبار الشامل",
+      "en": "Lecture 01 Boss Challenge",
+      "boss": true,
+      "stages": [
+        {
+          "id": "b1-1",
+          "type": "choice",
+          "prompt": "الـ IT بيتكوّن من إيه بالظبط؟",
+          "options": [
+            { "t": "Computer Technology و Communications Technology مع بعض", "why": "عاش! الكمبيوتر والاتصالات هما الجناحين بتوع الـ IT." },
+            { "t": "Computer Technology بس", "why": "ناقص Communications Technology!" },
+            { "t": "Communications بس", "why": "ناقص Computer Technology!" }
+          ],
+          "answer": 0,
+          "hint": "الـ IT فيه جزئين مش جزء واحد."
+        },
+        {
+          "id": "b1-2",
+          "type": "choice",
+          "prompt": "إيه هو تعريف الـ Computer؟",
+          "options": [
+            { "t": "آلة حاسبة للأرقام بس", "why": "الكمبيوتر متعدد الاستخدامات وقابل للبرمجة مش آلة حاسبة بس." },
+            { "t": "آلة قابلة للبرمجة متعددة الاستخدامات بتعالج الـ Data وتحولها لـ Information", "why": "بالظبط! ده التعريف العلمي الكامل." },
+            { "t": "شاشة تلفزيون ذكية", "why": "لأ، التلفزيون للعرض مش تعريف الكمبيوتر." }
+          ],
+          "answer": 1,
+          "hint": "بيربط بين Data و Information."
+        },
+        {
+          "id": "b1-3",
+          "type": "choice",
+          "prompt": "يعني إيه Telemedicine؟",
+          "options": [
+            { "t": "رعاية طبية وعلاج للمرضى عن بُعد عبر الاتصالات", "why": "صح! الدكتور يتابع ويعالج المريض حتى لو في بلد تانية." },
+            { "t": "موقع إلكتروني لبيع الأدوية بس", "why": "لأ، Telemedicine معناها رعاية وعلاج طبي عن بُعد." },
+            { "t": "برنامج حسابات للمستشفى", "why": "ده نظام إداري مش Telemedicine." }
+          ],
+          "answer": 0,
+          "hint": "Tele = عن بُعد، Medicine = طب."
+        },
+        {
+          "id": "b1-4",
+          "type": "choice",
+          "prompt": "إيه مثال على الـ Virtual Money؟",
+          "options": [
+            { "t": "العملات المعدنية (الفكة)", "why": "العملات المعدنية كاش مادي مش Virtual." },
+            { "t": "المحافظ الإلكترونية زي PayPal وكروت القيمة المدفوعة", "why": "بالظبط! فلوس رقمية بتدفع بيها بدون كاش." },
+            { "t": "الفلوس الورق المطبوعة", "why": "الورق كاش مادي مش Virtual Money." }
+          ],
+          "answer": 1,
+          "hint": "مجتمع بدون كاش (Cashless)."
+        },
+        {
+          "id": "b1-5",
+          "type": "choice",
+          "prompt": "الـ Cyberspace بيشمل إيه؟",
+          "options": [
+            { "t": "الإنترنت السلكي بس", "why": "الـ Cyberspace أوسع من السلكي بس." },
+            { "t": "الفضاء الخارجي والأقمار الصناعية بس", "why": "لأ مش الفضاء الفلكي — ده عالم الاتصالات الرقمية." },
+            { "t": "عالم الاتصالات السلكية واللاسلكية كله", "why": "١٠/١٠! كل الاتصالات Wired و Wireless." }
+          ],
+          "answer": 2,
+          "hint": "بيجمع السلكي واللاسلكي سوا."
+        },
+        {
+          "id": "b1-6",
+          "type": "choice",
+          "prompt": "إيه وظيفة الـ Server؟",
+          "options": [
+            { "t": "كمبيوتر مركزي بيخزّن الداتا والبرامج ويقدّم خدمات للـ Clients", "why": "صح الصح! ده دور السيرفر." },
+            { "t": "راوتر واي فاي في البيت", "why": "الراوتر بيوزّع الشبكة، مش السيرفر المركزي." },
+            { "t": "كيبورد لاسلكي", "why": "الكيبورد Input device مش Server." }
+          ],
+          "answer": 0,
+          "hint": "اسمه Server لأنه بيـ serve (يخدم) الأجهزة التانية."
+        },
+        {
+          "id": "b1-7",
+          "type": "choice",
+          "prompt": "إيه وظيفة الـ Input Hardware؟",
+          "options": [
+            { "t": "إدخال البيانات لنظام الكمبيوتر (زي الكيبورد والماوس)", "why": "بالظبط! أول خطوة في Input → Process → Output." },
+            { "t": "عرض النتائج النهائية على الشاشة", "why": "ده دور الـ Output Hardware." },
+            { "t": "معالجة العمليات الحسابية", "why": "ده دور الـ CPU (Processing)." }
+          ],
+          "answer": 0,
+          "hint": "Input = إدخال."
+        },
+        {
+          "id": "b1-8",
+          "type": "choice",
+          "prompt": "الـ 1 Kilobyte بيساوي كام Byte بدقة في الكمبيوتر؟",
+          "options": [
+            { "t": "8 Bytes", "why": "8 bits = 1 Byte، مش Kilobyte!" },
+            { "t": "1024 Bytes", "why": "معلّم! في النظام الثنائي 2^10 = 1024 Byte." },
+            { "t": "مليون Byte", "why": "المليون ده الـ Megabyte مش Kilobyte." }
+          ],
+          "answer": 1,
+          "hint": "أكبر شوية من 1000 بسبب نظام الـ Binary (2^10)."
+        },
+        {
+          "id": "b1-9",
+          "type": "choice",
+          "prompt": "إيه هو الـ System Software؟",
+          "options": [
+            { "t": "نظام التشغيل (OS) والأدوات الأساسية اللي بتشغّل الجهاز", "why": "بالظبط! زي Windows و Linux." },
+            { "t": "الألعاب وبرامج التصميم", "why": "دي Application Software." },
+            { "t": "برامج كتابة النصوص زي Word", "why": "Word تطبيق (Application) مش System Software." }
+          ],
+          "answer": 0,
+          "hint": "من غيره الجهاز مش هيفهم أي حاجة."
+        },
+        {
+          "id": "b1-10",
+          "type": "choice",
+          "prompt": "إيه هو الذكاء الاصطناعي (AI)؟",
+          "options": [
+            { "t": "كابل إنترنت سريع جداً", "why": "السرعة دي شبكات مش ذكاء اصطناعي." },
+            { "t": "آلات بتحاكي صفات بشرية زي التعلّم والتفكير والاستنتاج", "why": "عاش يا بطل! قفّلت امتحان المحاضرة الأولى بنجاح." },
+            { "t": "ذاكرة تخزين خارجية", "why": "ده هارد أو فلاشة مش AI." }
+          ],
+          "answer": 1,
+          "hint": "زي الروبوتات و ChatGPT اللي بيتعلموا ويفكروا."
+        }
+      ]
+    }
+  ],
+  "recall": [
+    { "q": "إيه الجزئين الأساسيين اللي بيتكون منهم الـ IT؟", "a": "Computer Technology (معالجة البيانات) و Communications Technology (نقل وتوصيل الداتا)." },
+    { "q": "إيه الفرق بين Data و Information؟", "a": "Data بيانات خام وأرقام قبل المعالجة؛ Information نتيجة مفيدة بعد ما الكمبيوتر يعالجها." },
+    { "q": "إيه الفرق بين The Internet و The World Wide Web؟", "a": "Internet هي الشبكة الفيزيائية والأسلاك؛ Web هي الصفحات والمواقع اللي بتفتحها فوق الشبكة." },
+    { "q": "ليه الـ RAM بتتسمى Volatile Memory؟", "a": "لأنها ذاكرة مؤقتة بتتمسح تلقائياً أول ما الكهربا تفصل عن الجهاز." },
+    { "q": "إيه التلات خطوات الأساسية لشغل أي كمبيوتر؟", "a": "Input (إدخال) ← Process (معالجة) ← Output (إخراج)." },
+    { "q": "إيه الفرق بين System Software و Application Software؟", "a": "System Software (زي Windows/Linux) بيشغّل الجهاز؛ Application Software (زي Word والألعاب) لمهام محددة." },
+    { "q": "يعني إيه Showrooming؟", "a": "تعاين المنتج في المحل على الحقيقة وبعدين تطلبه أونلاين بسعر أرخص." },
+    { "q": "إيه التحذير المهم عن النشر على الإنترنت؟", "a": "Internet postings live forever — أي حاجة بتنشرها بتفضل موجودة وممكن تأثر على شغلك." },
+    { "q": "إيه دور HTML و CSS و JavaScript في الويب؟", "a": "HTML للهيكل والمحتوى، CSS للشكل والتنسيق، و JavaScript للحركة والتفاعل." },
+    { "q": "إيه ترتيب طبقات الـ Box Model من جوه لبره؟", "a": "Content ← Padding ← Border ← Margin." }
+  ]
+}

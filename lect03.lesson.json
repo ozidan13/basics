@@ -1,0 +1,873 @@
+{
+  "id": "basics-lect03",
+  "title": "CSS من الألف للياء",
+  "subtitle": "المحاضرة التالتة — Selectors، Box Model، Flexbox، Grid، Responsive، Animations و Variables",
+  "accent": "#818cf8",
+  "accent2": "#e879f9",
+  "theme": "css",
+  "lang": "css",
+  "readUrl": "draft/lect03.html",
+  "summary": [
+    "الفرق بين Inline و Internal و External CSS (الـ External الأفضل لأنه بيفصل الشكل عن المحتوى وبيتشارك في 100 صفحة).",
+    "الـ Selectors (Element, .class, #id) وقوة الأولوية Specificity (ID أقوى من Class أقوى من Element).",
+    "الـ Box Model (Content → Padding → Border → Margin) وأهمية * { box-sizing: border-box; } عشان الـ width يفضل دقيق.",
+    "Typography و Color Formats (Hex, RGB, RGBA للشفافية, HSL) والوحدات (rem للنصوص، px للـ borders، % و vw للتوزيع).",
+    "توزيع الصفحة: Display (block/inline/inline-block)، Position (relative الأب و absolute الابن، fixed، sticky)، Flexbox (بُعد واحد)، Grid (بُعدين)، Mobile-First Media Queries، Transitions vs @keyframes، و CSS Variables + Glassmorphism."
+  ],
+  "levels": [
+    {
+      "id": "c1-why",
+      "num": 1,
+      "title": "ليه CSS وطرق إضافتها",
+      "en": "Why CSS — Inline, Internal & External",
+      "docs": [
+        {
+          "tab": "ليه CSS؟",
+          "heading": "HTML بتبني الجسم، و CSS بتلبّسه الهدوم",
+          "body": [
+            "من غير CSS، أي صفحة ويب هتبان نص أسود على خلفية بيضا زي ورقة Word فاضية. الـ CSS هي اللي بتتحكم في 3 حاجات رئيسية: <strong>الألوان والخطوط</strong>، <strong>التوزيع والمسافات</strong>، و <strong>الحركة والتفاعل</strong> (Animations و Hover)."
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "بالبلدي كده",
+            "text": "لو HTML هي العمارة بالطوب الأحمر، فـ CSS هي التشطيب والدهان والديكور والإضاءة اللي بتخلي الناس تتفرج على الشقة وتعجبها!"
+          },
+          "cards": [
+            { "title": "الألوان والخطوط", "desc": "تغيير شكل النصوص والخلفيات والتباين البصري." },
+            { "title": "التوزيع والمسافات", "desc": "ترتيب الكروت والأعمدة بـ Flexbox و Grid." },
+            { "title": "الحركة والتفاعل", "desc": "تأثيرات hover و transitions و @keyframes." }
+          ]
+        },
+        {
+          "tab": "طرق إضافة CSS",
+          "heading": "Inline vs Internal vs External CSS",
+          "body": [
+            "عندك 3 طرق تكتب بيهم CSS: <strong>Inline</strong> (جوا attribute <code>style</code> في الـ tag — مش مفضل لأنه بيخلط الشكل بالمحتوى)، <strong>Internal</strong> (جوا <code>&lt;style&gt;</code> في الـ head — كويس لصفحة واحدة)، و <strong>External</strong> (ملف <code>style.css</code> منفصل مربوط بـ <code>&lt;link rel=\"stylesheet\"&gt;</code>)."
+          ],
+          "filename": "style.css",
+          "lang": "css",
+          "code": "[[0|.title]] {\n  color: white;\n  [[1|background: linear-gradient(135deg, #8B5CF6, #06b6d4);]]\n  padding: 18px;\n  border-radius: 12px;\n  text-align: center;\n}",
+          "spots": [
+            { "title": ".title", "say": "Class في ملف style.css منفصل — تقدر تستخدمه في 100 صفحة!" },
+            { "title": "linear-gradient", "say": "تدرج لوني ناعم بدل اللون الثابت." }
+          ],
+          "preview": "<div style='color:#fff;background:linear-gradient(135deg,#8B5CF6,#06b6d4);padding:16px;border-radius:12px;text-align:center;font-weight:800;font-size:18px'>Hello World</div><p style='text-align:center;color:#334155;margin:10px 0 0'>Welcome to my website!</p>",
+          "previewUrl": "localhost/external-demo",
+          "tip": "External CSS هو الأفضل في الشغل الحقيقي — غيّر اللون في ملف style.css واحد، والـ 100 صفحة كلهم يتغيروا في لحظة!"
+        }
+      ],
+      "stages": [
+        {
+          "id": "c1-s1",
+          "type": "buckets",
+          "layout": "columns",
+          "prompt": "صنّف كل وصف مع طريقة كتابة الـ CSS المناسبة ليه:",
+          "buckets": [
+            { "id": "inline", "label": "Inline CSS" },
+            { "id": "internal", "label": "Internal CSS" },
+            { "id": "external", "label": "External CSS" }
+          ],
+          "items": [
+            { "t": "style=\"color: red;\"", "b": "inline", "why": "Inline بيتكتب جوا style attribute على الـ tag مباشرة." },
+            { "t": "<style>p { color: gray; }</style>", "b": "internal", "why": "Internal بيتكتب جوا تاغ <style> في الـ <head>." },
+            { "t": "<link rel=\"stylesheet\" href=\"style.css\">", "b": "external", "why": "External بيربط ملف .css منفصل باستخدام <link>." },
+            { "t": "الأفضل للمشاريع الكبيرة وتغيير 100 صفحة مرة واحدة", "b": "external", "why": "ملف خارجي واحد بيتحكم في الموقع كله." }
+          ],
+          "hint": "Inline = جوا الـ tag، Internal = جوا <style>، External = ملف .css بـ <link>."
+        },
+        {
+          "id": "c1-s2",
+          "type": "slot",
+          "lang": "html",
+          "prompt": "كمّل تاغ الربط الصح عشان توصل ملف style.css بصفحة الـ HTML:",
+          "code": "<head>\n  <[[0]] [[1]]=\"stylesheet\" [[2]]=\"style.css\">\n</head>",
+          "tokens": ["link", "rel", "href", "src"],
+          "answer": ["link", "rel", "href"],
+          "why": "ربط ملف CSS الخارجي بيتم بـ <link rel=\"stylesheet\" href=\"style.css\"> — خد بالك بنستخدم href مش src!",
+          "hint": "التاغ اسمه link، وبياخد rel و href."
+        }
+      ]
+    },
+    {
+      "id": "c2-selectors",
+      "num": 2,
+      "title": "Selectors والأولوية (Specificity)",
+      "en": "Element, Class, ID & Specificity Weights",
+      "docs": [
+        {
+          "tab": "أنواع الـ Selectors",
+          "heading": "إزاي CSS بتعرف تلّون أنهي عنصر؟",
+          "body": [
+            "عندك 3 أنواع أساسيين من الـ Selectors: <strong>Element Selector</strong> (زي <code>p</code> بيستهدف كل الفقرات)، <strong>Class Selector</strong> (زي <code>.highlight</code> ينفع يتكرر على أي عدد من العناصر)، و <strong>ID Selector</strong> (زي <code>#hero-title</code> لعنصر واحد فريد بس في الصفحة)."
+          ],
+          "filename": "selectors.css",
+          "lang": "css",
+          "code": "[[0|p]] { color: #64748b; }\n[[1|.highlight]] {\n  background: #fef3c7;\n  border-left: 4px solid #f59e0b;\n  padding: 8px 14px;\n}\n[[2|#hero-title]] {\n  color: white;\n  background: #1e293b;\n  padding: 14px;\n}",
+          "spots": [
+            { "title": "Element Selector (p)", "say": "يستهدف كل عناصر <p> في الصفحة مرة واحدة." },
+            { "title": "Class Selector (.highlight)", "say": "يبدأ بنقطة (.) وينفع يتكرر على كذا عنصر." },
+            { "title": "ID Selector (#hero-title)", "say": "يبدأ بهاش (#) لعنصر واحد فريد بس في الصفحة." }
+          ],
+          "preview": "<div style='background:#1e293b;color:#fff;padding:10px 14px;border-radius:8px;font-weight:800;margin-bottom:8px'>#hero-title (عنصر فريد)</div><div style='background:#fef3c7;color:#92400e;border-left:4px solid #f59e0b;padding:7px 12px;border-radius:5px;margin-bottom:6px'>.highlight — عنصر ١</div><div style='background:#fef3c7;color:#92400e;border-left:4px solid #f59e0b;padding:7px 12px;border-radius:5px'>.highlight — عنصر ٢ (مكرر عادي)</div>",
+          "previewUrl": "localhost/selectors"
+        },
+        {
+          "tab": "Specificity — مين يكسب؟",
+          "heading": "قوة الأولوية لما أكتر من قاعدة تتعارض",
+          "body": [
+            "لو نفس العنصر عليه قاعدة بالـ Element وقاعدة بالـ Class وقاعدة بالـ ID، المتصفح بيحسب الوزن (<strong>Specificity</strong>) والأقوى هو اللي بيكسب!"
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "بالبلدي كده",
+            "text": "<strong>Element</strong> = شخص عادي (وزنه <code>0-0-1</code>). <strong>Class</strong> = ضيف مهم (وزنه <code>0-1-0</code>). <strong>ID</strong> = VIP (وزنه <code>1-0-0</code> — الأقوى دايماً)!"
+          },
+          "table": {
+            "headers": ["الـ Selector", "مثال", "الوزن (Specificity)", "التكرار"],
+            "rows": [
+              ["Element", "<code>p { }</code>", "<code>0-0-1</code> (الأضعف)", "كل العناصر من نفس النوع"],
+              ["Class", "<code>.special { }</code>", "<code>0-1-0</code> (متوسط)", "ينفع يتكرر براحتك"],
+              ["ID", "<code>#unique { }</code>", "<code>1-0-0</code> (الأقوى)", "عنصر واحد فريد بس"]
+            ]
+          }
+        }
+      ],
+      "stages": [
+        {
+          "id": "c2-s1",
+          "type": "order",
+          "prompt": "رتّب الـ Selectors من الأضعف للأقوى في الـ Specificity:",
+          "items": [
+            "Element Selector (p) — وزن 0-0-1",
+            "Class Selector (.special) — وزن 0-1-0",
+            "ID Selector (#unique) — وزن 1-0-0"
+          ],
+          "why": "الـ Element أضعف واحد، بعده الـ Class، والـ ID هو الـ VIP الأقوى.",
+          "hint": "عادي ← مهم ← VIP."
+        },
+        {
+          "id": "c2-s2",
+          "type": "choice",
+          "lang": "css",
+          "prompt": "عنصر <p id=\"unique\" class=\"special\"> هياخد أنهي لون من الكود ده؟",
+          "code": "p { color: gray; }\n.special { color: blue; }\n#unique { color: red; }",
+          "options": [
+            { "t": "red (أحمر) لأن #unique هو الأقوى", "why": "بالظبط! الـ ID وزنه 1-0-0 فبيغلب الـ Class والـ Element." },
+            { "t": "blue (أزرق) لأن .special class", "why": "الـ Class وزنه 0-1-0 بس — الـ ID (1-0-0) أقوى منه." },
+            { "t": "gray (رمادي) لأنه اتكتب أول سطر", "why": "الـ Specificity بتغلب الترتيب؛ p أضعف واحد هنا." }
+          ],
+          "answer": 0,
+          "hint": "مين الـ VIP اللي وزنه 1-0-0؟"
+        },
+        {
+          "id": "c2-s3",
+          "type": "bughunt",
+          "lang": "css",
+          "prompt": "المبرمج عايز يلوّن 5 كروت كلهم واخدين class=\"notice\" — اصطاد الغلطة في الـ CSS:",
+          "code": "[[0|#notice]] {\n  [[ok|background: #fef3c7;]]\n  [[ok|padding: 12px;]]\n}",
+          "bugs": [
+            { "why": "الكروت واخدة class مش id! لازم تكتب .notice بنقطة مش #notice." }
+          ],
+          "hint": "بص على الرمز اللي قبل كلمة notice."
+        }
+      ]
+    },
+    {
+      "id": "c3-box",
+      "num": 3,
+      "title": "The Box Model و border-box",
+      "en": "Content, Padding, Border, Margin & border-box",
+      "docs": [
+        {
+          "tab": "الـ 4 طبقات",
+          "heading": "كل عنصر في الصفحة عبارة عن صندوق!",
+          "body": [
+            "أي عنصر HTML بيتعامل معاه الـ browser كصندوق من 4 طبقات: <strong>Content</strong> (المحتوى)، حواليه <strong>Padding</strong> (مسافة داخلية)، بعده <strong>Border</strong> (الإطار)، وبراه <strong>Margin</strong> (مسافة خارجية بينه وبين العناصر التانية)."
+          ],
+          "filename": "box-model.css",
+          "lang": "css",
+          "code": ".box {\n  width: 250px;\n  [[0|padding: 20px;]]  /* مسافة داخلية */\n  [[1|border: 4px solid #8B5CF6;]]\n  [[2|margin: 20px;]]   /* مسافة خارجية */\n}",
+          "spots": [
+            { "title": "padding", "say": "مسافة داخلية بين النص والإطار — بتاخد خلفية العنصر." },
+            { "title": "border", "say": "الإطار اللي بيلف حوالين الـ padding والمحتوى." },
+            { "title": "margin", "say": "مسافة خارجية شفافة بتبعد العنصر عن جيرانه." }
+          ],
+          "preview": "<div style='background:#ffedd5;border:2px dashed #f97316;padding:12px;border-radius:8px;text-align:center'><div style='font-size:11px;color:#c2410c;font-weight:700;margin-bottom:4px'>Margin (مسافة خارجية)</div><div style='background:#dcfce7;border:4px solid #8B5CF6;padding:12px;border-radius:6px'><div style='font-size:11px;color:#15803d;font-weight:700;margin-bottom:4px'>Padding (داخلية) + Border (إطار)</div><div style='background:#fff;padding:8px;border-radius:4px;font-weight:700'>Content</div></div></div>",
+          "previewUrl": "localhost/box-model"
+        },
+        {
+          "tab": "سحر border-box",
+          "heading": "ليه * { box-sizing: border-box; } لازم تبقى في كل مشروع؟",
+          "body": [
+            "بالوضع الافتراضي (<code>content-box</code>)، لو كتبت <code>width: 200px</code> ومعاه <code>padding: 20px</code> و <code>border: 3px</code>، العرض الحقيقي بيكبر ويبقى <strong>246px</strong> ويبوظلك التوزيع!",
+            "الحل السحري: <code>box-sizing: border-box;</code> بيخلي الـ padding والـ border يتحسبوا <strong>جوا</strong> الـ 200px، فالعنصر يفضل 200px بالظبط."
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "تشبيه الشنطة الـ 20cm",
+            "text": "تخيّل طلبت شنطة 20cm: في <code>content-box</code> الـ 20cm للمساحة الداخلية بس والحشو والإطار بيتضافوا بره فتكبر! أما في <code>border-box</code> كل حاجة بتتحسب جوا الـ 20cm — الحجم اللي توقعته بالظبط!"
+          },
+          "preview": "<div style='width:246px;max-width:100%;background:#fee2e2;border:3px solid #ef4444;padding:10px;border-radius:6px;margin-bottom:8px;font-weight:700;color:#991b1b;font-size:13px'>content-box → طلع 246px!</div><div style='width:200px;max-width:100%;box-sizing:border-box;background:#dcfce7;border:3px solid #22c55e;padding:10px;border-radius:6px;font-weight:700;color:#166534;font-size:13px'>border-box → 200px بالظبط!</div>",
+          "previewUrl": "localhost/border-box"
+        }
+      ],
+      "stages": [
+        {
+          "id": "c3-s1",
+          "type": "order",
+          "prompt": "رتّب طبقات الـ Box Model من جوه لبره:",
+          "items": [
+            "Content",
+            "Padding",
+            "Border",
+            "Margin"
+          ],
+          "why": "الترتيب القياسي من جوه لبره: Content ← Padding ← Border ← Margin.",
+          "hint": "الـ Padding جوا الإطار، والـ Margin برا الإطار."
+        },
+        {
+          "id": "c3-s2",
+          "type": "choice",
+          "lang": "css",
+          "prompt": "لو عنصر عليه width: 200px و padding: 20px و border: 3px مع content-box، عرضه الفعلي كام؟",
+          "code": ".card {\n  width: 200px;\n  padding: 20px;\n  border: 3px solid red;\n  box-sizing: content-box;\n}",
+          "options": [
+            { "t": "200px بالظبط", "why": "ده بيحصل بس مع border-box! هنا شغالين بـ content-box." },
+            { "t": "246px (لأن 200 + 40 padding + 6 border)", "why": "دماغك شغالة! يمين وشمال: 20+20=40 و 3+3=6 فالمجموع 246px." },
+            { "t": "223px (200 + 20 + 3)", "why": "نسيت تحسب الجنبين (يمين وشمال) للـ padding والـ border!" }
+          ],
+          "answer": 1,
+          "hint": "احسب الـ padding والـ border من اليمين ومن الشمال (×2)."
+        },
+        {
+          "id": "c3-s3",
+          "type": "patch",
+          "lang": "css",
+          "prompt": "صلّح الكارد ده عشان عرضه يفضل 200px بالظبط رغم الـ padding والـ border:",
+          "start": ".card {\n  width: 200px;\n  padding: 20px;\n  border: 4px solid #818cf8;\n  background: #ede9fe;\n}",
+          "previewHtml": "<div class='card'>كارد عرضه المفروض 200px</div>",
+          "chips": ["box-sizing: border-box;", "border-radius: 10px;"],
+          "checks": [
+            { "regex": "box-sizing\\s*:\\s*border-box", "fail": "ضيف خاصية box-sizing: border-box; عشان الـ padding والـ border يتحسبوا جوا الـ 200px!" }
+          ],
+          "solution": ".card {\n  width: 200px;\n  padding: 20px;\n  border: 4px solid #818cf8;\n  background: #ede9fe;\n  box-sizing: border-box;\n}",
+          "why": "عاش! دلوقتي العرض الفعلي 200px بالملّي.",
+          "hint": "استخدم خاصية box-sizing بقيمة border-box."
+        }
+      ]
+    },
+    {
+      "id": "c4-type-color",
+      "num": 4,
+      "title": "الخطوط والألوان والوحدات",
+      "en": "Typography, Color Formats & CSS Units",
+      "docs": [
+        {
+          "tab": "خصائص الخطوط والوحدات",
+          "heading": "إزاي تخلي النص مريح وشيك في القراءة؟",
+          "body": [
+            "الـ Typography الصح بيعتمد على <code>font-family</code>، و <code>font-size</code> (يفضّل بالـ <code>rem</code>)، و <code>font-weight</code>، و <code>line-height</code> (زي <code>1.7</code> عشان السطور متلزقش في بعض)، و <code>letter-spacing</code>."
+          ],
+          "table": {
+            "headers": ["الوحدة", "المعنى", "أفضل استخدام"],
+            "rows": [
+              ["<code>px</code>", "قيمة ثابتة بالبكسل", "الـ borders والظلال الصغيرة"],
+              ["<code>rem</code>", "نسبة من حجم خط الـ root (غالباً 16px)", "أحجام الخطوط والمسافات المتناسقة"],
+              ["<code>%</code>", "نسبة من حجم العنصر الأب", "توزيع العرض والصور المتجاوبة"],
+              ["<code>vw / vh</code>", "نسبة من عرض / ارتفاع الشاشة", "أقسام الـ Hero والـ Fullscreen"]
+            ]
+          },
+          "tip": "القاعدة الذهبية: استخدم rem للخطوط، px للـ borders، و % أو vw/vh للتوزيع!"
+        },
+        {
+          "tab": "صيغ الألوان (Color Formats)",
+          "heading": "5 طرق لكتابة الألوان في CSS",
+          "body": [
+            "في CSS تقدر تكتب اللون بالاسم (<code>tomato</code>)، أو <strong>Hex</strong> (<code>#3b82f6</code>)، أو <strong>RGB</strong>، أو <strong>RGBA</strong> (نفس RGB + شفافية Alpha من 0 لـ 1)، أو <strong>HSL</strong> (درجة اللون، التشبع، الإضاءة — الأسهل في التفكير!)."
+          ],
+          "filename": "colors.css",
+          "lang": "css",
+          "code": ".named { background: tomato; }\n.hex   { background: #3b82f6; }\n.rgb   { background: rgb(139, 92, 246); }\n[[0|.rgba]]  { background: rgba(139, 92, 246, 0.3); }\n[[1|.hsl]]   { background: hsl(200, 80%, 55%); }",
+          "spots": [
+            { "title": "RGBA", "say": "الرقم الرابع (0.3) بيتحكم في الشفافية (Alpha) من 0 شفاف تماماً لـ 1 مصمت." },
+            { "title": "HSL", "say": "Hue (اللون) + Saturation (التشبع) + Lightness (الإضاءة) — أسهل طريقة تفتّح وتغمّق بيها اللون!" }
+          ],
+          "preview": "<div style='display:grid;gap:5px;font-family:monospace;font-size:12.5px'><div style='background:tomato;color:#fff;padding:6px 10px;border-radius:6px'>Named: tomato</div><div style='background:#3b82f6;color:#fff;padding:6px 10px;border-radius:6px'>Hex: #3b82f6</div><div style='background:rgba(139,92,246,0.28);color:#1e293b;padding:6px 10px;border-radius:6px;font-weight:700'>RGBA: rgba(139, 92, 246, 0.3) — شفاف!</div><div style='background:hsl(200,80%,55%);color:#fff;padding:6px 10px;border-radius:6px'>HSL: hsl(200, 80%, 55%)</div></div>",
+          "previewUrl": "localhost/colors"
+        }
+      ],
+      "stages": [
+        {
+          "id": "c4-s1",
+          "type": "match",
+          "prompt": "وصّل كل وحدة أو صيغة لون بدورها الصح:",
+          "pairs": [
+            ["rem", "نسبة من حجم خط الـ root — الأفضل للخطوط"],
+            ["px", "قيمة ثابتة — مناسبة للـ borders"],
+            ["rgba()", "لون مع تحكّم في درجة الشفافية (Alpha)"],
+            ["hsl()", "تحديد اللون بزاوية وتشبع وإضاءة"]
+          ],
+          "hint": "الـ a في rgba معناها Alpha (شفافية)."
+        },
+        {
+          "id": "c4-s2",
+          "type": "choice",
+          "prompt": "لو حجم خط الـ html الافتراضي 16px، يبقى 2rem بتساوي كام بكسل؟",
+          "options": [
+            { "t": "32px", "why": "بالظبط! 2 × 16px = 32px." },
+            { "t": "18px", "why": "لأ، rem مضاعفة مش جمع (2 × 16 مش 2 + 16)." },
+            { "t": "20px", "why": "الـ root الافتراضي 16px مش 10px، فـ 2rem = 32px." }
+          ],
+          "answer": 0,
+          "hint": "اضرب 2 في 16."
+        }
+      ]
+    },
+    {
+      "id": "c5-display-pos",
+      "num": 5,
+      "title": "Display و Position",
+      "en": "Block/Inline Flow & Positioning",
+      "docs": [
+        {
+          "tab": "Display Property",
+          "heading": "الفرق بين block و inline و inline-block",
+          "body": [
+            "خاصية <code>display</code> بتحدد إزاي العنصر بيتصرف في السطر: <strong>block</strong> بياخد السطر كله ويقبل <code>width/height</code>، <strong>inline</strong> بيقعد جنب إخواته ومش بيقبل <code>width/height</code>، و <strong>inline-block</strong> بيجمع الاتنين — يقعد جنب إخواته <em>وكمان</em> يقبل <code>width/height</code>!"
+          ],
+          "preview": "<div style='background:#dbeafe;border:2px solid #3b82f6;padding:6px 10px;margin-bottom:5px;border-radius:5px;font-size:13px'>display: block (السطر كله)</div><div style='margin-bottom:7px'><span style='background:#fce7f3;border:2px solid #ec4899;padding:3px 8px;border-radius:5px;font-size:12.5px;margin-left:5px'>inline A</span><span style='background:#fce7f3;border:2px solid #ec4899;padding:3px 8px;border-radius:5px;font-size:12.5px'>inline B</span></div><div><span style='display:inline-block;width:110px;text-align:center;background:#dcfce7;border:2px solid #22c55e;padding:6px;border-radius:5px;font-size:12.5px;margin-left:6px'>inline-block 1</span><span style='display:inline-block;width:110px;text-align:center;background:#dcfce7;border:2px solid #22c55e;padding:6px;border-radius:5px;font-size:12.5px'>inline-block 2</span></div>",
+          "previewUrl": "localhost/display"
+        },
+        {
+          "tab": "Position Property",
+          "heading": "الـ 5 قيم بتوع Position (تشبيه الكرسي!)",
+          "body": [
+            "أشهر حركة في كل المواقع (زي شارة <code>NEW</code> على طرف الكارد) بتتعمل بإن الأب ياخد <code>position: relative</code> والشارة تاخد <code>position: absolute</code>."
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "تشبيه الكرسي بالبلدي",
+            "text": "<strong>static</strong> = الكرسي في مكانه العادي. <strong>relative</strong> = اتزحلق شوية بس مكانه القديم محجوز. <strong>absolute</strong> = طار من الـ flow وقعد بالنسبة لأقرب أب relative. <strong>fixed</strong> = متسمّر في الشاشة حتى مع الـ scroll. <strong>sticky</strong> = عادي لحد نقطة معينة وبعدها يتثبت!"
+          },
+          "filename": "badge.css",
+          "lang": "css",
+          "code": ".card {\n  [[0|position: relative;]] /* الأب لازم relative */\n  padding: 24px;\n}\n.badge {\n  [[1|position: absolute;]]\n  top: -10px; right: -10px;\n  background: #ef4444; color: white;\n}",
+          "spots": [
+            { "title": "position: relative على الأب", "say": "بيعمل حدود مرجعية عشان الـ badge يتربط جوا الكارد وميطيرش لآخر الصفحة." },
+            { "title": "position: absolute على الـ badge", "say": "بيطلع من الـ flow العادي ويتحط بالظبط عند top/right من الكارد." }
+          ],
+          "preview": "<div style='position:relative;background:#f1f5f9;border:2px dashed #94a3b8;padding:18px;border-radius:10px;margin:8px 6px 0'><span style='position:absolute;top:-10px;right:-6px;background:#ef4444;color:#fff;padding:2px 10px;border-radius:99px;font-size:11.5px;font-weight:800'>NEW</span><div style='font-weight:700;color:#0f172a'>Product Card (الأب relative)</div></div>",
+          "previewUrl": "localhost/position"
+        }
+      ],
+      "stages": [
+        {
+          "id": "c5-s1",
+          "type": "buckets",
+          "layout": "columns",
+          "prompt": "صنّف كل سلوك تبع قيمة display الصح:",
+          "buckets": [
+            { "id": "blk", "label": "display: block" },
+            { "id": "inl", "label": "display: inline" },
+            { "id": "ib", "label": "display: inline-block" }
+          ],
+          "items": [
+            { "t": "ياخد السطر كله لوحده", "b": "blk", "why": "block دايماً يبدأ سطر جديد وياخد العرض الكامل." },
+            { "t": "يقعد جنب إخواته ومش بيقبل width/height", "b": "inl", "why": "inline بيتجاهل width و height وبيمشي جوا السطر." },
+            { "t": "يقعد جنب إخواته + بيقبل width و height", "b": "ib", "why": "inline-block بيجمع الميزتين سوا." },
+            { "t": "زي <div> و <h1> افتراضياً", "b": "blk", "why": "الـ div والـ h1 عناصر block بطبيعتها." }
+          ],
+          "hint": "مين اللي بيجمع بين الجلوس جنب بعض وقبول الـ width؟"
+        },
+        {
+          "id": "c5-s2",
+          "type": "match",
+          "prompt": "وصّل كل قيمة position بتشبيه الكرسي بتاعها:",
+          "pairs": [
+            ["relative", "اتحرك من مكانه لكن مكانه الأصلي محجوز"],
+            ["absolute", "طلع من الـ flow وقعد بالنسبة لأقرب أب relative"],
+            ["fixed", "متسمّر في الشاشة ومش بيتحرك مع الـ scroll"],
+            ["sticky", "عادي لحد ما يوصل نقطة معينة وبعدها يتثبت"]
+          ],
+          "hint": "fixed = متسمّر، sticky = بيلزق عند نقطة."
+        },
+        {
+          "id": "c5-s3",
+          "type": "bughunt",
+          "lang": "css",
+          "prompt": "الـ badge طار لزاوية الصفحة كلها بدل ما يقف فوق الـ card! اصطاد الغلطة في كود الـ card:",
+          "code": ".card {\n  [[0|position: static;]]\n  [[ok|padding: 24px;]]\n}\n.badge {\n  [[ok|position: absolute;]]\n  [[ok|top: -10px; right: -10px;]]\n}",
+          "bugs": [
+            { "why": "لما الأب يكون static الـ absolute بيتجاهله ويطير للصفحة كلها! لازم الأب يبقى position: relative." }
+          ],
+          "hint": "الـ absolute بيتثبت بالنسبة لأقرب أب مش static."
+        }
+      ]
+    },
+    {
+      "id": "c6-flex",
+      "num": 6,
+      "title": "Flexbox — توزيع بُعد واحد",
+      "en": "Flex Container, justify-content, align-items & column",
+      "docs": [
+        {
+          "tab": "صف Flexbox وتوزيعه",
+          "heading": "إزاي ترتّب عناصر جنب بعض بالتساوي؟",
+          "body": [
+            "أول ما تدي الأب <code>display: flex;</code> بيتحوّل لـ Flex Container والعناصر اللي جواه بترص جنب بعض أفقياً (<code>row</code>) وتقدر تتحكم في المسافات بـ <code>justify-content</code> و <code>align-items</code> و <code>gap</code>."
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "تشبيه الرف بالبلدي",
+            "text": "<strong>Flexbox</strong> زي رف واحد: <code>row</code> = رف أفقي (جنب بعض)، <code>column</code> = رف رأسي (فوق بعض). <code>justify-content</code> بتوزّع على امتداد الرف، و <code>align-items</code> بتظبّط المحاذاة العمودية عليه!"
+          },
+          "filename": "flexbox.css",
+          "lang": "css",
+          "code": ".flex-row {\n  [[0|display: flex;]]\n  [[1|justify-content: space-between;]]\n  [[2|align-items: center;]]\n  gap: 12px;\n}",
+          "spots": [
+            { "title": "display: flex", "say": "بيفعّل نظام Flexbox على الأب ويرص أولاده جنب بعض." },
+            { "title": "justify-content: space-between", "say": "يوزّع المسافات بالتساوي بين العناصر من الطرف للطرف." },
+            { "title": "align-items: center", "say": "يسنتر العناصر عمودياً في نص ارتفاع الرف." }
+          ],
+          "preview": "<div style='display:flex;justify-content:space-between;align-items:center;gap:10px;background:#f1f5f9;padding:12px;border-radius:8px;direction:ltr'><div style='background:#8B5CF6;color:#fff;padding:8px 16px;border-radius:6px;font-weight:700'>Item 1</div><div style='background:#8B5CF6;color:#fff;padding:8px 16px;border-radius:6px;font-weight:700'>Item 2</div><div style='background:#8B5CF6;color:#fff;padding:8px 16px;border-radius:6px;font-weight:700'>Item 3</div></div>",
+          "previewUrl": "localhost/flexbox"
+        },
+        {
+          "tab": "flex-direction: column",
+          "heading": "لما تقلب الرف رأسي (فوق بعض)",
+          "body": [
+            "لو أضفت <code>flex-direction: column;</code> العناصر بتترص فوق بعض بدل جنب بعض، مع <code>gap</code> نظيف بين كل عنصر واللي تحته."
+          ],
+          "filename": "flex-column.css",
+          "lang": "css",
+          "code": ".flex-col {\n  display: flex;\n  flex-direction: column;\n  align-items: stretch;\n  gap: 8px;\n}",
+          "preview": "<div style='display:flex;flex-direction:column;gap:6px;background:#f1f5f9;padding:10px;border-radius:8px;max-width:210px;direction:ltr'><div style='background:#06b6d4;color:#fff;padding:7px;border-radius:5px;text-align:center;font-weight:700'>Item A</div><div style='background:#06b6d4;color:#fff;padding:7px;border-radius:5px;text-align:center;font-weight:700'>Item B</div><div style='background:#06b6d4;color:#fff;padding:7px;border-radius:5px;text-align:center;font-weight:700'>Item C</div></div>",
+          "previewUrl": "localhost/flex-column"
+        }
+      ],
+      "stages": [
+        {
+          "id": "c6-s1",
+          "type": "choice",
+          "lang": "css",
+          "prompt": "توقّع شكل الـ 3 عناصر دول في المتصفح لما نطبّق الكود ده:",
+          "code": ".bar {\n  display: flex;\n  justify-content: space-between;\n}",
+          "options": [
+            {
+              "t": "متوزعين أفقياً بمسافات متساوية بين كل عنصر والتاني",
+              "preview": "<div style='display:flex;justify-content:space-between;background:#f1f5f9;padding:8px;border-radius:6px;direction:ltr'><span style='background:#8B5CF6;color:#fff;padding:4px 10px;border-radius:4px;font-size:12px'>1</span><span style='background:#8B5CF6;color:#fff;padding:4px 10px;border-radius:4px;font-size:12px'>2</span><span style='background:#8B5CF6;color:#fff;padding:4px 10px;border-radius:4px;font-size:12px'>3</span></div>",
+              "why": "صح الصح! space-between بيزق أول عنصر وآخر عنصر للأطراف ويوزّع المسافة بينهم."
+            },
+            {
+              "t": "مرصوصين فوق بعض رأسي",
+              "preview": "<div style='display:flex;flex-direction:column;gap:4px;background:#f1f5f9;padding:8px;border-radius:6px;direction:ltr'><span style='background:#06b6d4;color:#fff;padding:3px 10px;border-radius:4px;font-size:12px'>1</span><span style='background:#06b6d4;color:#fff;padding:3px 10px;border-radius:4px;font-size:12px'>2</span><span style='background:#06b6d4;color:#fff;padding:3px 10px;border-radius:4px;font-size:12px'>3</span></div>",
+              "why": "لأ، الاتجاه الافتراضي لـ Flexbox هو row (أفقي) مش column!"
+            }
+          ],
+          "answer": 0,
+          "hint": "الاتجاه الافتراضي لـ flex هو row، و space-between بتوزّع بينهم."
+        },
+        {
+          "id": "c6-s2",
+          "type": "slot",
+          "lang": "css",
+          "prompt": "كمّل كود Flexbox عشان ترص العناصر رأسي (فوق بعض) بمسافة 10px بينهم:",
+          "code": ".stack {\n  display: [[0]];\n  flex-direction: [[1]];\n  [[2]]: 10px;\n}",
+          "tokens": ["flex", "column", "gap", "row"],
+          "answer": ["flex", "column", "gap"],
+          "why": "display: flex + flex-direction: column + gap بتعمل قائمة رأسية نظيفة.",
+          "hint": "رأسي = column، والمسافة بين العناصر = gap."
+        },
+        {
+          "id": "c6-s3",
+          "type": "patch",
+          "lang": "css",
+          "prompt": "حوّل شريط الـ nav ده لـ Flexbox ووزّع اللينكات بالتساوي مع توسيط عمودي:",
+          "start": ".nav {\n  background: #1e293b;\n  padding: 12px;\n  border-radius: 8px;\n}",
+          "previewHtml": "<div class='nav'><span style='background:#818cf8;color:#fff;padding:6px 12px;border-radius:6px'>الرئيسية</span><span style='background:#818cf8;color:#fff;padding:6px 12px;border-radius:6px'>الكورسات</span><span style='background:#818cf8;color:#fff;padding:6px 12px;border-radius:6px'>تواصل</span></div>",
+          "chips": ["display: flex;", "justify-content: space-between;", "align-items: center;"],
+          "checks": [
+            { "regex": "display\\s*:\\s*flex", "fail": "لازم تضيف display: flex; الأول!" },
+            { "regex": "justify-content\\s*:\\s*space-(between|around|evenly)", "fail": "ضيف justify-content: space-between; عشان توزعهم بالتساوي." }
+          ],
+          "solution": ".nav {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  background: #1e293b;\n  padding: 12px;\n  border-radius: 8px;\n}",
+          "why": "شغل عالي! اللينكات اتوزعت بالتساوي زي أي Navbar احترافي.",
+          "hint": "استخدم display: flex و justify-content: space-between."
+        }
+      ]
+    },
+    {
+      "id": "c7-grid",
+      "num": 7,
+      "title": "CSS Grid — توزيع بُعدين",
+      "en": "2D Rows & Columns + Grid vs Flexbox",
+      "docs": [
+        {
+          "tab": "هيكل CSS Grid",
+          "heading": "صفوف وأعمدة في نفس الوقت (2D Layout)",
+          "body": [
+            "مع <code>display: grid;</code> بتحدد الأعمدة بـ <code>grid-template-columns</code> (مثلاً <code>1fr 2fr 1fr</code> يعني العمود الوسطاني ضعف الجانبيين!)، ولو عايز عنصر زي الـ Header أو Footer يمتد على كل الأعمدة بتدّيه <code>grid-column: 1 / -1;</code>."
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "Flexbox vs Grid بالبلدي",
+            "text": "<strong>Flexbox</strong> = رف واحد (يا صف يا عمود). <strong>Grid</strong> = جدول Excel (صفوف وأعمدة مع بعض). ومش ضد بعض — استخدم Grid لتقسيمة الصفحة الكبيرة، و Flexbox لتنسيق الأزرار جوا كل خانة!"
+          },
+          "filename": "grid.css",
+          "lang": "css",
+          "code": ".grid-layout {\n  display: grid;\n  [[0|grid-template-columns: 1fr 2fr 1fr;]]\n  gap: 8px;\n}\n.header, .footer {\n  [[1|grid-column: 1 / -1;]]\n}",
+          "spots": [
+            { "title": "1fr 2fr 1fr", "say": "وحدة fr يعني جزء (fraction) من المساحة الفاضية — هنا 3 أعمدة والوسطاني ضعف الطرفين." },
+            { "title": "grid-column: 1 / -1", "say": "بيقول للعنصر: ابدأ من أول عمود (1) لحد آخر عمود (-1) — يعني خُد العرض كله!" }
+          ],
+          "preview": "<div style='display:grid;grid-template-columns:1fr 2fr 1fr;gap:6px;direction:ltr;font-size:12px;font-weight:700;color:#fff;text-align:center'><div style='grid-column:1/-1;background:#8B5CF6;padding:8px;border-radius:6px'>Header (1 / -1)</div><div style='background:#06b6d4;padding:14px 6px;border-radius:6px'>Sidebar (1fr)</div><div style='background:#10B981;padding:14px 6px;border-radius:6px'>Main (2fr)</div><div style='background:#f59e0b;padding:14px 6px;border-radius:6px'>Aside (1fr)</div><div style='grid-column:1/-1;background:#334155;padding:8px;border-radius:6px'>Footer (1 / -1)</div></div>",
+          "previewUrl": "localhost/grid"
+        }
+      ],
+      "stages": [
+        {
+          "id": "c7-s1",
+          "type": "buckets",
+          "layout": "columns",
+          "prompt": "إمتى تختار Flexbox وإمتى تختار CSS Grid؟",
+          "buckets": [
+            { "id": "flex", "label": "Flexbox (1D)" },
+            { "id": "grid", "label": "CSS Grid (2D)" }
+          ],
+          "items": [
+            { "t": "شريط أزرار أفقي في صف واحد", "b": "flex", "why": "صف واحد = بُعد واحد، يبقى Flexbox أسرع وأنظف." },
+            { "t": "هيكل صفحة كامل (Header + Sidebar + Main + Footer)", "b": "grid", "why": "تخطيط بصفوف وأعمدة مع بعض = CSS Grid." },
+            { "t": "تقسيم 3 أعمدة بنسب 1fr 2fr 1fr", "b": "grid", "why": "وحدة fr وتقسيم الأعمدة والصفوف قوة CSS Grid." },
+            { "t": "توسيط أيقونة ونص جوا زرار واحد", "b": "flex", "why": "محاذاة عناصر جوا مكون صغير = Flexbox." }
+          ],
+          "hint": "بُعد واحد = Flexbox، بُعدين (صفوف + أعمدة) = Grid."
+        },
+        {
+          "id": "c7-s2",
+          "type": "slot",
+          "lang": "css",
+          "prompt": "كمّل كود Grid عشان تعمل 3 أعمدة (الوسطاني ضعف الطرفين) والـ header ياخد كل الأعمدة:",
+          "code": ".layout {\n  display: [[0]];\n  grid-template-columns: [[1]];\n}\n.header {\n  grid-column: [[2]];\n}",
+          "tokens": ["grid", "1fr 2fr 1fr", "1 / -1", "flex"],
+          "answer": ["grid", "1fr 2fr 1fr", "1 / -1"],
+          "why": "1fr 2fr 1fr بتقسم العرض لأربع أجزاء (1+2+1)، و 1 / -1 بتمد الـ header من الأول للآخر.",
+          "hint": "من أول عمود لآخر عمود بتتكتب 1 / -1."
+        }
+      ]
+    },
+    {
+      "id": "c8-responsive",
+      "num": 8,
+      "title": "Responsive و Mobile-First",
+      "en": "Media Queries Across Mobile, Tablet & Desktop",
+      "docs": [
+        {
+          "tab": "منهجية Mobile-First",
+          "heading": "إزاي صفحتك تظبط على الموبايل والتابلت والديسكتوب؟",
+          "body": [
+            "<strong>Media Queries</strong> (<code>@media</code>) بتسمحلك تغيّر التصميم حسب عرض الشاشة.",
+            "ومنهجية <strong>Mobile-First</strong> معناها إنك تكتب ستايل الموبايل الأول كوضع افتراضي (مثلاً <code>width: 100%</code>)، وبعدين تضيف <code>@media (min-width: 768px)</code> للتابلت و <code>@media (min-width: 1024px)</code> للديسكتوب!"
+          ],
+          "filename": "responsive.css",
+          "lang": "css",
+          "code": ".card {\n  [[0|width: 100%;]] /* الموبايل — الافتراضي */\n}\n[[1|@media (min-width: 768px)]] {\n  .card { width: 50%; }    /* تابلت */\n}\n[[2|@media (min-width: 1024px)]] {\n  .card { width: 33.33%; } /* ديسكتوب */\n}",
+          "spots": [
+            { "title": "الموبايل الافتراضي", "say": "بيشتغل على كل الموبايلات بدون الحاجة لـ media query." },
+            { "title": "@media (min-width: 768px)", "say": "يشتغل من أول التابلت فأكبر ويخلي كاردين جنب بعض (50%)." },
+            { "title": "@media (min-width: 1024px)", "say": "يشتغل على اللابتوب والديسكتوب ويخلي 3 كروت جنب بعض (33.33%)." }
+          ],
+          "preview": "<div style='display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;font-size:12.5px;font-weight:700'><div style='background:#dbeafe;color:#1e3a8a;padding:10px 6px;border-radius:8px'>Mobile<br><code>100%</code></div><div style='background:#dcfce7;color:#14532d;padding:10px 6px;border-radius:8px'>Tablet ≥768px<br><code>50%</code></div><div style='background:#f3e8ff;color:#581c87;padding:10px 6px;border-radius:8px'>Desktop ≥1024px<br><code>33.33%</code></div></div>",
+          "previewUrl": "localhost/responsive",
+          "tip": "Mobile-First بـ min-width ألف مرة أنضف وأسرع في الصيانة من إنك تصمم ديسكتوب وترجع تكسره للموبايل!"
+        }
+      ],
+      "stages": [
+        {
+          "id": "c8-s1",
+          "type": "order",
+          "prompt": "رتّب كتابة الكود حسب منهجية Mobile-First الصح من فوق لتحت:",
+          "items": [
+            "ستايل الموبايل الافتراضي (width: 100%)",
+            "@media (min-width: 768px) — التابلت (width: 50%)",
+            "@media (min-width: 1024px) — الديسكتوب (width: 33.33%)"
+          ],
+          "why": "في Mobile-First بنبدأ من الشاشة الأصغر (الافتراضي) ونكبر تدريجياً بـ min-width.",
+          "hint": "موبايل الأول ← تابلت ← ديسكتوب."
+        },
+        {
+          "id": "c8-s2",
+          "type": "choice",
+          "prompt": "في منهجية Mobile-First بنستخدم أنهي شرط في الـ @media؟",
+          "options": [
+            { "t": "@media (min-width: ...)", "why": "مظبوط! min-width بتبدأ من الموبايل وتضيف تحسينات كل ما الشاشة تكبر." },
+            { "t": "@media (max-width: ...)", "why": "max-width دي بتاعة Desktop-First مش Mobile-First." },
+            { "t": "@media (font-size: ...)", "why": "مفيش media query اسمه font-size عشان تقيس عرض الشاشة." }
+          ],
+          "answer": 0,
+          "hint": "بتستهدف الشاشات الأكبر من حد أدنى معين."
+        }
+      ]
+    },
+    {
+      "id": "c9-anim",
+      "num": 9,
+      "title": "Animations و Transitions",
+      "en": "Smooth Hover Transitions & @keyframes",
+      "docs": [
+        {
+          "tab": "Transition vs @keyframes",
+          "heading": "إزاي تحرّك العناصر بسلاسة في CSS؟",
+          "body": [
+            "<strong>Transition</strong> بتعمل انتقال ناعم من حالة لحالة لما يحصل <strong>trigger</strong> زي <code>:hover</code> (مثلاً الزرار يكبر بـ <code>transform: scale(1.1)</code> في <code>0.3s</code>).",
+            "أما <strong>@keyframes + animation</strong> فبتعمل حركة متعددة الخطوات أو مستمرة لوحدها بدون ما المستخدم يلمس حاجة (زي كرة بتنطط <code>infinite</code>)!"
+          ],
+          "filename": "motion.css",
+          "lang": "css",
+          "code": ".btn {\n  [[0|transition: all 0.3s ease;]]\n}\n.btn:hover {\n  transform: scale(1.1);\n}\n[[1|@keyframes bounce]] {\n  0%, 100% { transform: translateY(0); }\n  50% { transform: translateY(-20px); }\n}\n.ball { [[2|animation: bounce 1s ease-in-out infinite;]] }",
+          "spots": [
+            { "title": "transition", "say": "بتنعّم التغيير بين الحالة العادية وحالة :hover في 0.3 ثانية." },
+            { "title": "@keyframes bounce", "say": "بتعرّف خطوات الحركة (البداية 0%، النص 50%، النهاية 100%)." },
+            { "title": "animation: ... infinite", "say": "بتشغّل الحركة على العنصر وتكررها للأبد." }
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "الفرق في جملة واحدة",
+            "text": "<strong>transition</strong> = حركة من نقطة أ لنقطة ب لما يحصل فعل (زي hover). <strong>@keyframes</strong> = فيلم قصير بعدة لقطات بيشتغل لوحده وممكن يتكرر!"
+          }
+        }
+      ],
+      "stages": [
+        {
+          "id": "c9-s1",
+          "type": "buckets",
+          "layout": "columns",
+          "prompt": "فرّق بين اللي يناسب transition واللي محتاج @keyframes:",
+          "buckets": [
+            { "id": "tr", "label": "CSS Transition" },
+            { "id": "kf", "label": "@keyframes Animation" }
+          ],
+          "items": [
+            { "t": "زرار يكبر ولونه يتغير لما الماوس ييجي عليه (:hover)", "b": "tr", "why": "تغيير بين حالتين مع trigger (:hover) = transition." },
+            { "t": "كرة بتنطط فوق وتحت لوحدها باستمرار (infinite)", "b": "kf", "why": "حركة مستمرة بدون trigger = @keyframes." },
+            { "t": "حركة متعددة الخطوات (0% → 50% → 100%)", "b": "kf", "why": "الـ @keyframes بتديك تحكم في أكتر من محطة." },
+            { "t": "تغيير لون border بنعومة عند focus على input", "b": "tr", "why": "انتقال بسيط من حالة لحالة = transition." }
+          ],
+          "hint": "محتاج trigger زي hover؟ يبقى transition. شغال لوحده بخطوات؟ يبقى @keyframes."
+        },
+        {
+          "id": "c9-s2",
+          "type": "bughunt",
+          "lang": "css",
+          "prompt": "المبرمج حط transition على :hover بس — فالزرار بيرجع بعنف لما الماوس يبعد! اصطاد الغلطة:",
+          "code": ".btn {\n  [[ok|background: #8B5CF6;]]\n}\n.btn:hover {\n  [[0|transition: all 0.3s ease;]]\n  [[ok|transform: scale(1.1);]]\n}",
+          "bugs": [
+            { "why": "حط transition على .btn نفسه مش جوا :hover عشان الحركة تبقى ناعمة في الدخول وفي الرجوع كمان!" }
+          ],
+          "hint": "لو transition جوا :hover بس، إيه اللي يحصل أول ما تشيل الماوس؟"
+        }
+      ]
+    },
+    {
+      "id": "c10-vars",
+      "num": 10,
+      "title": "CSS Variables و Glassmorphism",
+      "en": "Custom Properties (:root / var) & Modern Glass UI",
+      "docs": [
+        {
+          "tab": "CSS Variables",
+          "heading": "متغيرات CSS — أساس أي Design System",
+          "body": [
+            "عرّف ألوانك وأحجامك مرة واحدة جوا <code>:root</code> باستخدام شرطتين <code>--primary</code>، واستدعيهم في أي مكان بـ <code>var(--primary)</code>. لو حبيت تغيّر لون الموقع كله، بتغيّر سطر واحد في <code>:root</code> وكل الكروت والأزرار تتغير معاك!"
+          ],
+          "filename": "variables.css",
+          "lang": "css",
+          "code": "[[0|:root]] {\n  [[1|--primary: #8B5CF6;]]\n  --radius: 12px;\n}\n.card {\n  background: [[2|var(--primary)]];\n  border-radius: var(--radius);\n}",
+          "spots": [
+            { "title": ":root", "say": "أعلى عنصر في الصفحة — المتغيرات اللي جواه بتبقى متاحة للموقع كله." },
+            { "title": "--primary", "say": "أي CSS Variable لازم يبدأ بشرطتين (--)." },
+            { "title": "var(--primary)", "say": "الدالة اللي بتقرأ قيمة المتغير وتطبّقها." }
+          ]
+        },
+        {
+          "tab": "Gradients و Glassmorphism",
+          "heading": "سر تصميم الزجاج (Glassmorphism)",
+          "body": [
+            "تصميم <strong>Glassmorphism</strong> الحديث بيتكوّن من 3 مكونات بسيطة فوق خلفية فيها Gradient: <strong>خلفية شبه شفافة</strong> (<code>rgba(255,255,255,0.15)</code>)، و <strong>تغبيش للخلفية</strong> (<code>backdrop-filter: blur(12px)</code>)، و <strong>إطار خفيف شفاف</strong>."
+          ],
+          "preview": "<div style='background:linear-gradient(135deg,#667eea,#764ba2);padding:22px;border-radius:12px;display:flex;justify-content:center'><div style='background:rgba(255,255,255,0.18);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.28);border-radius:12px;padding:14px 24px;color:#fff;text-align:center'><div style='font-weight:800;font-size:16px'>Glass Card</div><div style='font-size:12.5px;opacity:.9'>Gradient + rgba + blur</div></div></div>",
+          "previewUrl": "localhost/glass"
+        }
+      ],
+      "stages": [
+        {
+          "id": "c10-s1",
+          "type": "slot",
+          "lang": "css",
+          "prompt": "كمّل تعريف واستخدام الـ CSS Variable في :root:",
+          "code": "[[0]] {\n  [[1]]: #818cf8;\n}\n.btn {\n  background: [[2]];\n}",
+          "tokens": [":root", "--brand", "var(--brand)", "$brand"],
+          "answer": [":root", "--brand", "var(--brand)"],
+          "why": "بنعرّف المتغير جوا :root بـ -- وبنستخدمه بـ var(--brand).",
+          "hint": "المتغير في CSS بيبدأ بشرطتين -- مش علامة $."
+        },
+        {
+          "id": "c10-s2",
+          "type": "patch",
+          "lang": "css",
+          "prompt": "اعمل تأثير Glassmorphism على .glass بإنك تضيف خلفية شفافة rgba و backdrop-filter blur:",
+          "start": ".glass {\n  color: white;\n  padding: 18px;\n  border-radius: 14px;\n  border: 1px solid rgba(255,255,255,0.25);\n}",
+          "previewHtml": "<div style='background:linear-gradient(135deg,#6366f1,#ec4899);padding:20px;border-radius:12px'><div class='glass'><strong>Glass Card</strong><p style='margin:4px 0 0'>تأثير الزجاج الحديث</p></div></div>",
+          "chips": ["background: rgba(255, 255, 255, 0.18);", "backdrop-filter: blur(12px);"],
+          "checks": [
+            { "regex": "rgba\\s*\\(", "fail": "ضيف خلفية شفافة بـ rgba(...) عشان الزجاج يبان." },
+            { "regex": "backdrop-filter\\s*:\\s*blur", "fail": "ضيف backdrop-filter: blur(12px); عشان التغبيش يشتغل!" }
+          ],
+          "solution": ".glass {\n  color: white;\n  background: rgba(255, 255, 255, 0.18);\n  backdrop-filter: blur(12px);\n  padding: 18px;\n  border-radius: 14px;\n  border: 1px solid rgba(255,255,255,0.25);\n}",
+          "why": "عاش! عملت كارد Glassmorphism عصري وشيك بإيدك.",
+          "hint": "استخدم rgba للشفافية و backdrop-filter: blur للتغبيش."
+        }
+      ]
+    },
+    {
+      "id": "c11-boss",
+      "num": 11,
+      "title": "الاختبار الشامل",
+      "en": "Lecture 03 Boss Challenge (10 Questions)",
+      "boss": true,
+      "stages": [
+        {
+          "id": "bc-1",
+          "type": "choice",
+          "prompt": "ليه External CSS أفضل من Inline CSS في المشاريع؟",
+          "options": [
+            { "t": "لأنه بيفصل الشكل عن المحتوى وملف واحد بيتحكم في صفحات الموقع كلها", "why": "بالظبط! صيانة أسهل وتنظيم أنضف بكتير." },
+            { "t": "لأن Inline CSS مش بيشتغل على الألوان", "why": "Inline بيشتغل عادي، بس بيخلط الشكل بالمحتوى ومش reusable." },
+            { "t": "لأن External CSS مش محتاج تاغ <link>", "why": "بالعكس External CSS لازم يتربط بـ <link rel=\"stylesheet\">." }
+          ],
+          "answer": 0,
+          "hint": "فكّر في إعادة الاستخدام في 100 صفحة."
+        },
+        {
+          "id": "bc-2",
+          "type": "choice",
+          "prompt": "إيه الفرق الصح بين Class selector (.) و ID selector (#)؟",
+          "options": [
+            { "t": "Class يتكرر على أي عدد من العناصر، ID فريد لعنصر واحد وأقوى في Specificity", "why": "١٠/١٠! Class = متكرر، ID = فريد + VIP في الأولوية." },
+            { "t": "Class أقوى من ID في Specificity", "why": "العكس! ID وزنه 1-0-0 أقوى من Class اللي وزنه 0-1-0." },
+            { "t": "ID ينفع يتكرر على 20 عنصر في نفس الصفحة", "why": "الـ ID لازم يكون فريد (عنصر واحد بس) في الصفحة." }
+          ],
+          "answer": 0,
+          "hint": "مين فيهم الـ VIP الفريد؟"
+        },
+        {
+          "id": "bc-3",
+          "type": "choice",
+          "prompt": "إيه المشكلة اللي box-sizing: border-box بيحلها؟",
+          "options": [
+            { "t": "بيمنع الـ padding والـ border من إنهم يزودوا عرض العنصر عن الـ width المطلوب", "why": "صح! كل حاجة بتتحسب جوا الـ width زي شنطة الـ 20cm." },
+            { "t": "بيمسح الـ border من كل العناصر تلقائياً", "why": "لأ، بيسيب الـ border عادي بس بيحسبه جوا الـ width." },
+            { "t": "بيحوّل أي عنصر إلى Flexbox", "why": "ده دور display: flex مش box-sizing." }
+          ],
+          "answer": 0,
+          "hint": "افتكر الفرق بين 246px و 200px."
+        },
+        {
+          "id": "bc-4",
+          "type": "choice",
+          "prompt": "أنهي وحدة الأفضل لأحجام الخطوط المتناسقة حسب حجم خط الـ root؟",
+          "options": [
+            { "t": "rem", "why": "بالظبط! rem بتتحسب نسبة للـ root font-size ومريحة للـ Accessibility." },
+            { "t": "px", "why": "px قيمة ثابتة ومفضلة للـ borders أكتر من الخطوط." },
+            { "t": "deg", "why": "deg للزوايا زي rotate(45deg) مش للخطوط." }
+          ],
+          "answer": 0,
+          "hint": "حرف r فيها اختصار لـ root."
+        },
+        {
+          "id": "bc-5",
+          "type": "choice",
+          "prompt": "إيه الفرق بين display: block و display: inline؟",
+          "options": [
+            { "t": "block ياخد سطر لوحده ويقبل width/height، و inline يقعد جنب غيره وميقبلش width/height", "why": "معلّم! ده الفرق الأساسي بالظبط." },
+            { "t": "inline بياخد السطر كله لوحده", "why": "لأ، اللي بياخد السطر كله هو block." },
+            { "t": "block مش بيقبل padding خالص", "why": "block بيقبل كل خصائص الـ Box Model عادي." }
+          ],
+          "answer": 0,
+          "hint": "الـ span inline والـ div block."
+        },
+        {
+          "id": "bc-6",
+          "type": "choice",
+          "prompt": "إيه الفرق بين position: relative و position: absolute؟",
+          "options": [
+            { "t": "relative يتحرك ومكانه يفضل محجوز؛ absolute يطلع من الـ flow ويتحط بالنسبة لأقرب أب relative", "why": "صح الصح! تشبيه الكرسي جابها بالظبط." },
+            { "t": "absolute بيفضل حجز مكانه الأصلي في الصفحة", "why": "لأ، absolute بيطلع برا الـ flow ومش بيحجز مكان." },
+            { "t": "relative بيثبّت العنصر في الشاشة أثناء الـ scroll", "why": "اللي بيثبت في الشاشة هو fixed مش relative." }
+          ],
+          "answer": 0,
+          "hint": "افتكر شارة NEW فوق كارد المنتج."
+        },
+        {
+          "id": "bc-7",
+          "type": "choice",
+          "prompt": "إزاي توزّع 3 عناصر أفقياً بمسافات متساوية بينهم بـ Flexbox؟",
+          "options": [
+            { "t": "display: flex; justify-content: space-between;", "why": "بالظبط! space-between بتوزّع المسافة بينهم بالتساوي." },
+            { "t": "display: block; text-align: justify;", "why": "ده مش Flexbox ولا بيوزّع كروت." },
+            { "t": "display: flex; flex-direction: column;", "why": "column بترصهم فوق بعض مش أفقياً متوزعين." }
+          ],
+          "answer": 0,
+          "hint": "بتحتاج display: flex ومعاها خاصية التوزيع على المحور الأساسي."
+        },
+        {
+          "id": "bc-8",
+          "type": "choice",
+          "prompt": "إيه الفرق الرئيسي بين Flexbox و CSS Grid؟",
+          "options": [
+            { "t": "Flexbox بُعد واحد (صف أو عمود)، و Grid بُعدين (صفوف وأعمدة مع بعض)", "why": "١٠/١٠! وتقدر تستخدمهم سوا في نفس الصفحة." },
+            { "t": "Grid مينفعش يشتغل مع Flexbox في نفس الصفحة", "why": "بالعكس، أفضل تصميم بيجمع Grid للهيكل و Flexbox للتفاصيل!" },
+            { "t": "Flexbox للصور بس و Grid للنصوص بس", "why": "الاتنين بيوزعوا أي عناصر HTML عادي." }
+          ],
+          "answer": 0,
+          "hint": "رف واحد (1D) vs جدول Excel (2D)."
+        },
+        {
+          "id": "bc-9",
+          "type": "choice",
+          "prompt": "يعني إيه Mobile-First Design؟",
+          "options": [
+            { "t": "تبدأ بتصميم الموبايل الافتراضي الأول وتضيف @media (min-width) للشاشات الأكبر", "why": "عاش! ده المعيار الحديث في الـ Responsive Design." },
+            { "t": "تعمل الموقع يشتغل على الموبايل بس وتمنع الديسكتوب", "why": "لأ طبعاً، الموقع بيشتغل على كل الشاشات بس بتبدأ من الأصغر للأكبر." },
+            { "t": "تستخدم max-width بس وتبدأ من شاشة 4K", "why": "ده Desktop-First مش Mobile-First." }
+          ],
+          "answer": 0,
+          "hint": "الاسم نفسه بيقولك ابدأ بمين الأول!"
+        },
+        {
+          "id": "bc-10",
+          "type": "choice",
+          "prompt": "إيه فايدة CSS Variables (:root و var())؟",
+          "options": [
+            { "t": "تحفظ الألوان والأحجام في مكان واحد وتستدعيها في كل الموقع — تعديل واحد يغيّر الكل", "why": "قفّلت امتحان CSS بنجاح يا بطل!" },
+            { "t": "تكتب بيها loops و if statements زي JavaScript", "why": "CSS Variables للقيم والتنسيق مش للبرمجة المنطقية." },
+            { "t": "بتشتغل بس في Inline CSS", "why": "بالعكس مكانها الأساسي في :root جوا ملف CSS." }
+          ],
+          "answer": 0,
+          "hint": "هي أساس أي Design System."
+        }
+      ]
+    }
+  ],
+  "recall": [
+    { "q": "إيه الفرق بين Inline CSS و External CSS؟", "a": "Inline بيتكتب جوا الـ tag بـ style attribute ومش reusable؛ External ملف .css منفصل مربوط بـ <link> وهو الأفضل للصيانة." },
+    { "q": "إيه الفرق بين .class و #id في الـ Specificity؟", "a": "الـ Class (.) يتكرر ووزنه 0-1-0، والـ ID (#) فريد لعنصر واحد ووزنه 1-0-0 (أقوى)." },
+    { "q": "إيه المشكلة اللي box-sizing: border-box بيحلها؟", "a": "بتخلي الـ padding والـ border يتحسبوا جوا الـ width المحدد، فالعنصر ميتمددش ويبوظ التوزيع." },
+    { "q": "إيه الفرق بين rem و px و %؟", "a": "px ثابتة (ممتازة للـ borders)، rem نسبة من root font-size (الأفضل للخطوط)، و % نسبة من العنصر الأب." },
+    { "q": "إيه الفرق بين display: block و inline و inline-block؟", "a": "block سطر كامل ويقبل width؛ inline جنب إخواته وميقبلش width؛ inline-block جنب إخواته ويقبل width." },
+    { "q": "ليه بنحط position: relative على الأب لما الابن يكون absolute؟", "a": "عشان الـ absolute يتربط بحدود الأب ده بدل ما يطير لحدود الصفحة كلها." },
+    { "q": "إزاي توزّع 3 عناصر بالتساوي بـ Flexbox؟", "a": "display: flex; justify-content: space-between; (أو space-around / space-evenly)." },
+    { "q": "إمتى تستخدم CSS Grid وإمتى Flexbox؟", "a": "Grid للـ 2D layout (صفوف وأعمدة مع بعض) و Flexbox للـ 1D (صف واحد أو عمود واحد)." },
+    { "q": "إيه الفرق بين transition و @keyframes؟", "a": "transition بتنعّم التغيير بين حالتين مع trigger زي :hover؛ @keyframes حركة مستمرة أو متعددة الخطوات بتشتغل لوحدها." },
+    { "q": "إيه مكونات تأثير Glassmorphism؟", "a": "خلفية شفافة rgba + تغبيش backdrop-filter: blur(...) + إطار خفيف شفاف فوق Gradient." }
+  ]
+}

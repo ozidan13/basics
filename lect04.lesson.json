@@ -1,0 +1,823 @@
+{
+  "id": "basics-lect04",
+  "title": "JavaScript من الألف للياء",
+  "subtitle": "المحاضرة الرابعة — Variables، Operators، Loops، Functions، Arrays، Objects، DOM و Events",
+  "accent": "#facc15",
+  "accent2": "#34d399",
+  "theme": "js",
+  "lang": "js",
+  "readUrl": "draft/lect04.html",
+  "summary": [
+    "دور JavaScript كروح وتفاعل الصفحة (HTML هيكل + CSS شكل + JS حركة)، استخدام console.log ووضع <script> قبل </body> أو استخدام External JS مع defer.",
+    "المتغيرات (const أولاً، let لو هتتغير، وتجنّب var) وأنواع البيانات (string, number, boolean, undefined, null) و typeof.",
+    "العمليات الحسابية + Template Literals (`...${x}...`) والفرق الحاسم بين == و === (دايماً === لتجنّب type coercion).",
+    "التحكم في المسار: if/else/ternary و switch (مع break)، والتكرار بـ for و while و for...of، و Functions العادية والـ Arrow Functions.",
+    "Arrays (0-based, push/pop/includes و map/filter/reduce)، Objects + Destructuring + Array of Objects، والتحكم في الصفحة بـ DOM (querySelector, textContent vs innerHTML, classList) و Events (addEventListener + مشروع Todo List)."
+  ],
+  "levels": [
+    {
+      "id": "j1-why",
+      "num": 1,
+      "title": "ليه JavaScript وأول سطر كود",
+      "en": "Why JS, console.log & Script Placement",
+      "docs": [
+        {
+          "tab": "أول سطر JS",
+          "heading": "الحياة بتبدأ هنا — Hello World في الـ Console",
+          "body": [
+            "<strong>JavaScript</strong> هي اللغة اللي بتحوّل صفحتك من صفحة ثابتة لتطبيق تفاعلي حي. أول أداة هتستخدمها كل يوم هي <code>console.log()</code> اللي بتطبع النتائج في الـ Console (افتح <strong>F12</strong> في المتصفح عشان تشوفها)."
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "تشبيه العربية بالبلدي",
+            "text": "<strong>HTML</strong> = هيكل العربية (الطوب). <strong>CSS</strong> = الدهان والشكل. <strong>JavaScript</strong> = الموتور والكهربا! من غير JS الموقع زي عربية شيك بس مفيهاش موتور!"
+          },
+          "filename": "hello.js",
+          "lang": "js",
+          "code": "// أول سطر JavaScript في حياتك!\n[[0|console.log(\"Hello, World!\");]]\nconsole.log(\"أنا اتعلمت JavaScript!\");\n[[1|console.log(2 + 3);]]",
+          "spots": [
+            { "title": "console.log()", "say": "بتطبع أي نص أو رقم أو متغير في الـ DevTools Console عشان تتأكد إن كودك شغال." },
+            { "title": "2 + 3", "say": "JS بتحسب التعبير الأول وبعدين تطبع النتيجة 5." }
+          ],
+          "console": ["Hello, World!", "أنا اتعلمت JavaScript!", "5"]
+        },
+        {
+          "tab": "فين تحط الـ <script>؟",
+          "heading": "Internal vs External JS ومكان التاغ الصح",
+          "body": [
+            "في الشغل الحقيقي بنحط كود JavaScript في ملف منفصل (<strong>External JS</strong> زي <code>app.js</code>) ونربطه بـ <code>&lt;script src=\"app.js\"&gt;&lt;/script&gt;</code>.",
+            "ومكان الـ <code>&lt;script&gt;</code> لازم يكون <strong>قبل <code>&lt;/body&gt;</code> مباشرة</strong> (أو في الـ head مع <code>defer</code>) عشان عناصر الـ HTML تحمّل الأول قبل ما الكود يحاول يمسكها!"
+          ],
+          "filename": "index.html",
+          "lang": "html",
+          "code": "<body>\n  <h1 id=\"title\">Hello!</h1>\n  [[0|<script src=\"app.js\"></script>]]\n</body>",
+          "spots": [
+            { "title": "قبل </body> مباشرة", "say": "كده المتصفح يبني الـ HTML والـ DOM الأول، وبعدها يشغّل app.js من غير errors." }
+          ],
+          "warning": "لو حطيت <script> عادي في الـ <head> وحاولت تمسك عنصر في الـ body، هيرجعلك null ويعمل Error لأن الصفحة لسه محمّلتش!"
+        }
+      ],
+      "stages": [
+        {
+          "id": "j1-s1",
+          "type": "choice",
+          "prompt": "ليه بنحط تاغ <script> قبل </body> مش في أول <head>؟",
+          "options": [
+            { "t": "عشان عناصر الـ HTML تحمّل الأول ويبقى الـ DOM جاهز قبل ما الكود يشتغل", "why": "بالظبط! أو لو حطيته في <head> تضيف معاه defer." },
+            { "t": "لأن <script> ممنوع يتكتب مع External file", "why": "بالعكس External JS هو الأفضل في الشغل الحقيقي!" },
+            { "t": "عشان console.log ميشتغلش غير تحت", "why": "console.log بيشتغل في أي مكان، السبب هو انتظار تحميل الـ DOM." }
+          ],
+          "answer": 0,
+          "hint": "تخيّل الكود بيدوّر على زرار لسه مترسمش على الصفحة."
+        },
+        {
+          "id": "j1-s2",
+          "type": "slot",
+          "lang": "html",
+          "prompt": "كمّل تاغ ربط ملف JavaScript الخارجي app.js قبل نهاية الصفحة:",
+          "code": "  <h1>أهلاً بيك</h1>\n  <[[0]] [[1]]=\"app.js\"></[[2]]>\n</body>",
+          "tokens": ["script", "src", "script", "href"],
+          "answer": ["script", "src", "script"],
+          "why": "ملف JS بيتربط بـ <script src=\"app.js\"></script> — خد بالك src مش href!",
+          "hint": "CSS بياخد link + href، إنما JS بياخد script + src."
+        }
+      ]
+    },
+    {
+      "id": "j2-vars",
+      "num": 2,
+      "title": "المتغيرات وأنواع البيانات",
+      "en": "let, const, Data Types & typeof",
+      "docs": [
+        {
+          "tab": "let vs const vs var",
+          "heading": "إزاي تحجز مكان لبياناتك في الذاكرة؟",
+          "body": [
+            "عندك <code>const</code> للثوابت اللي مش هتتغير، و <code>let</code> للمتغيرات اللي قيمتها هتتغير بعدين. أما <code>var</code> فهي الطريقة القديمة وفيها مشاكل <strong>Hoisting</strong> وبتتسرب برا الـ blocks — <strong>متستخدمهاش خالص!</strong>"
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "تشبيه الصناديق بالبلدي",
+            "text": "<strong>let</strong> = صندوق تقدر تبدّل اللي جواه. <strong>const</strong> = صندوق مقفول بقفل ميتبدلش. <strong>null</strong> = صندوق فاضي عن قصد. <strong>undefined</strong> = صندوق نسيت تحط فيه حاجة!"
+          },
+          "filename": "variables.js",
+          "lang": "js",
+          "code": "[[0|let age = 20;]]\nage = 21; // مسموح تغيّر let\n\n[[1|const name = \"Ahmed\";]]\n// name = \"Ali\"; ← Error! const ثابت\n\nconsole.log(name, age);",
+          "spots": [
+            { "title": "let", "say": "استخدمها بس لما القيمة فعلاً هتتغير (زي العمر أو عدّاد نقط)." },
+            { "title": "const", "say": "القاعدة الذهبية: ابدأ بـ const دايماً، وحوّلها let بس لو احتجت تغيّرها." }
+          ],
+          "console": ["Ahmed 21"]
+        },
+        {
+          "tab": "أنواع البيانات و typeof",
+          "heading": "String, Number, Boolean, Undefined, Null",
+          "body": [
+            "في JavaScript عندك أنواع أساسية: <strong>String</strong> (نص)، <strong>Number</strong> (أي رقم صحيح أو عشري)، <strong>Boolean</strong> (<code>true</code> أو <code>false</code>)، <strong>undefined</strong> (متعرّف بدون قيمة)، و <strong>null</strong> (قيمة فاضية عن قصد). وأداة <code>typeof</code> بتقولك نوع أي متغير."
+          ],
+          "filename": "types.js",
+          "lang": "js",
+          "code": "let greeting = \"أهلاً\";  // string\nlet price = 99.5;         // number\nlet isLoggedIn = true;    // boolean\nlet address;              // undefined\nlet selected = null;      // null\n\nconsole.log(typeof greeting, typeof price);",
+          "console": ["string number"],
+          "warning": "معلومة إنترفيو مشهورة: typeof null بترجع \"object\" وده bug تاريخي قديم في JavaScript ومقدروش يغيروه عشان ميكسروش المواقع القديمة!"
+        }
+      ],
+      "stages": [
+        {
+          "id": "j2-s1",
+          "type": "buckets",
+          "layout": "columns",
+          "prompt": "صنّف كل قيمة لنوع البيانات الصح بتاعها في JavaScript:",
+          "buckets": [
+            { "id": "str", "label": "String" },
+            { "id": "num", "label": "Number" },
+            { "id": "bool", "label": "Boolean" }
+          ],
+          "items": [
+            { "t": "\"أهلاً بيكم\"", "b": "str", "why": "أي حاجة جوا علامات تنصيص = String." },
+            { "t": "99.5", "b": "num", "why": "الأرقام الصحيحة والعشرية الاتنين Number في JS." },
+            { "t": "true", "b": "bool", "why": "true و false من نوع Boolean." },
+            { "t": "\"42\"", "b": "str", "why": "خد بالك! طالما جوا علامات تنصيص يبقى String مش Number!" }
+          ],
+          "hint": "أي حاجة بين علامات تنصيص \"\" بتبقى String حتى لو جواها أرقام."
+        },
+        {
+          "id": "j2-s2",
+          "type": "bughunt",
+          "lang": "js",
+          "prompt": "في سطرين فيهم مشكلة (استخدام var القديمة + محاولة تغيير const) — اصطادهم الاتنين:",
+          "code": "[[0|var score = 10;]]\n[[ok|let lives = 3;]]\n[[ok|const maxLives = 5;]]\n[[1|maxLives = 10;]]",
+          "bugs": [
+            { "why": "var قديمة وبتعمل مشاكل hoisting — استخدم let أو const بدلها." },
+            { "why": "maxLives متعرّف بـ const فمينفعش تعيد تعيينه!" }
+          ],
+          "hint": "دوّر على var وعلى إعادة تعيين متغير const."
+        }
+      ]
+    },
+    {
+      "id": "j3-ops",
+      "num": 3,
+      "title": "الـ Operators و == vs ===",
+      "en": "Math, Template Literals, Strict Equality & Logic",
+      "docs": [
+        {
+          "tab": "الحساب و Template Literals",
+          "heading": "العمليات الحسابية ودمج النصوص بالـ Backtick",
+          "body": [
+            "جنب الجمع والطرح والضرب والقسمة، عندنا <code>%</code> (باقي القسمة — ممتاز لمعرفة الزوجي والفردي) و <code>**</code> (الأُس زي <code>10 ** 3 = 1000</code>).",
+            "ولدمج متغيرات جوا نص، استخدم <strong>Template Literals</strong> بالـ backtick (<code>`</code>) و <code>${variable}</code> بدل علامات <code>+</code> المزعجة!"
+          ],
+          "filename": "ops.js",
+          "lang": "js",
+          "code": "let a = 10, b = 3;\nconsole.log(a % b);   // 1 (باقي القسمة)\nconsole.log(a ** b);  // 1000 (أُس)\n\nlet name = \"Ahmed\";\n[[0|console.log(`اسمي ${name}`);]]",
+          "spots": [
+            { "title": "Template Literal", "say": "بتستخدم backticks (`) مش quotes عادية عشان تزرع المتغيرات جوا ${...}." }
+          ],
+          "console": ["1", "1000", "اسمي Ahmed"]
+        },
+        {
+          "tab": "== vs === والمنطق",
+          "heading": "سؤال الإنترفيو الكلاسيكي: == ولا ===؟",
+          "body": [
+            "<strong><code>==</code> (Loose)</strong> بيقارن القيمة بس وبيعمل تحويل تلقائي للأنواع (Type Coercion)، فـ <code>5 == \"5\"</code> بتطلع <code>true</code> وده بيعمل bugs خطيرة!",
+            "<strong><code>===</code> (Strict)</strong> بيقارن <strong>القيمة + النوع</strong> مع بعض، فـ <code>5 === \"5\"</code> بتطلع <code>false</code>. ومعاها العمليات المنطقية: <code>&&</code> (AND)، و <code>||</code> (OR)، و <code>!</code> (NOT)."
+          ],
+          "filename": "compare.js",
+          "lang": "js",
+          "code": "console.log(5 == \"5\");   // true (خطير!)\n[[0|console.log(5 === \"5\");]]  // false (الصح!)\nconsole.log(true && false); // false\nconsole.log(true || false); // true",
+          "spots": [
+            { "title": "=== Strict Equality", "say": "دايماً استخدم === عشان تقارن القيمة والنوع سوا من غير مفاجآت." }
+          ],
+          "console": ["true", "false", "false", "true"],
+          "tip": "القاعدة الذهبية في JavaScript: استخدم === في 100% من المقارنات ومتستخدمش == خالص!"
+        }
+      ],
+      "stages": [
+        {
+          "id": "j3-s1",
+          "type": "choice",
+          "lang": "js",
+          "prompt": "إيه النتيجة اللي هتتطبع في الـ Console من السطرين دول؟",
+          "code": "console.log(5 == \"5\");\nconsole.log(5 === \"5\");",
+          "options": [
+            { "t": "true ثم false", "why": "بالظبط! == بيحوّل \"5\" لرقم فتطلع true، إنما === بيشوف إن واحد number والتاني string فتطلع false." },
+            { "t": "false ثم false", "why": "لأ، == بيعمل type coercion فبيعتبر 5 تساوي \"5\"!" },
+            { "t": "true ثم true", "why": "=== strict — مستحيل يعتبر الرقم والنص متطابقين." }
+          ],
+          "answer": 0,
+          "hint": "مين فيهم بيبص على النوع كمان؟"
+        },
+        {
+          "id": "j3-s2",
+          "type": "match",
+          "prompt": "وصّل كل Operator بنتيجته أو وظيفته الصح:",
+          "pairs": [
+            ["10 % 3", "1 (باقي القسمة)"],
+            ["2 ** 3", "8 (الأُس)"],
+            ["true && false", "false (لازم الاتنين true)"],
+            ["true || false", "true (واحد true يكفي)"]
+          ],
+          "hint": "% باقي القسمة، و ** معناها أُس."
+        },
+        {
+          "id": "j3-s3",
+          "type": "patch",
+          "lang": "js",
+          "prompt": "صلّح كود المقارنة عشان يستخدم Strict Equality (===) ويطبع الرسالة بـ Template Literal:",
+          "start": "const pin = 1234;\nconst input = \"1234\";\nif (pin == input) {\n  console.log(\"مرحبا\");\n}",
+          "chips": ["===", "`مرحبا ${pin}`"],
+          "checks": [
+            { "label": "استبدل == بـ ===", "regex": "===", "fail": "لسه مستخدم ==! حوّلها لـ === عشان المقارنة تبقى strict." },
+            { "label": "امسح == القديمة", "notRegex": "[^=!]==[^=]", "fail": "لسه في == في الكود — استبدلها بـ ===." },
+            { "label": "استخدم Template Literal بـ backticks و ${}", "regex": "`[^`]*\\$\\{[^}]+\\}[^`]*`", "fail": "استخدم backtick (`) ومعاها ${...} جوا console.log." }
+          ],
+          "solution": "const pin = 1234;\nconst input = \"1234\";\nif (pin === input) {\n  console.log(`مرحبا ${pin}`);\n}",
+          "why": "عاش! كود نظيف بـ === و Template Literal.",
+          "hint": "غيّر == لـ === وحط `مرحبا ${pin}` جوا console.log."
+        }
+      ]
+    },
+    {
+      "id": "j4-cond-loops",
+      "num": 4,
+      "title": "الشروط والـ Loops",
+      "en": "if/else, Ternary, switch, for, while & for...of",
+      "docs": [
+        {
+          "tab": "if / Ternary / switch",
+          "heading": "إزاي تخلي الكود ياخد قرارات؟",
+          "body": [
+            "<code>if / else if / else</code> بتشيك الشروط من فوق لتحت وأول شرط يتحقق بيتنفذ والباقي بيتجاهل. وللحالات البسيطة في سطر واحد استخدم الـ <strong>Ternary Operator</strong>: <code>شرط ? true : false</code>.",
+            "ولو بتقارن متغير واحد بحالات كتير (زي أيام الأسبوع) استخدم <code>switch</code> — <strong>ومتنساش <code>break;</code></strong> بعد كل حالة عشان الكود ميكملش ينفذ اللي بعدها!"
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "زي إشارة المرور",
+            "text": "لو أخضر ← امشي (<code>if</code>). لو أصفر ← استعد (<code>else if</code>). غير كده ← اقف (<code>else</code>)!"
+          },
+          "filename": "conditions.js",
+          "lang": "js",
+          "code": "let age = 18;\n[[0|let status = age >= 18 ? \"بالغ\" : \"قاصر\";]]\n\nswitch (day) {\n  case \"الجمعة\":\n    console.log(\"إجازة!\");\n    [[1|break;]]\n  default:\n    console.log(\"يوم شغل\");\n}",
+          "spots": [
+            { "title": "Ternary Operator", "say": "اختصار لـ if/else في سطر واحد: شرط ? نتيجة لو صح : نتيجة لو غلط." },
+            { "title": "break", "say": "بتوقف switch عند الحالة دي — لو نسيتها هيدخل ينفذ default كمان!" }
+          ]
+        },
+        {
+          "tab": "Loops (for / while / for...of)",
+          "heading": "كرّر الشغل من غير ما تنسخ الكود 100 مرة",
+          "body": [
+            "<strong><code>for</code></strong> للعدّاد المحدد (بداية؛ شرط؛ خطوة). <strong><code>while</code></strong> بتكرر طول ما الشرط <code>true</code> (خلي بالك تحدّث الشرط عشان متدخلش في <strong>Infinite Loop</strong>!). و <strong><code>for...of</code></strong> بتلف على عناصر الـ Array واحد واحد — وهي الأبسط والأكتر استخداماً يومياً!"
+          ],
+          "filename": "loops.js",
+          "lang": "js",
+          "code": "for (let i = 1; i <= 3; i++) {\n  console.log(`العدد: ${i}`);\n}\n\nlet fruits = [\"تفاح\", \"موز\", \"برتقال\"];\n[[0|for (let fruit of fruits)]] {\n  console.log(fruit);\n}",
+          "spots": [
+            { "title": "for...of", "say": "بتمشي على كل عنصر في الـ Array تلقائياً بدون عدّاد i!" }
+          ],
+          "console": ["العدد: 1", "العدد: 2", "العدد: 3", "تفاح", "موز", "برتقال"]
+        }
+      ],
+      "stages": [
+        {
+          "id": "j4-s1",
+          "type": "slot",
+          "lang": "js",
+          "prompt": "كمّل الـ Ternary Operator عشان لو age >= 18 يرجّع \"بالغ\" وإلا \"قاصر\":",
+          "code": "let age = 20;\nlet status = age >= 18 [[0]] \"بالغ\" [[1]] \"قاصر\";",
+          "tokens": ["?", ":", "&&", "=>"],
+          "answer": ["?", ":"],
+          "why": "صيغة Ternary دايماً: شرط ? قيمة_لو_صح : قيمة_لو_غلط.",
+          "hint": "علامة استفهام الأول وبعدها نقطتين فوق بعض."
+        },
+        {
+          "id": "j4-s2",
+          "type": "bughunt",
+          "lang": "js",
+          "prompt": "الـ while loop دي هتعلّق المتصفح وتدخل في Infinite Loop! اصطاد السطر اللي ناقص التحديث أو الغلط:",
+          "code": "[[ok|let count = 5;]]\nwhile (count > 0) {\n  [[ok|console.log(count);]]\n  [[0|count++;]]\n}",
+          "bugs": [
+            { "why": "count++ بيزود count (5, 6, 7...) فالشرط count > 0 هيفضل true للأبد! الصح count-- عشان يوصل لـ 0 ويقف." }
+          ],
+          "hint": "الشرط count > 0، فلو count زاد بدل ما يقل هيحصل إيه؟"
+        },
+        {
+          "id": "j4-s3",
+          "type": "match",
+          "prompt": "وصّل كل نوع Loop بالوقت الأنسب لاستخدامه:",
+          "pairs": [
+            ["for (let i=0; ...)", "تكرار بعدّاد عدد مرات محدد"],
+            ["while (cond)", "تكرار طول ما شرط معين لسه true"],
+            ["for (let x of arr)", "اللف على عناصر Array واحد واحد بسهولة"],
+            ["break;", "إيقاف الـ switch أو الخروج من الـ loop"]
+          ],
+          "hint": "for...of مخصوصة لعناصر الـ Array."
+        }
+      ]
+    },
+    {
+      "id": "j5-funcs",
+      "num": 5,
+      "title": "Functions و Arrow Functions",
+      "en": "Parameters, Defaults, Return & Arrow Syntax",
+      "docs": [
+        {
+          "tab": "الـ Function العادية",
+          "heading": "علبة كود بتعيد استخدامها زي الخلاط!",
+          "body": [
+            "الـ <strong>Function</strong> بتاخد <strong>Parameters</strong> (وممكن تدّيهم قيم افتراضية زي <code>quantity = 1</code>)، وتعمل العملية، وترجّع النتيجة بـ <code>return</code>. لو نسيت <code>return</code> الـ Function بترجّع <code>undefined</code>!"
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "تشبيه الخلاط",
+            "text": "الـ Function زي الخلاط: بتحط فيه فاكهة (<code>parameters</code>) ← يطلّعلك عصير (<code>return</code>). ومش محتاج تشتري خلاط جديد كل ما تعوز كوباية عصير!"
+          },
+          "filename": "functions.js",
+          "lang": "js",
+          "code": "function calcTotal(price, [[0|quantity = 1]]) {\n  let total = price * quantity;\n  [[1|return total;]]\n}\nconsole.log(calcTotal(100, 3)); // 300\nconsole.log(calcTotal(50));     // 50",
+          "spots": [
+            { "title": "Default Parameter", "say": "لو المستخدم مبعتش quantity، بتاخد القيمة الافتراضية 1 تلقائياً." },
+            { "title": "return", "say": "بترجّع النتيجة لمكان الاستدعاء — من غيرها النتيجة undefined." }
+          ],
+          "console": ["300", "50"]
+        },
+        {
+          "tab": "Arrow Functions",
+          "heading": "الطريقة الحديثة المختصرة (=>)",
+          "body": [
+            "في الكود الحديث بنستخدم <strong>Arrow Functions</strong> في 90% من الوقت: لو سطر واحد بتشيل <code>{}</code> و <code>return</code> (زي <code>const add = (a, b) => a + b;</code>)، ولو Parameter واحد مش محتاج أقواس (<code>const square = n => n * n;</code>)!"
+          ],
+          "filename": "arrow.js",
+          "lang": "js",
+          "code": "[[0|const add = (a, b) => a + b;]]\n[[1|const square = n => n * n;]]\n\nconst greetFormal = (name, title) => {\n  return `مرحباً، ${title} ${name}`;\n};",
+          "spots": [
+            { "title": "Implicit Return", "say": "لما الـ Arrow Function تكون سطر واحد بدون {}، بترجّع النتيجة تلقائياً من غير كلمة return." },
+            { "title": "Single Parameter", "say": "لو parameter واحد بس (n)، الأقواس اختيارية." }
+          ],
+          "tip": "فرق مهم للإنترفيو: الـ Arrow Function أقصر وملهاش this بتاعتها (بتورث من الأب) ومش بتتعمل hoist، عكس الـ function العادية!"
+        }
+      ],
+      "stages": [
+        {
+          "id": "j5-s1",
+          "type": "slot",
+          "lang": "js",
+          "prompt": "حوّل دالة الجمع دي لـ Arrow Function مختصرة في سطر واحد:",
+          "code": "[[0]] add = (a, b) [[1]] a + b;\nconsole.log([[2]](5, 3));",
+          "tokens": ["const", "=>", "add", "function"],
+          "answer": ["const", "=>", "add"],
+          "why": "Arrow Function المختصرة: const add = (a, b) => a + b; بدون {} أو return.",
+          "hint": "السهم في Arrow Function هو =>."
+        },
+        {
+          "id": "j5-s2",
+          "type": "choice",
+          "lang": "js",
+          "prompt": "إيه اللي هيطبع في الـ Console لما تشغّل الكود ده؟",
+          "code": "function double(n) {\n  let res = n * 2;\n}\nconsole.log(double(5));",
+          "options": [
+            { "t": "undefined — لأن مفيش return جوا الـ function!", "why": "معلّم! أي function من غير return بترجّع undefined تلقائياً." },
+            { "t": "10", "why": "الكود حسب 10 جوا res بس مرجّعهاش بـ return!" },
+            { "t": "5", "why": "لأ، من غير return النتيجة بتبقى undefined." }
+          ],
+          "answer": 0,
+          "hint": "بص جوا الدالة: هل في كلمة return؟"
+        }
+      ]
+    },
+    {
+      "id": "j6-arrays",
+      "num": 6,
+      "title": "Arrays و map / filter / reduce",
+      "en": "0-Based Indexing, push/pop & Functional Methods",
+      "docs": [
+        {
+          "tab": "أساسيات الـ Array",
+          "heading": "القوائم في JS (العدّ بيبدأ من 0!)",
+          "body": [
+            "الـ <strong>Array</strong> بتخزّن قائمة عناصر مرتبة. أول عنصر دايماً في <strong>Index 0</strong> (مش 1!). بنضيف للآخر بـ <code>push()</code>، بنحذف الآخر بـ <code>pop()</code>، بنعرف العدد بـ <code>length</code>، وبنشيك وجود عنصر بـ <code>includes()</code>."
+          ],
+          "filename": "arrays.js",
+          "lang": "js",
+          "code": "let colors = [\"أحمر\", \"أخضر\", \"أزرق\"];\nconsole.log(colors[0]); // أحمر\n[[0|let newLen = colors.push(\"أصفر\");]]\nconsole.log(newLen); // 4 (الطول الجديد!)\nconsole.log(colors.includes(\"أخضر\")); // true",
+          "spots": [
+            { "title": "push() Return Value", "say": "خد بالك! push بتضيف للآخر وبترجّع الطول الجديد للـ Array (4)، مش الـ Array نفسه!" }
+          ],
+          "console": ["أحمر", "4", "true"],
+          "warning": "أكبر غلطة للمبتدئين: index 0 هو أول عنصر، و push() بترجّع الطول الجديد مش الـ Array!"
+        },
+        {
+          "tab": "map / filter / reduce",
+          "heading": "التلات أبطال الخارقين للـ Arrays",
+          "body": [
+            "دول أكتر 3 دوال هتستخدمهم في كل مشروع React أو JavaScript حقيقي — تقدر كمان تربطهم ورا بعض (Chaining): <code>products.filter(...).map(...)</code>!"
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "تشبيه الدرج والسلة بالبلدي",
+            "text": "<strong>map</strong> = عندك 5 كراسات بتختم كل واحدة ← يطلعلك 5 كراسات مختومة (نفس الطول!). <strong>filter</strong> = سلة فاكهة بتاخد منها التفاح بس ← سلة جديدة ممكن تكون أقصر. <strong>reduce</strong> = بتجمع كل الأرقام في قيمة واحدة بس!"
+          },
+          "filename": "methods.js",
+          "lang": "js",
+          "code": "const nums = [1, 2, 3, 4, 5];\n[[0|const doubled = nums.map(n => n * 2);]]\n[[1|const evens = nums.filter(n => n % 2 === 0);]]\n[[2|const sum = nums.reduce((t, n) => t + n, 0);]]",
+          "spots": [
+            { "title": "map", "say": "بتحوّل كل عنصر وترجّع Array جديد بنفس الطول: [2, 4, 6, 8, 10]." },
+            { "title": "filter", "say": "بتختار العناصر اللي بتحقق الشرط بس: [2, 4]." },
+            { "title": "reduce", "say": "بتلخص الـ Array كله في قيمة واحدة: 15 (تبدأ من 0)." }
+          ],
+          "console": ["[2, 4, 6, 8, 10]", "[2, 4]", "15"]
+        }
+      ],
+      "stages": [
+        {
+          "id": "j6-s1",
+          "type": "match",
+          "prompt": "وصّل كل دالة Array بوظيفتها الصح:",
+          "pairs": [
+            ["map()", "تحويل كل عنصر وإرجاع Array جديد بنفس الطول"],
+            ["filter()", "اختيار العناصر اللي تحقق شرط وإرجاع Array جديد"],
+            ["reduce()", "تلخيص كل عناصر الـ Array في قيمة واحدة"],
+            ["push()", "إضافة عنصر في الآخر وإرجاع الطول الجديد"]
+          ],
+          "hint": "افتكر تشبيه ختم الكراسات وسلة التفاح."
+        },
+        {
+          "id": "j6-s2",
+          "type": "choice",
+          "lang": "js",
+          "prompt": "إيه اللي هيطبع في الـ Console من الكود ده؟",
+          "code": "const arr = [1, 2, 3];\nconst result = arr.push(4);\nconsole.log(result);",
+          "options": [
+            { "t": "4 (الطول الجديد للـ Array)", "why": "صح الصح! push() بتضيف 4 وترجّع الـ length الجديد اللي هو 4." },
+            { "t": "[1, 2, 3, 4]", "why": "خُدعة مشهورة! arr نفسه بقى [1,2,3,4] لكن push() بترجّع الطول (4) مش المصفوفة!" },
+            { "t": "3", "why": "بعد إضافة العنصر الرابع الطول بقى 4 مش 3." }
+          ],
+          "answer": 0,
+          "hint": "push() بترجّع رقم مش Array."
+        },
+        {
+          "id": "j6-s3",
+          "type": "patch",
+          "lang": "js",
+          "prompt": "استخدم filter عشان تجيب الأرقام الأكبر من 10 بس من المصفوفة nums:",
+          "start": "const nums = [5, 12, 8, 25, 3];\nconst big = nums.",
+          "chips": ["filter(n => n > 10);", "map(n => n * 2);"],
+          "checks": [
+            { "label": "استخدم دالة .filter()", "regex": "\\.filter\\s*\\(", "fail": "لازم تستخدم .filter() مش .map() لأننا بنفلتر حسب شرط!" },
+            { "label": "شرط أكبر من 10 (> 10)", "regex": ">\\s*10", "fail": "اكتب الشرط n => n > 10 جوا filter." }
+          ],
+          "solution": "const nums = [5, 12, 8, 25, 3];\nconst big = nums.filter(n => n > 10);",
+          "why": "عاش! big هترجّع [12, 25].",
+          "hint": "اكمل السطر بـ filter(n => n > 10);"
+        }
+      ]
+    },
+    {
+      "id": "j7-objects",
+      "num": 7,
+      "title": "Objects و Destructuring",
+      "en": "Properties, Methods, Destructuring & Array of Objects",
+      "docs": [
+        {
+          "tab": "Object و Destructuring",
+          "heading": "الـ Object — بطاقة هوية متكاملة!",
+          "body": [
+            "الـ <strong>Object</strong> بيجمع كل خصائص (<code>key: value</code>) ودوال (<strong>Methods</strong>) حاجة واحدة في كارت واحد. تقدر تقرأ خاصية بـ <code>student.name</code> أو <code>student[\"gpa\"]</code>، والأشيك تستخدم <strong>Destructuring</strong> عشان تستخرج اللي عايزه في سطر واحد: <code>const { name, gpa } = student;</code>!"
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "زي بطاقة الهوية",
+            "text": "الـ Object زي بطاقتك الشخصية (اسمك، عمرك، عنوانك في كارت واحد). والـ <strong>Destructuring</strong> إنك تسحب الاسم والمعدل بس من الكارت بدون ما تكتب <code>student.</code> كل شوية!"
+          },
+          "filename": "objects.js",
+          "lang": "js",
+          "code": "const student = {\n  name: \"أحمد\",\n  gpa: 3.5,\n  [[0|introduce() { return `اسمي ${this.name}`; }]]\n};\n[[1|const { name, gpa } = student;]]\nconsole.log(name, gpa, student.introduce());",
+          "spots": [
+            { "title": "Method + this", "say": "دالة جوا الـ Object و this بتشاور على الـ Object نفسه." },
+            { "title": "Destructuring", "say": "بيسحب name و gpa في متغيرات جاهزة بسطر واحد نظيف!" }
+          ],
+          "console": ["أحمد 3.5 اسمي أحمد"]
+        },
+        {
+          "tab": "Array of Objects",
+          "heading": "قاعدة بيانات مصغرة في أي تطبيق حقيقي",
+          "body": [
+            "في أي مشروع حقيقي (منتجات، طلاب، طلبات) البيانات بتيجي كـ <strong>Array of Objects</strong>. لما تجمعها مع <code>filter + map + reduce</code> تقدر تطلع المتفوقين وتحسب المتوسط في سطرين!"
+          ],
+          "filename": "students.js",
+          "lang": "js",
+          "code": "const students = [\n  { name: \"أحمد\", grade: 92 },\n  { name: \"علي\", grade: 75 },\n  { name: \"ياسمين\", grade: 95 }\n];\nconst topNames = students\n  .filter(s => s.grade > 85)\n  .map(s => s.name);\nconsole.log(topNames);",
+          "console": ["[\"أحمد\", \"ياسمين\"]"]
+        }
+      ],
+      "stages": [
+        {
+          "id": "j7-s1",
+          "type": "slot",
+          "lang": "js",
+          "prompt": "استخدم Destructuring عشان تستخرج name و grade من كائن student:",
+          "code": "const student = { name: \"نورهان\", grade: 88 };\nconst [[0]] name, grade [[1]] = [[2]];",
+          "tokens": ["{", "}", "student", "["],
+          "answer": ["{", "}", "student"],
+          "why": "Object Destructuring بيستخدم أقواس مجعدة { name, grade } = student.",
+          "hint": "الـ Object بيستخدم {} مش []."
+        },
+        {
+          "id": "j7-s2",
+          "type": "order",
+          "prompt": "رتّب خطوات استخراج أسماء الطلاب المتفوقين (درجتهم > 85) من Array of Objects:",
+          "items": [
+            "students (البيانات الأصلية — Array of Objects)",
+            ".filter(s => s.grade > 85) (فلترة المتفوقين بس)",
+            ".map(s => s.name) (استخراج الاسم من كل طالب)",
+            "النتيجة: [\"أحمد\", \"ياسمين\"]"
+          ],
+          "why": "بنفلتر الأول عشان نسيب المتفوقين بس، وبعدين نعمل map عشان ناخد أسماءهم!",
+          "hint": "فلتر الأول وبعدين حوّل للأسماء بـ map."
+        }
+      ]
+    },
+    {
+      "id": "j8-dom",
+      "num": 8,
+      "title": "التحكم في الصفحة — DOM",
+      "en": "querySelector, textContent vs innerHTML & classList",
+      "docs": [
+        {
+          "tab": "اختيار وتعديل العناصر",
+          "heading": "الـ DOM — خريطة الصفحة في إيد JavaScript",
+          "body": [
+            "الـ <strong>DOM (Document Object Model)</strong> هو الخريطة الشجرية لكل عناصر صفحتك. بنمسك العنصر بـ <code>getElementById(\"id\")</code> أو الأقوى والأكثر مرونة <code>querySelector(\".info\")</code> (بيقبل أي CSS selector!).",
+            "وللإنشاء الحي: <code>document.createElement(\"li\")</code> وبعدين <code>list.appendChild(li)</code>."
+          ],
+          "filename": "dom.js",
+          "lang": "js",
+          "code": "const title = document.getElementById(\"title\");\n[[0|title.textContent = \"أهلاً بيكم!\";]]\n\nconst info = [[1|document.querySelector(\".info\")]];\ninfo.innerHTML = \"تم التعديل بـ <strong>JS</strong>!\";",
+          "spots": [
+            { "title": "textContent (الأأمن!)", "say": "بيتعمل مع نص صافي بس — آمن تماماً ضد هجمات XSS مع مدخلات المستخدمين." },
+            { "title": "querySelector", "say": "بيقبل أي CSS selector (#id, .class, tag) ويجيب أول عنصر مطابق." }
+          ],
+          "warning": "الفرق الأمني الذهبي: استخدم textContent للنص العادي (أأمن)، و innerHTML بس لو واثق 100% من الـ HTML لأنه خطر XSS مع مدخلات المستخدم!"
+        },
+        {
+          "tab": "classList & Style",
+          "heading": "التحكم في الشكل بـ classList (Best Practice)",
+          "body": [
+            "بدل ما تعدّل <code>element.style</code> في كل سطر، الـ <strong>Best Practice</strong> إنك تكتب الكلاسات في CSS وتبدّلها بـ <code>classList.add()</code> و <code>remove()</code> و <code>toggle()</code> (لو موجود يشيله، لو مش موجود يضيفه!)."
+          ],
+          "filename": "classlist.js",
+          "lang": "js",
+          "code": "const box = document.getElementById(\"myBox\");\nbox.classList.add(\"rounded\");    // يضيف class\n[[0|box.classList.toggle(\"big\");]]   // يشغّل أو يطفي\nbox.classList.remove(\"red\");     // يشيل class",
+          "spots": [
+            { "title": "classList.toggle()", "say": "أجمد ميثود للـ Dark Mode والـ Todo Done: لو الكلاس موجود تشيله، ولو مش موجود تضيفه!" }
+          ]
+        }
+      ],
+      "stages": [
+        {
+          "id": "j8-s1",
+          "type": "buckets",
+          "layout": "columns",
+          "prompt": "فرّق بين textContent و innerHTML:",
+          "buckets": [
+            { "id": "txt", "label": "textContent" },
+            { "id": "html", "label": "innerHTML" }
+          ],
+          "items": [
+            { "t": "بيتعامل مع نص عادي بس — أأمن ضد XSS", "b": "txt", "why": "textContent بيعرض أي رموز < > كنص عادي بدون تنفيذ." },
+            { "t": "بيفسّر تاغات HTML زي <strong> و <li>", "b": "html", "why": "innerHTML بيبني HTML فعلي جوا العنصر." },
+            { "t": "الأفضل لعرض اسم أو تعليق كتبه المستخدم", "b": "txt", "why": "عشان تحمي موقعك من ثغرة XSS استخدم textContent مع مدخلات المستخدم." },
+            { "t": "ممكن يكون خطر XSS لو حطيت فيه user input مباشرة", "b": "html", "why": "لو المستخدم كتب كود خبيث، innerHTML ممكن ينفذه." }
+          ],
+          "hint": "مين الأأمن مع مدخلات المستخدم؟ textContent!"
+        },
+        {
+          "id": "j8-s2",
+          "type": "match",
+          "prompt": "وصّل كل أداة DOM بوظيفتها:",
+          "pairs": [
+            ["querySelector(\".card\")", "إمساك عنصر بأي CSS selector"],
+            ["createElement(\"li\")", "إنشاء عنصر HTML جديد في الذاكرة"],
+            ["appendChild(li)", "إضافة العنصر الجديد جوا القائمة في الصفحة"],
+            ["classList.toggle(\"done\")", "إضافة الكلاس لو مش موجود أو إزالته لو موجود"]
+          ],
+          "hint": "create = إنشاء، append = إضافة للأب، toggle = تشغيل/إطفاء."
+        }
+      ]
+    },
+    {
+      "id": "j9-events",
+      "num": 9,
+      "title": "الأحداث ومشروع Todo List",
+      "en": "addEventListener (click/input) & Mini Todo Project",
+      "docs": [
+        {
+          "tab": "addEventListener",
+          "heading": "قلب JavaScript — الاستجابة للمستخدم",
+          "body": [
+            "<code>addEventListener(\"event\", callback)</code> هي حلقة الوصل بين المستخدم والكود: لما يدوس زرار (<code>click</code>)، أو يكتب حرف جوا input (<code>input</code> عبر <code>e.target.value</code>)، أو يبعت نموذج (<code>submit</code>)."
+          ],
+          "callout": {
+            "kind": "analogy",
+            "title": "تشبيه جرس الباب",
+            "text": "الـ <strong>Event</strong> زي جرس الباب: لما حد يدوس الجرس (<code>click</code>) ← إنت بتقوم تفتح الباب (الـ <code>callback function</code>)!"
+          },
+          "filename": "events.js",
+          "lang": "js",
+          "code": "let count = 0;\n[[0|btn.addEventListener(\"click\", () => {]]\n  count++;\n  counterEl.textContent = `الضغطات: ${count}`;\n});\n\n[[1|input.addEventListener(\"input\", (e) => {]]\n  greetEl.textContent = `أهلاً يا ${e.target.value}!`;\n});",
+          "spots": [
+            { "title": "click Event", "say": "بتشتغل كل مرة المستخدم يضغط على الزرار." },
+            { "title": "input Event + e.target.value", "say": "بتشتغل لحظياً مع كل حرف المستخدم بيكتبه، و e.target.value فيه النص الحالي." }
+          ]
+        },
+        {
+          "tab": "مشروع Todo List",
+          "heading": "أول مشروع عملي كامل بيجمع كل المحاضرة!",
+          "body": [
+            "مشروع الـ <strong>Todo List</strong> بيجمع Variables + Conditionals + DOM + Events + classList: نتأكد إن الـ input مش فاضي (<code>trim() === \"\"</code>)، ننشئ <code>li</code>، نربط عليه <code>click</code> يعمل <code>classList.toggle(\"done\")</code>، نضيفه للقائمة، ونفضّي الـ input!"
+          ],
+          "filename": "todo.js",
+          "lang": "js",
+          "code": "addBtn.addEventListener(\"click\", () => {\n  if (input.value.trim() === \"\") return;\n  const li = document.createElement(\"li\");\n  li.textContent = input.value;\n  [[0|li.addEventListener(\"click\", () => li.classList.toggle(\"done\"));]]\n  list.appendChild(li);\n  input.value = \"\";\n});",
+          "spots": [
+            { "title": "شطب المهمة عند الضغط", "say": "لما المستخدم يضغط على أي مهمة، بتبدّل كلاس .done (خط فوق النص)!" }
+          ],
+          "preview": "<div style='font-family:sans-serif'><strong style='display:block;margin-bottom:8px'>My Todo List</strong><ul style='margin:0;padding:0 18px;font-size:13.5px'><li style='text-decoration:line-through;color:#64748b'>مذاكرة HTML</li><li style='text-decoration:line-through;color:#64748b'>مراجعة CSS</li><li style='font-weight:700;color:#0f172a'>حل الواجب</li></ul></div>",
+          "previewUrl": "localhost/todo.html"
+        }
+      ],
+      "stages": [
+        {
+          "id": "j9-s1",
+          "type": "order",
+          "prompt": "رتّب خطوات إضافة مهمة جديدة جوا مشروع Todo List بالترتيب الصح:",
+          "items": [
+            "اتأكد إن input.value.trim() مش فاضي",
+            "أنشئ عنصر <li> جديد بـ createElement(\"li\")",
+            "حط النص جواه بـ li.textContent = input.value",
+            "ضيف الـ li للقائمة بـ list.appendChild(li) وفضّي الـ input"
+          ],
+          "why": "بنعمل Validation الأول، ننشئ العنصر، نحط النص بأمان، وبعدين نضيفه للـ DOM ونفضّي الخانة.",
+          "hint": "مينفعش تضيف الـ li قبل ما تنشئه!"
+        },
+        {
+          "id": "j9-s2",
+          "type": "patch",
+          "lang": "js",
+          "prompt": "اكمل كود الزرار عشان لما تضغط عليه يعمل toggle لكلاس \"done\" على المهمة:",
+          "start": "item.addEventListener(\"click\", () => {\n  \n});",
+          "chips": ["item.classList.toggle(\"done\");", "console.log(\"clicked\");"],
+          "checks": [
+            { "label": "استخدم classList.toggle", "regex": "classList\\.toggle\\s*\\(", "fail": "استخدم item.classList.toggle(\"done\") عشان يشغّل ويطفي الكلاس." },
+            { "label": "اسم الكلاس done", "regex": "['\"]done['\"]", "fail": "اكتب اسم الكلاس \"done\" جوا toggle." }
+          ],
+          "solution": "item.addEventListener(\"click\", () => {\n  item.classList.toggle(\"done\");\n});",
+          "why": "معلّم! دلوقتي أي ضغطة على المهمة بتشطبها أو ترجّعها.",
+          "hint": "اضغط على زر + item.classList.toggle(\"done\"); فوق."
+        }
+      ]
+    },
+    {
+      "id": "j10-boss",
+      "num": 10,
+      "title": "الاختبار الشامل",
+      "en": "Lecture 04 Boss Challenge (10 Questions)",
+      "boss": true,
+      "stages": [
+        {
+          "id": "bj-1",
+          "type": "choice",
+          "prompt": "إيه القاعدة الصح في الاختيار بين let و const؟",
+          "options": [
+            { "t": "ابدأ بـ const دايماً، واستخدم let بس لو القيمة هتتغير (وابعد عن var)", "why": "بالظبط! ده الـ Best Practice في JavaScript الحديثة." },
+            { "t": "استخدم var في كل مكان لأنها الأحدث", "why": "لأ، var قديمة وفيها مشاكل hoisting." },
+            { "t": "const بتسمح بتغيير القيمة في أي وقت", "why": "العكس، const ثابت ومبيقبلش إعادة التعيين." }
+          ],
+          "answer": 0,
+          "hint": "ثابت الأول، ومتغير عند الحاجة بس."
+        },
+        {
+          "id": "bj-2",
+          "type": "choice",
+          "prompt": "إيه الفرق الصح بين == و ===؟",
+          "options": [
+            { "t": "== بيقارن القيمة بس مع تحويل تلقائي؛ === بيقارن القيمة والنوع (الأصح دايماً)", "why": "١٠/١٠! دايماً استخدم ===." },
+            { "t": "== أسرع وأأمن من ===", "why": "لأ، == بيعمل type coercion ومفاجآت وحشة." },
+            { "t": "مفيش أي فرق بينهم", "why": "الفرق كبير: 5 == \"5\" بتطلع true بينما 5 === \"5\" بتطلع false." }
+          ],
+          "answer": 0,
+          "hint": "Strict Equality بتشيك حاجتين مش حاجة واحدة."
+        },
+        {
+          "id": "bj-3",
+          "type": "choice",
+          "prompt": "إيه نتيجة typeof null في JavaScript؟",
+          "options": [
+            { "t": "\"object\" (بسبب bug تاريخي مشهور في JS)", "why": "صح الصح! سؤال إنترفيو كلاسيكي جداً وجبته صح." },
+            { "t": "\"null\"", "why": "ده المتوقع منطقياً، لكن في JS بترجّع \"object\" بسبب bug قديم!" },
+            { "t": "\"undefined\"", "why": "لأ، typeof undefined هي اللي بترجّع \"undefined\"." }
+          ],
+          "answer": 0,
+          "hint": "افتكر الـ bug التاريخي اللي مقدروش يغيّروه."
+        },
+        {
+          "id": "bj-4",
+          "type": "choice",
+          "prompt": "إيه ميزة مهمة للـ Arrow Function مقارنة بالـ Function العادية؟",
+          "options": [
+            { "t": "أقصر في الكتابة، ملهاش this بتاعتها (بتورث من الأب)، ومش بتتعمل hoist", "why": "معلّم! فاهم الفروق الدقيقة صح." },
+            { "t": "مينفعش تاخد أكتر من parameter واحد", "why": "لأ عادي تاخد أي عدد: (a, b, c) => ..." },
+            { "t": "مش بتشتغل جوا addEventListener", "why": "بالعكس، أغلب استخدامات addEventListener بتكون بـ Arrow Functions!" }
+          ],
+          "answer": 0,
+          "hint": "فكّر في الطول والـ this والـ hoisting."
+        },
+        {
+          "id": "bj-5",
+          "type": "choice",
+          "prompt": "إيه الفرق بين map() و filter()؟",
+          "options": [
+            { "t": "map بتحوّل كل عنصر وترجّع Array بنفس الطول؛ filter بترجّع اللي بيحقق الشرط بس", "why": "بالظبط! تشبيه الكراسات vs سلة التفاح." },
+            { "t": "filter بترجّع دايماً رقم واحد بس", "why": "اللي بترجّع قيمة واحدة هي reduce مش filter." },
+            { "t": "map بتمسح العناصر اللي مش عاجباها", "why": "اللي بتفلتر العناصر هي filter مش map." }
+          ],
+          "answer": 0,
+          "hint": "مين بيحافظ على نفس الطول ومين ممكن يقصّره؟"
+        },
+        {
+          "id": "bj-6",
+          "type": "choice",
+          "prompt": "لو شغّلت [1, 2, 3].push(4)، إيه القيمة اللي بترجعها push()؟",
+          "options": [
+            { "t": "4 (الطول الجديد للـ Array)", "why": "عاش! مش الـ Array نفسه — بترجّع الطول الجديد 4." },
+            { "t": "[1, 2, 3, 4]", "why": "دي المصفوفة نفسها بعد التعديل، لكن القيمة الراجعة من push هي الطول (4)." },
+            { "t": "undefined", "why": "لأ، push بترجّع رقم الطول الجديد." }
+          ],
+          "answer": 0,
+          "hint": "افتكر الخُدعة بتاعة الطول الجديد."
+        },
+        {
+          "id": "bj-7",
+          "type": "choice",
+          "prompt": "ليه querySelector أكتر مرونة من getElementById؟",
+          "options": [
+            { "t": "لأن querySelector بيقبل أي CSS selector (id أو class أو tag أو معقد)", "why": "صح الصح! getElementById مخصوص للـ ID بس." },
+            { "t": "لأن getElementById اتلغى من المتصفحات", "why": "ماتلغاش ولسه سريع ومستخدم، بس querySelector أعم وأمرن." },
+            { "t": "لأن querySelector بيعدّل CSS بس ومش بيمسك HTML", "why": "لأ، الاتنين بيمسكوا عناصر HTML من الـ DOM." }
+          ],
+          "answer": 0,
+          "hint": "querySelector بيفهم .class و #id و div > p."
+        },
+        {
+          "id": "bj-8",
+          "type": "choice",
+          "prompt": "إيه الفرق الأمني المهم بين textContent و innerHTML؟",
+          "options": [
+            { "t": "textContent نص عادي وأأمن ضد XSS؛ innerHTML يقبل HTML وخطر مع user input", "why": "برافو عليك! الأمان أولاً." },
+            { "t": "innerHTML أأمن من textContent", "why": "العكس تماماً! innerHTML ممكن ينفّذ كود خبيث (XSS)." },
+            { "t": "textContent بيقبل HTML tags وينفذها", "why": "لأ، textContent بيعرض التاغات كنص حرفي بدون تنفيذ." }
+          ],
+          "answer": 0,
+          "hint": "افتكر ثغرة XSS."
+        },
+        {
+          "id": "bj-9",
+          "type": "choice",
+          "prompt": "إزاي تخلي الـ <script> في الـ <head> من غير ما يعمل Error على عناصر لسه محمّلتش؟",
+          "options": [
+            { "t": "تضيف attribute اسمه defer على تاغ الـ <script>", "why": "معلّم! defer بيأجّل تشغيل الكود لحد ما الـ HTML يخلص تحميل." },
+            { "t": "تحطه جوا <title>", "why": "مينفعش تحط script جوا <title>!" },
+            { "t": "تكتب جواه CSS الأول", "why": "ده ملوش علاقة بوقت تحميل الـ DOM." }
+          ],
+          "answer": 0,
+          "hint": "يا تحطه قبل </body> يا تضيف attribute بيأجّل التنفيذ."
+        },
+        {
+          "id": "bj-10",
+          "type": "choice",
+          "prompt": "إيه ميزة for...of على الـ for loop العادية مع الـ Arrays؟",
+          "options": [
+            { "t": "بتمشي على كل عنصر في الـ Array تلقائياً بدون ما تكتب عدّاد i و length", "why": "قفّلت المحاضرة الرابعة وكل أساسيات الكورس يا بطل!" },
+            { "t": "بتشتغل أبطأ 100 مرة وممنوع استخدامها", "why": "بالعكس، هي الأنضف والأكتر استخداماً في الشغل اليومي." },
+            { "t": "بتشتغل مع الأرقام بس مش النصوص", "why": "بتشتغل مع أي Array مهما كان نوع عناصرها." }
+          ],
+          "answer": 0,
+          "hint": "أبسط وأنظف في القراءة."
+        }
+      ]
+    }
+  ],
+  "recall": [
+    { "q": "إيه الفرق بين let و const و var؟", "a": "const ثابت (ابدأ بيه)، let متغير يقبل التغيير، و var قديمة وفيها مشاكل hoisting — ابعد عنها." },
+    { "q": "إيه الفرق بين == و ===؟", "a": "== بتقارن القيمة بس مع تحويل تلقائي للأنواع؛ === بتقارن القيمة + النوع وهي الصح دايماً." },
+    { "q": "إيه نتيجة typeof null وليه؟", "a": "\"object\" بسبب bug تاريخي من أول إصدار لـ JavaScript مقدروش يغيّروه." },
+    { "q": "إيه الفرق بين function عادية و arrow function؟", "a": "Arrow أقصر، ملهاش this بتاعتها (تورث من الأب)، ومش بتتعمل hoist؛ العادية ليها this وبتتعمل hoist." },
+    { "q": "إيه الفرق بين map و filter و reduce؟", "a": "map تحوّل كل عنصر (نفس الطول)، filter تختار بالشرط، reduce تلخّص كل العناصر في قيمة واحدة." },
+    { "q": "إيه القيمة اللي بترجعها [1,2,3].push(4)؟", "a": "بترجّع الطول الجديد (4)، مش الـ Array نفسه!" },
+    { "q": "إيه الفرق بين getElementById و querySelector؟", "a": "getElementById للـ ID بس، أما querySelector فبيقبل أي CSS selector (#id, .class, tag)." },
+    { "q": "إيه الفرق بين textContent و innerHTML؟", "a": "textContent نص عادي آمن ضد XSS، أما innerHTML فيفسّر HTML وممكن يكون خطر مع user input." },
+    { "q": "ليه بنحط <script> قبل </body> أو نستخدم defer؟", "a": "عشان الـ HTML والـ DOM يحمّلوا الأول قبل ما JavaScript تحاول تمسك العناصر." },
+    { "q": "إيه وظيفة classList.toggle(\"done\")؟", "a": "لو كلاس done موجود على العنصر بتشيله، ولو مش موجود بتضيفه — مثالية للـ Todo والـ Dark Mode." }
+  ]
+}

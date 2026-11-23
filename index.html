@@ -1,341 +1,317 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT Fundamentals - Course Portal</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;600;800&display=swap"
-        rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>CodeHub Basics — استوديو أساسيات البرمجة والويب</title>
+<meta name="description" content="محاضرات أساسيات الـ IT و HTML و CSS و JavaScript — شرح تفاعلي وألعاب تطبيقية بالعامية المصرية — CodeHub">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Readex+Pro:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070b14;
+  --surface:#0f172a;
+  --surface-2:#152038;
+  --border:rgba(148,179,224,.15);
+  --border-hi:rgba(148,179,224,.30);
+  --spec:inset 0 1px 0 rgba(255,255,255,.06);
+  --text:#f3f6fc;
+  --soft:#cfd9eb;
+  --muted:#8598b8;
+  --primary:linear-gradient(100deg,#10b981,#06b6d4);
+  --font:'IBM Plex Sans Arabic',system-ui,-apple-system,sans-serif;
+  --display:'Readex Pro','IBM Plex Sans Arabic',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{min-height:100%;margin:0;background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased}
+body{
+  display:flex;flex-direction:column;overflow-x:hidden;
+  background:
+    radial-gradient(760px 360px at 90% 0%,rgba(56,189,248,.12),transparent 68%),
+    radial-gradient(640px 340px at 8% 20%,rgba(249,115,22,.09),transparent 70%),
+    radial-gradient(700px 360px at 50% 100%,rgba(129,140,248,.10),transparent 70%),
+    var(--bg);
+}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
+.ic{width:17px;height:17px;display:inline-block;flex-shrink:0}
 
-        body {
-            font-family: 'Inter', 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e1b4b 100%);
-            min-height: 100vh;
-            color: #e2e8f0;
-            display: flex;
-            flex-direction: column;
-        }
+.shell{
+  width:min(1260px,100%);margin:0 auto;padding:24px 22px 28px;
+  display:flex;flex-direction:column;gap:22px;flex:1;
+}
 
-        /* Animated Background */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background:
-                radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.08) 0%, transparent 25%),
-                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.08) 0%, transparent 25%),
-                radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 35%);
-            pointer-events: none;
-            z-index: 0;
-        }
+/* ─── Hero Studio Header ────────────────────────────────────────────────── */
+.hero{
+  position:relative;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+  padding:22px 26px;border-radius:18px;overflow:hidden;
+  background:linear-gradient(135deg,rgba(19,30,54,.96),rgba(11,17,32,.96));
+  border:1px solid var(--border-hi);box-shadow:0 20px 48px rgba(0,0,0,.35),var(--spec);
+}
+.hero-grid-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.16;color:#38bdf8}
+.hero-left{display:flex;align-items:center;gap:16px;position:relative;z-index:1;min-width:0}
+.studio-mark{
+  width:54px;height:54px;border-radius:15px;display:grid;place-items:center;flex-shrink:0;
+  background:linear-gradient(135deg,#10b981,#06b6d4);color:#031317;
+  box-shadow:0 10px 26px rgba(16,185,129,.3),inset 0 1px 0 rgba(255,255,255,.4);
+}
+.studio-mark svg{width:28px;height:28px}
+.hero-txt h1{font-family:var(--display);margin:0;font-size:clamp(20px,2.5vw,28px);font-weight:700;letter-spacing:-.02em;line-height:1.25}
+.hero-txt p{margin:6px 0 0;font-size:14.5px;color:var(--soft);max-width:58ch;line-height:1.65}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-            z-index: 1;
-        }
+.hero-stats{display:flex;align-items:center;gap:10px;position:relative;z-index:1;flex-wrap:wrap}
+.stat-box{
+  display:flex;align-items:center;gap:10px;padding:10px 15px;border-radius:13px;
+  background:rgba(7,11,20,.65);border:1px solid var(--border);
+}
+.stat-val{font-family:var(--display);font-size:18px;font-weight:700;line-height:1.1}
+.stat-lbl{font-size:11.5px;color:var(--muted)}
+.ring-svg{width:34px;height:34px;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:rgba(148,163,184,.2);stroke-width:3.2}
+.ring-fg{fill:none;stroke:url(#gPortal);stroke-width:3.2;stroke-linecap:round;transition:stroke-dashoffset .7s var(--ease)}
 
-        /* Header */
-        header {
-            text-align: center;
-            padding: 4rem 0 3rem;
-        }
+/* ─── 4-Card Balanced Studio Grid ───────────────────────────────────────── */
+.grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;
+}
+.card{
+  position:relative;display:flex;flex-direction:column;gap:14px;padding:22px;border-radius:18px;
+  background:linear-gradient(180deg,rgba(23,34,58,.94),var(--surface));
+  border:1px solid var(--border);box-shadow:0 14px 34px rgba(0,0,0,.28),var(--spec);
+  overflow:hidden;transition:transform .22s var(--ease),border-color .22s,box-shadow .22s;
+  animation:cardUp .42s var(--ease) both;
+}
+.card:nth-child(2){animation-delay:.06s}
+.card:nth-child(3){animation-delay:.12s}
+.card:nth-child(4){animation-delay:.18s}
+.card::before{
+  content:'';position:absolute;inset-inline:0;top:0;height:3px;
+  background:linear-gradient(90deg,var(--c1),var(--c2));opacity:.85;
+}
+.card::after{
+  content:'';position:absolute;width:220px;height:140px;top:-40px;inset-inline-start:-40px;
+  background:radial-gradient(circle,color-mix(in srgb,var(--c1) 18%,transparent),transparent 70%);
+  pointer-events:none;transition:opacity .25s;opacity:.65;
+}
+.card:hover{
+  transform:translateY(-4px);
+  border-color:color-mix(in srgb,var(--c1) 52%,transparent);
+  box-shadow:0 22px 46px rgba(0,0,0,.38),0 0 0 1px color-mix(in srgb,var(--c1) 24%,transparent);
+}
+.card:hover::after{opacity:1}
 
-        .logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;position:relative;z-index:1}
+.card-id{display:flex;align-items:center;gap:12px;min-width:0}
+.emblem{
+  width:46px;height:46px;border-radius:13px;display:grid;place-items:center;flex-shrink:0;
+  background:linear-gradient(135deg,var(--c1),var(--c2));color:#070b14;
+  box-shadow:0 8px 20px color-mix(in srgb,var(--c1) 34%,transparent),inset 0 1px 0 rgba(255,255,255,.35);
+}
+.emblem svg{width:24px;height:24px}
+.lec-num{
+  font-family:var(--mono);font-size:12px;font-weight:700;color:var(--c2);
+  padding:4px 10px;border-radius:99px;background:color-mix(in srgb,var(--c1) 14%,transparent);
+  border:1px solid color-mix(in srgb,var(--c1) 30%,transparent);flex-shrink:0;
+}
+.card h2{font-family:var(--display);margin:0;font-size:19px;font-weight:700;line-height:1.3}
+.card-en{font-family:var(--mono);font-size:12px;color:var(--muted);direction:ltr;display:inline-block;margin-top:2px}
+.card-desc{margin:0;font-size:14.5px;color:var(--soft);line-height:1.75;position:relative;z-index:1}
 
-        .logo-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: white;
-            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.3);
-        }
+.tags{display:flex;flex-wrap:wrap;gap:6px;position:relative;z-index:1}
+.tag{
+  font-family:var(--mono);font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:8px;
+  background:rgba(7,11,20,.65);border:1px solid var(--border);color:var(--soft);direction:ltr;
+}
 
-        h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #60a5fa, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-        }
+.prog-row{display:flex;flex-direction:column;gap:6px;margin-top:auto;position:relative;z-index:1}
+.prog-meta{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted);font-weight:600}
+.prog-track{height:7px;border-radius:99px;background:rgba(148,163,184,.16);overflow:hidden}
+.prog-bar{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--c1),var(--c2));width:0;transition:width .65s var(--ease)}
 
-        .subtitle {
-            font-size: 1.1rem;
-            color: #94a3b8;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+.actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
+.btn-launch{
+  flex:1;min-width:170px;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:44px;padding:0 18px;border-radius:11px;
+  background:var(--primary);color:#031317;font-family:var(--display);font-size:14px;font-weight:700;
+  box-shadow:0 6px 18px rgba(16,185,129,.25),inset 0 1px 0 rgba(255,255,255,.35);
+  transition:transform .14s var(--ease),filter .15s;
+}
+.btn-launch:hover{filter:brightness(1.07);transform:translateY(-1px)}
+.btn-launch:active{transform:scale(.98)}
+.btn-read{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  min-height:44px;padding:0 14px;border-radius:11px;
+  border:1px solid var(--border-hi);background:rgba(255,255,255,.04);color:var(--soft);
+  font-size:13px;font-weight:600;transition:background .15s,color .15s,border-color .15s;
+}
+.btn-read:hover{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(148,179,224,.48)}
 
-        /* Section Title */
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #f8fafc;
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
+footer{
+  margin-top:auto;padding:14px 20px;border-top:1px solid var(--border);
+  text-align:center;font-size:12.5px;color:var(--muted);
+}
 
-        .section-title i {
-            color: #3b82f6;
-        }
-
-        /* Lecture Grid */
-        .lectures-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .lecture-card {
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 2rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .lecture-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .lecture-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(59, 130, 246, 0.4);
-            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.15);
-        }
-
-        .lecture-card:hover::before {
-            opacity: 1;
-        }
-
-        .lecture-number {
-            font-size: 3rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-        }
-
-        .lecture-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #f8fafc;
-            margin-bottom: 0.5rem;
-        }
-
-        .lecture-desc {
-            font-size: 0.9rem;
-            color: #94a3b8;
-            line-height: 1.6;
-            flex-grow: 1;
-        }
-
-        .lecture-links {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .lecture-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.6rem 1rem;
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 10px;
-            color: #60a5fa;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .lecture-link:hover {
-            background: #3b82f6;
-            color: white;
-            border-color: #3b82f6;
-        }
-
-        .lecture-link.script {
-            background: rgba(139, 92, 246, 0.1);
-            border-color: rgba(139, 92, 246, 0.3);
-            color: #a78bfa;
-        }
-
-        .lecture-link.script:hover {
-            background: #8b5cf6;
-            color: white;
-            border-color: #8b5cf6;
-        }
-
-        /* Coming Soon Card */
-        .lecture-card.coming-soon {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .lecture-card.coming-soon:hover {
-            transform: none;
-            box-shadow: none;
-        }
-
-        .coming-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: rgba(251, 191, 36, 0.15);
-            border: 1px solid rgba(251, 191, 36, 0.3);
-            border-radius: 20px;
-            color: #fbbf24;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-top: 1rem;
-        }
-
-        /* Footer */
-        footer {
-            margin-top: auto;
-            text-align: center;
-            padding: 2rem;
-            color: #64748b;
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            .container {
-                padding: 1rem;
-            }
-
-            header {
-                padding: 2rem 0;
-            }
-        }
-    </style>
+@keyframes cardUp{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:translateY(0)}}
+@media (max-width:860px){.grid{grid-template-columns:1fr}}
+@media (max-width:560px){
+  .shell{padding:14px 12px 20px;gap:14px}
+  .hero{padding:16px}
+  .card{padding:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
 </head>
-
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <div class="logo-icon">IT</div>
-            </div>
-            <h1>Basics Fundamentals HTML, CSS & JS</h1>
-            <p class="subtitle">Basics Fundamentals for Codehub.Monster&copy; 2026</p>
-        </header>
+<svg style="display:none" aria-hidden="true">
+  <defs>
+    <linearGradient id="gPortal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+  </defs>
+  <symbol id="i-it" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-html" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 6 2 12 8 18"/><polyline points="16 6 22 12 16 18"/><line x1="14" y1="4" x2="10" y2="20"/></symbol>
+  <symbol id="i-css" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 12 15 2 8.5 12 2"/><polyline points="2 15.5 12 22 22 15.5"/><polyline points="2 12 12 18.5 22 12"/></symbol>
+  <symbol id="i-js" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4C5 4 4 5 4 7v3c0 1.2-.8 2-2 2 1.2 0 2 .8 2 2v3c0 2 1 3 3 3"/><path d="M17 4c2 0 3 1 3 3v3c0 1.2.8 2 2 2-1.2 0-2 .8-2 2v3c0 2-1 3-3 3"/><polygon points="13 7 9.5 13 12 13 11 17 14.5 11 12 11 13 7" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="4"/><path d="M6 12h4M8 10v4"/><circle cx="15.5" cy="11" r="1" fill="currentColor" stroke="none"/><circle cx="17.5" cy="13" r="1" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+  <symbol id="i-studio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="12" y1="3" x2="12" y2="21" stroke-opacity=".35"/></symbol>
+</svg>
 
-        <main>
-            <h2 class="section-title"><i class="fas fa-book-open"></i> Course Lectures</h2>
+<div class="shell">
+  <header class="hero">
+    <svg class="hero-grid-svg" viewBox="0 0 900 180" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 45H900M0 90H900M0 135H900M150 0V180M300 0V180M450 0V180M600 0V180M750 0V180" stroke="currentColor" stroke-opacity=".3" stroke-dasharray="4 6"/>
+      <circle cx="150" cy="45" r="4" fill="currentColor"/><circle cx="450" cy="90" r="5" fill="currentColor"/><circle cx="750" cy="135" r="4" fill="currentColor"/>
+    </svg>
+    <div class="hero-left">
+      <div class="studio-mark"><svg aria-hidden="true"><use href="#i-studio"/></svg></div>
+      <div class="hero-txt">
+        <h1>أساسيات تكنولوجيا المعلومات والويب — CodeHub Studio</h1>
+        <p>٤ محاضرات تفاعلية بالعامية المصرية: شرح منظّم وتجارب حية + ألعاب تطبيقية وتحديات كود بدون ملل أو Scroll طويل.</p>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-box">
+        <svg class="ring-svg" viewBox="0 0 36 36" aria-hidden="true">
+          <circle class="ring-bg" cx="18" cy="18" r="14"/>
+          <circle class="ring-fg" id="totalRing" cx="18" cy="18" r="14" stroke-dasharray="87.96" stroke-dashoffset="87.96"/>
+        </svg>
+        <div>
+          <div class="stat-val" id="totalPct">٠%</div>
+          <div class="stat-lbl">تقدّم الكورس</div>
+        </div>
+      </div>
+      <div class="stat-box">
+        <svg class="ic" style="color:#fde68a;width:22px;height:22px" aria-hidden="true"><use href="#i-bolt"/></svg>
+        <div>
+          <div class="stat-val" id="totalXp" style="color:#fde68a">0 XP</div>
+          <div class="stat-lbl">إجمالي النقط</div>
+        </div>
+      </div>
+    </div>
+  </header>
 
-            <div class="lectures-grid">
-                <!-- Lecture 01 -->
-                <div class="lecture-card">
-                    <div class="lecture-number">01</div>
-                    <div class="lecture-title">Introduction to IT</div>
-                    <div class="lecture-desc">The Mobile World, Information Technology & Your Life. Learn the basics of
-                        IT, its impact on education, health, business, and more.</div>
-                    <div class="lecture-links">
-                        <a href="lect01.html" class="lecture-link">
-                            <i class="fas fa-presentation"></i> Presentation
-                        </a>
+  <main class="grid" id="courseGrid"></main>
+</div>
 
-                    </div>
-                </div>
+<footer>Basics Fundamentals Studio — CodeHub.Monster &copy; 2026 · كل المحاضرات مفتوحة للتنقل الحر</footer>
 
-                <!-- Lecture 02 -->
-                <div class="lecture-card">
-                    <div class="lecture-number">02</div>
-                    <div class="lecture-title">HTML In-Depth</div>
-                    <div class="lecture-desc">HTML من الألف للياء — الهيكل الأساسي، العناصر، الـ Attributes، النماذج،
-                        Semantic HTML، و Accessibility.</div>
-                    <div class="lecture-links">
-                        <a href="lect02.html" class="lecture-link">
-                            <i class="fas fa-presentation"></i> Presentation
-                        </a>
-                    </div>
-                </div>
+<script>
+(() => {
+  const AR = '٠١٢٣٤٥٦٧٨٩';
+  const ar = n => String(n).replace(/\d/g, d => AR[+d]);
+  const COURSES = [
+    {
+      id: 'basics-lect01', num: '01', icon: 'i-it', c1: '#38bdf8', c2: '#f59e0b',
+      title: 'مقدمة في تكنولوجيا المعلومات والويب', en: 'Introduction to IT & Web Basics',
+      desc: 'مفهوم الـ IT، تأثيره على التعليم والطب والفلوس، Internet vs Web، الهاردوير والسوفتوير، ومفاتيح HTML و CSS و JS.',
+      tags: ['IT Core', 'Hardware', 'Internet vs Web', 'Web Triad'],
+      total: 34, game: 'lect01.html', read: 'draft/lect01.html'
+    },
+    {
+      id: 'basics-lect02', num: '02', icon: 'i-html', c1: '#f97316', c2: '#fbbf24',
+      title: 'HTML من الألف للياء', en: 'HTML5 In-Depth Studio',
+      desc: 'الهيكل الأساسي، العناصر و Block vs Inline، الـ Attributes، النصوص والروابط، القوائم والجداول، Forms، Semantic HTML و Accessibility.',
+      tags: ['HTML5', 'Forms', 'Semantic', 'Accessibility'],
+      total: 42, game: 'lect02.html', read: 'draft/lect02.html'
+    },
+    {
+      id: 'basics-lect03', num: '03', icon: 'i-css', c1: '#818cf8', c2: '#e879f9',
+      title: 'CSS من الألف للياء', en: 'CSS In-Depth Studio',
+      desc: 'Selectors و Specificity، الـ Box Model و border-box، الألوان والخطوط، Position، Flexbox، Grid، Responsive، Animations و Variables.',
+      tags: ['Box Model', 'Flexbox', 'CSS Grid', 'Glassmorphism'],
+      total: 34, game: 'lect03.html', read: 'draft/lect03.html'
+    },
+    {
+      id: 'basics-lect04', num: '04', icon: 'i-js', c1: '#facc15', c2: '#34d399',
+      title: 'JavaScript من الألف للياء', en: 'JavaScript In-Depth Studio',
+      desc: 'المتغيرات، === vs ==، الشروط والـ Loops، Arrow Functions، map/filter/reduce، Objects، الـ DOM، الـ Events ومشروع Todo List.',
+      tags: ['let/const', 'map/filter', 'DOM', 'Events'],
+      total: 31, game: 'lect04.html', read: 'draft/lect04.html'
+    }
+  ];
 
-                <!-- Lecture 03 -->
-                <div class="lecture-card">
-                    <div class="lecture-number">03</div>
-                    <div class="lecture-title">CSS In-Depth</div>
-                    <div class="lecture-desc">CSS من الألف للياء — Selectors، Box Model، Flexbox، Grid، Responsive
-                        Design، Animations، و CSS Variables.</div>
-                    <div class="lecture-links">
-                        <a href="lect03.html" class="lecture-link">
-                            <i class="fas fa-presentation"></i> Presentation
-                        </a>
-                    </div>
-                </div>
+  let allDone = 0, allTotal = 0, allXp = 0;
+  const grid = document.getElementById('courseGrid');
 
-                <!-- Lecture 04 -->
-                <div class="lecture-card">
-                    <div class="lecture-number">04</div>
-                    <div class="lecture-title">JavaScript Basics</div>
-                    <div class="lecture-desc">JavaScript من الألف للياء — Variables، Operators، Conditionals، Loops،
-                        Functions، Arrays، Objects، DOM، و Events.</div>
-                    <div class="lecture-links">
-                        <a href="lect04.html" class="lecture-link">
-                            <i class="fas fa-presentation"></i> Presentation
-                        </a>
-                    </div>
-                </div>
+  grid.innerHTML = COURSES.map(c => {
+    let solved = 0, xp = 0;
+    try {
+      const st = JSON.parse(localStorage.getItem(`lg2:${c.id}:v1`) || 'null');
+      if (st && st.solved) solved = Object.keys(st.solved).filter(k => st.solved[k]).length;
+      if (st && typeof st.xp === 'number') xp = st.xp;
+    } catch {}
+    const pct = Math.min(100, Math.round((solved / c.total) * 100));
+    allDone += Math.min(solved, c.total);
+    allTotal += c.total;
+    allXp += xp;
 
+    return `<article class="card" style="--c1:${c.c1};--c2:${c.c2}">
+      <div class="card-top">
+        <div class="card-id">
+          <span class="emblem"><svg aria-hidden="true"><use href="#${c.icon}"/></svg></span>
+          <div>
+            <h2>${c.title}</h2>
+            <span class="card-en">${c.en}</span>
+          </div>
+        </div>
+        <span class="lec-num">LEC ${c.num}</span>
+      </div>
+      <p class="card-desc">${c.desc}</p>
+      <div class="tags">${c.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      <div class="prog-row">
+        <div class="prog-meta">
+          <span>${ar(solved)} من ${ar(c.total)} تحدي مكتمل</span>
+          <span style="color:var(--c2)">${ar(pct)}% · ${xp} XP</span>
+        </div>
+        <div class="prog-track"><div class="prog-bar" style="width:${pct}%"></div></div>
+      </div>
+      <div class="actions">
+        <a class="btn-launch" href="${c.game}">
+          <svg class="ic" aria-hidden="true"><use href="#i-play"/></svg>
+          <span>${solved > 0 ? 'كمّل الاستوديو التفاعلي' : 'ابدأ الاستوديو التفاعلي'}</span>
+        </a>
+        <a class="btn-read" href="${c.read}">
+          <svg class="ic" aria-hidden="true"><use href="#i-book"/></svg>
+          <span>نسخة القراءة</span>
+        </a>
+      </div>
+    </article>`;
+  }).join('');
 
-
-                </footer>
+  const totalPct = allTotal ? Math.round((allDone / allTotal) * 100) : 0;
+  document.getElementById('totalPct').textContent = `${ar(totalPct)}%`;
+  document.getElementById('totalXp').textContent = `${allXp} XP`;
+  const C = 87.96;
+  document.getElementById('totalRing').setAttribute('stroke-dashoffset', (C - (C * totalPct / 100)).toFixed(1));
+})();
+</script>
 </body>
-
 </html>
