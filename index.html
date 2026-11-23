@@ -149,13 +149,42 @@ a{color:inherit;text-decoration:none}
 }
 .btn-read:hover{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(148,179,224,.48)}
 
+/* ─── Practical Projects Section ────────────────────────────────────────── */
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:6px}
+.sec-head h2{font-family:var(--display);margin:0;font-size:20px;font-weight:700;display:inline-flex;align-items:center;gap:9px}
+.sec-head p{margin:0;font-size:13.5px;color:var(--muted)}
+.proj-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.proj-card{
+  position:relative;display:flex;align-items:center;gap:14px;padding:18px 20px;border-radius:16px;
+  background:linear-gradient(180deg,rgba(20,30,52,.92),var(--surface));
+  border:1px solid var(--border);box-shadow:var(--spec);overflow:hidden;
+  transition:transform .2s var(--ease),border-color .2s,box-shadow .2s;
+}
+.proj-card::before{content:'';position:absolute;inset-block:0;inset-inline-start:0;width:3.5px;background:linear-gradient(180deg,var(--c1),var(--c2))}
+.proj-card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--c1) 48%,transparent);box-shadow:0 16px 34px rgba(0,0,0,.32)}
+.proj-lvl{
+  width:42px;height:42px;border-radius:12px;display:grid;place-items:center;flex-shrink:0;
+  font-family:var(--mono);font-size:14px;font-weight:700;color:var(--c2);
+  background:color-mix(in srgb,var(--c1) 14%,transparent);border:1px solid color-mix(in srgb,var(--c1) 30%,transparent);
+}
+.proj-body{min-width:0;flex:1}
+.proj-kicker{font-family:var(--mono);font-size:11.5px;color:var(--c2);direction:ltr;display:inline-block}
+.proj-body h3{font-family:var(--display);margin:3px 0 4px;font-size:16.5px;font-weight:700;color:#fff}
+.proj-body p{margin:0;font-size:13.5px;color:var(--soft);line-height:1.6}
+.proj-arrow{
+  width:34px;height:34px;border-radius:9px;display:grid;place-items:center;flex-shrink:0;
+  background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--soft);
+  transition:transform .18s var(--ease),background .18s,color .18s;
+}
+.proj-card:hover .proj-arrow{transform:translateX(-3px);background:color-mix(in srgb,var(--c1) 18%,transparent);color:#fff;border-color:color-mix(in srgb,var(--c1) 40%,transparent)}
+
 footer{
   margin-top:auto;padding:14px 20px;border-top:1px solid var(--border);
   text-align:center;font-size:12.5px;color:var(--muted);
 }
 
 @keyframes cardUp{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:translateY(0)}}
-@media (max-width:860px){.grid{grid-template-columns:1fr}}
+@media (max-width:860px){.grid,.proj-grid{grid-template-columns:1fr}}
 @media (max-width:560px){
   .shell{padding:14px 12px 20px;gap:14px}
   .hero{padding:16px}
@@ -219,6 +248,51 @@ footer{
   </header>
 
   <main class="grid" id="courseGrid"></main>
+
+  <section aria-labelledby="projects-title">
+    <div class="sec-head">
+      <h2 id="projects-title"><svg class="ic" style="color:#38bdf8" aria-hidden="true"><use href="#i-studio"/></svg> المشاريع العملية المتدرجة (Practical Projects)</h2>
+      <p>٤ مشاريع حقيقية بتدرج من HTML + CSS لحد تطبيق JavaScript كامل بـ LocalStorage</p>
+    </div>
+    <div class="proj-grid" style="margin-top:12px">
+      <a class="proj-card" href="project-one/index.html" style="--c1:#f97316;--c2:#fbbf24">
+        <span class="proj-lvl">01</span>
+        <div class="proj-body">
+          <span class="proj-kicker">HTML + CSS Foundations</span>
+          <h3>مساحتي — Personal Portfolio</h3>
+          <p>Semantic sections، Flexbox، تصميم Responsive، ونموذج تواصل متوافق مع Accessibility.</p>
+        </div>
+        <span class="proj-arrow" aria-hidden="true">←</span>
+      </a>
+      <a class="proj-card" href="project-two/index.html" style="--c1:#818cf8;--c2:#e879f9">
+        <span class="proj-lvl">02</span>
+        <div class="proj-body">
+          <span class="proj-kicker">Responsive UI + DOM Basics</span>
+          <h3>CaseCraft — Phone Case Customizer</h3>
+          <p>CSS Grid، أزرار تحكم قابلة لإعادة الاستخدام، Events، وتحديث فوري للـ DOM.</p>
+        </div>
+        <span class="proj-arrow" aria-hidden="true">←</span>
+      </a>
+      <a class="proj-card" href="project-three/index.html" style="--c1:#34d399;--c2:#06b6d4">
+        <span class="proj-lvl">03</span>
+        <div class="proj-body">
+          <span class="proj-kicker">Interactive JavaScript App</span>
+          <h3>مصروفي — Expense Tracker</h3>
+          <p>Arrays، Objects، Validation، عمليات CRUD كاملة، فلاتر، وحفظ في LocalStorage.</p>
+        </div>
+        <span class="proj-arrow" aria-hidden="true">←</span>
+      </a>
+      <a class="proj-card" href="project-four/index.html" style="--c1:#facc15;--c2:#38bdf8">
+        <span class="proj-lvl">04</span>
+        <div class="proj-body">
+          <span class="proj-kicker">Complete Frontend Application</span>
+          <h3>رحّال — Egypt Trip Planner</h3>
+          <p>تطبيق متكامل بعدة شاشات، بحث وفلاتر، مفضلة، إدارة خطة الرحلة، وحفظ دائم.</p>
+        </div>
+        <span class="proj-arrow" aria-hidden="true">←</span>
+      </a>
+    </div>
+  </section>
 </div>
 
 <footer>Basics Fundamentals Studio — CodeHub.Monster &copy; 2026 · كل المحاضرات مفتوحة للتنقل الحر</footer>
