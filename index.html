@@ -4,191 +4,184 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>CodeHub Basics — استوديو أساسيات البرمجة والويب</title>
-<meta name="description" content="محاضرات أساسيات الـ IT و HTML و CSS و JavaScript — شرح تفاعلي وألعاب تطبيقية بالعامية المصرية — CodeHub">
+<meta name="description" content="محاضرات أساسيات الـ IT و HTML و CSS و JavaScript — شرح تفاعلي وألعاب تطبيقية ومشاريع عملية بالعامية المصرية — CodeHub">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Readex+Pro:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Readex+Pro:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#070b14;
-  --surface:#0f172a;
-  --surface-2:#152038;
-  --border:rgba(148,179,224,.15);
-  --border-hi:rgba(148,179,224,.30);
-  --spec:inset 0 1px 0 rgba(255,255,255,.06);
-  --text:#f3f6fc;
-  --soft:#cfd9eb;
-  --muted:#8598b8;
-  --primary:linear-gradient(100deg,#10b981,#06b6d4);
+  --bg:#F2F0EA;
+  --bg-2:#EAE7DF;
+  --surface:#F9F8F4;
+  --surface-hi:#EDEAE2;
+  --border:#DBD7CC;
+  --border-hi:#C4BEB0;
+  --text:#182230;
+  --text-body:#2B3748;
+  --text-soft:#4E5D73;
+  --muted:#69768C;
+  --accent:#0E7C90;
+  --accent-hi:#0A6576;
+  --accent-soft:rgba(14,124,144,.09);
+  --accent-bd:rgba(14,124,144,.28);
+  --amber:#B3700B;
+  --amber-soft:rgba(179,112,11,.10);
+  --ok:#167E5C;
+  --shadow-sm:0 1px 2px rgba(24,34,48,.05);
+  --shadow-hover:0 8px 22px rgba(24,34,48,.07);
   --font:'IBM Plex Sans Arabic',system-ui,-apple-system,sans-serif;
   --display:'Readex Pro','IBM Plex Sans Arabic',system-ui,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
   --ease:cubic-bezier(.22,1,.36,1);
 }
 *,*::before,*::after{box-sizing:border-box}
-html,body{min-height:100%;margin:0;background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased}
-body{
-  display:flex;flex-direction:column;overflow-x:hidden;
-  background:
-    radial-gradient(760px 360px at 90% 0%,rgba(56,189,248,.12),transparent 68%),
-    radial-gradient(640px 340px at 8% 20%,rgba(249,115,22,.09),transparent 70%),
-    radial-gradient(700px 360px at 50% 100%,rgba(129,140,248,.10),transparent 70%),
-    var(--bg);
-}
+html,body{min-height:100%;margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;-webkit-font-smoothing:antialiased}
+body{display:flex;flex-direction:column;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
-:focus-visible{outline:2px solid #38bdf8;outline-offset:2px}
-.ic{width:17px;height:17px;display:inline-block;flex-shrink:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ic{width:16px;height:16px;display:inline-block;flex-shrink:0}
+
+/* ─── Quiet Top Navigation Header ───────────────────────────────────────── */
+.site-bar{
+  background:var(--bg-2);border-bottom:1px solid var(--border);
+}
+.site-bar-in{
+  width:min(1220px,100%);margin:0 auto;padding:0 22px;height:56px;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand-mark{
+  width:34px;height:34px;border-radius:9px;display:grid;place-items:center;flex-shrink:0;
+  background:var(--surface);border:1px solid var(--border);color:var(--accent);
+}
+.brand-mark svg{width:18px;height:18px}
+.brand-name{font-family:var(--display);font-size:15.5px;font-weight:600;color:var(--text);line-height:1.2}
+.brand-sub{font-size:11.5px;color:var(--muted)}
+
+.bar-stats{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.stat-pill{
+  display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 11px;border-radius:8px;
+  background:var(--surface);border:1px solid var(--border);font-size:12.5px;color:var(--text-soft);
+}
+.prog-bar-mini{width:68px;height:5px;border-radius:99px;background:var(--bg-2);overflow:hidden}
+.prog-fill-mini{height:100%;border-radius:99px;background:var(--amber);transition:width .4s var(--ease)}
+.prog-fill-mini.full{background:var(--ok)}
+.mono-val{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--text);direction:ltr}
+.xp-val{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--amber);direction:ltr;display:inline-flex;align-items:center;gap:4px}
 
 .shell{
-  width:min(1260px,100%);margin:0 auto;padding:24px 22px 28px;
-  display:flex;flex-direction:column;gap:22px;flex:1;
+  width:min(1220px,100%);margin:0 auto;padding:28px 22px 40px;
+  display:flex;flex-direction:column;gap:28px;flex:1;
 }
 
-/* ─── Hero Studio Header ────────────────────────────────────────────────── */
-.hero{
-  position:relative;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
-  padding:22px 26px;border-radius:18px;overflow:hidden;
-  background:linear-gradient(135deg,rgba(19,30,54,.96),rgba(11,17,32,.96));
-  border:1px solid var(--border-hi);box-shadow:0 20px 48px rgba(0,0,0,.35),var(--spec);
+/* ─── Editorial Intro Band ──────────────────────────────────────────────── */
+.intro{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  padding-bottom:18px;border-bottom:1px solid var(--border);
 }
-.hero-grid-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.16;color:#38bdf8}
-.hero-left{display:flex;align-items:center;gap:16px;position:relative;z-index:1;min-width:0}
-.studio-mark{
-  width:54px;height:54px;border-radius:15px;display:grid;place-items:center;flex-shrink:0;
-  background:linear-gradient(135deg,#10b981,#06b6d4);color:#031317;
-  box-shadow:0 10px 26px rgba(16,185,129,.3),inset 0 1px 0 rgba(255,255,255,.4);
+.intro h1{
+  font-family:var(--display);margin:0;font-size:clamp(22px,2.4vw,28px);font-weight:600;
+  letter-spacing:-.015em;line-height:1.3;color:var(--text);
 }
-.studio-mark svg{width:28px;height:28px}
-.hero-txt h1{font-family:var(--display);margin:0;font-size:clamp(20px,2.5vw,28px);font-weight:700;letter-spacing:-.02em;line-height:1.25}
-.hero-txt p{margin:6px 0 0;font-size:14.5px;color:var(--soft);max-width:58ch;line-height:1.65}
+.intro p{margin:7px 0 0;font-size:15px;color:var(--text-soft);max-width:60ch;line-height:1.75}
+.intro-meta{
+  display:flex;align-items:center;gap:14px;font-size:13px;color:var(--muted);flex-wrap:wrap;
+}
+.intro-meta strong{color:var(--text);font-weight:600}
 
-.hero-stats{display:flex;align-items:center;gap:10px;position:relative;z-index:1;flex-wrap:wrap}
-.stat-box{
-  display:flex;align-items:center;gap:10px;padding:10px 15px;border-radius:13px;
-  background:rgba(7,11,20,.65);border:1px solid var(--border);
-}
-.stat-val{font-family:var(--display);font-size:18px;font-weight:700;line-height:1.1}
-.stat-lbl{font-size:11.5px;color:var(--muted)}
-.ring-svg{width:34px;height:34px;transform:rotate(-90deg)}
-.ring-bg{fill:none;stroke:rgba(148,163,184,.2);stroke-width:3.2}
-.ring-fg{fill:none;stroke:url(#gPortal);stroke-width:3.2;stroke-linecap:round;transition:stroke-dashoffset .7s var(--ease)}
+/* ─── Section Headings ──────────────────────────────────────────────────── */
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.sec-head h2{font-family:var(--display);margin:0;font-size:18px;font-weight:600;color:var(--text);display:inline-flex;align-items:center;gap:8px}
+.sec-head p{margin:0;font-size:13.5px;color:var(--muted)}
 
-/* ─── 4-Card Balanced Studio Grid ───────────────────────────────────────── */
-.grid{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;
-}
+/* ─── 4-Card Lectures Grid ──────────────────────────────────────────────── */
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .card{
-  position:relative;display:flex;flex-direction:column;gap:14px;padding:22px;border-radius:18px;
-  background:linear-gradient(180deg,rgba(23,34,58,.94),var(--surface));
-  border:1px solid var(--border);box-shadow:0 14px 34px rgba(0,0,0,.28),var(--spec);
-  overflow:hidden;transition:transform .22s var(--ease),border-color .22s,box-shadow .22s;
-  animation:cardUp .42s var(--ease) both;
+  display:flex;flex-direction:column;gap:14px;padding:22px;border-radius:12px;
+  background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-sm);
+  transition:border-color .18s var(--ease),box-shadow .18s var(--ease),transform .18s var(--ease);
 }
-.card:nth-child(2){animation-delay:.06s}
-.card:nth-child(3){animation-delay:.12s}
-.card:nth-child(4){animation-delay:.18s}
-.card::before{
-  content:'';position:absolute;inset-inline:0;top:0;height:3px;
-  background:linear-gradient(90deg,var(--c1),var(--c2));opacity:.85;
-}
-.card::after{
-  content:'';position:absolute;width:220px;height:140px;top:-40px;inset-inline-start:-40px;
-  background:radial-gradient(circle,color-mix(in srgb,var(--c1) 18%,transparent),transparent 70%);
-  pointer-events:none;transition:opacity .25s;opacity:.65;
-}
-.card:hover{
-  transform:translateY(-4px);
-  border-color:color-mix(in srgb,var(--c1) 52%,transparent);
-  box-shadow:0 22px 46px rgba(0,0,0,.38),0 0 0 1px color-mix(in srgb,var(--c1) 24%,transparent);
-}
-.card:hover::after{opacity:1}
+.card:hover{border-color:var(--border-hi);box-shadow:var(--shadow-hover);transform:translateY(-2px)}
 
-.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;position:relative;z-index:1}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .card-id{display:flex;align-items:center;gap:12px;min-width:0}
 .emblem{
-  width:46px;height:46px;border-radius:13px;display:grid;place-items:center;flex-shrink:0;
-  background:linear-gradient(135deg,var(--c1),var(--c2));color:#070b14;
-  box-shadow:0 8px 20px color-mix(in srgb,var(--c1) 34%,transparent),inset 0 1px 0 rgba(255,255,255,.35);
+  width:42px;height:42px;border-radius:10px;display:grid;place-items:center;flex-shrink:0;
+  background:var(--bg);border:1px solid var(--border);color:var(--accent);
 }
-.emblem svg{width:24px;height:24px}
+.emblem svg{width:20px;height:20px}
 .lec-num{
-  font-family:var(--mono);font-size:12px;font-weight:700;color:var(--c2);
-  padding:4px 10px;border-radius:99px;background:color-mix(in srgb,var(--c1) 14%,transparent);
-  border:1px solid color-mix(in srgb,var(--c1) 30%,transparent);flex-shrink:0;
+  font-family:var(--mono);font-size:11.5px;font-weight:600;color:var(--muted);
+  padding:3px 9px;border-radius:6px;background:var(--bg);border:1px solid var(--border);flex-shrink:0;direction:ltr;
 }
-.card h2{font-family:var(--display);margin:0;font-size:19px;font-weight:700;line-height:1.3}
+.card h3{font-family:var(--display);margin:0;font-size:17.5px;font-weight:600;line-height:1.35;color:var(--text)}
 .card-en{font-family:var(--mono);font-size:12px;color:var(--muted);direction:ltr;display:inline-block;margin-top:2px}
-.card-desc{margin:0;font-size:14.5px;color:var(--soft);line-height:1.75;position:relative;z-index:1}
+.card-desc{margin:0;font-size:14.5px;color:var(--text-body);line-height:1.78}
 
-.tags{display:flex;flex-wrap:wrap;gap:6px;position:relative;z-index:1}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
 .tag{
-  font-family:var(--mono);font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:8px;
-  background:rgba(7,11,20,.65);border:1px solid var(--border);color:var(--soft);direction:ltr;
+  font-family:var(--mono);font-size:11.5px;font-weight:500;padding:3px 8px;border-radius:6px;
+  background:var(--bg);border:1px solid var(--border);color:var(--text-soft);direction:ltr;
 }
 
-.prog-row{display:flex;flex-direction:column;gap:6px;margin-top:auto;position:relative;z-index:1}
-.prog-meta{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted);font-weight:600}
-.prog-track{height:7px;border-radius:99px;background:rgba(148,163,184,.16);overflow:hidden}
-.prog-bar{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--c1),var(--c2));width:0;transition:width .65s var(--ease)}
+.prog-row{display:flex;flex-direction:column;gap:6px;margin-top:auto;padding-top:4px}
+.prog-meta{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted);font-weight:500}
+.prog-track{height:6px;border-radius:99px;background:var(--bg-2);overflow:hidden}
+.prog-bar{height:100%;border-radius:99px;background:var(--amber);width:0;transition:width .5s var(--ease)}
+.prog-bar.full{background:var(--ok)}
 
-.actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
+.actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-top:2px}
 .btn-launch{
   flex:1;min-width:170px;display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  min-height:44px;padding:0 18px;border-radius:11px;
-  background:var(--primary);color:#031317;font-family:var(--display);font-size:14px;font-weight:700;
-  box-shadow:0 6px 18px rgba(16,185,129,.25),inset 0 1px 0 rgba(255,255,255,.35);
-  transition:transform .14s var(--ease),filter .15s;
+  height:40px;padding:0 16px;border-radius:9px;
+  background:var(--accent);color:#F9F8F4;font-family:var(--display);font-size:13.5px;font-weight:600;
+  transition:background .15s var(--ease),transform .12s;
 }
-.btn-launch:hover{filter:brightness(1.07);transform:translateY(-1px)}
-.btn-launch:active{transform:scale(.98)}
+.btn-launch:hover{background:var(--accent-hi)}
+.btn-launch:active{transform:scale(.99)}
 .btn-read{
   display:inline-flex;align-items:center;justify-content:center;gap:6px;
-  min-height:44px;padding:0 14px;border-radius:11px;
-  border:1px solid var(--border-hi);background:rgba(255,255,255,.04);color:var(--soft);
-  font-size:13px;font-weight:600;transition:background .15s,color .15s,border-color .15s;
+  height:40px;padding:0 13px;border-radius:9px;
+  border:1px solid var(--border);background:var(--bg);color:var(--text-soft);
+  font-size:13px;font-weight:500;transition:background .15s,border-color .15s,color .15s;
 }
-.btn-read:hover{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(148,179,224,.48)}
+.btn-read:hover{background:var(--surface-hi);border-color:var(--border-hi);color:var(--text)}
 
 /* ─── Practical Projects Section ────────────────────────────────────────── */
-.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:6px}
-.sec-head h2{font-family:var(--display);margin:0;font-size:20px;font-weight:700;display:inline-flex;align-items:center;gap:9px}
-.sec-head p{margin:0;font-size:13.5px;color:var(--muted)}
 .proj-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .proj-card{
-  position:relative;display:flex;align-items:center;gap:14px;padding:18px 20px;border-radius:16px;
-  background:linear-gradient(180deg,rgba(20,30,52,.92),var(--surface));
-  border:1px solid var(--border);box-shadow:var(--spec);overflow:hidden;
-  transition:transform .2s var(--ease),border-color .2s,box-shadow .2s;
+  display:flex;align-items:center;gap:14px;padding:18px 20px;border-radius:12px;
+  background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-sm);
+  transition:border-color .18s var(--ease),box-shadow .18s var(--ease),transform .18s var(--ease);
 }
-.proj-card::before{content:'';position:absolute;inset-block:0;inset-inline-start:0;width:3.5px;background:linear-gradient(180deg,var(--c1),var(--c2))}
-.proj-card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--c1) 48%,transparent);box-shadow:0 16px 34px rgba(0,0,0,.32)}
+.proj-card:hover{border-color:var(--accent-bd);box-shadow:var(--shadow-hover);transform:translateY(-2px)}
 .proj-lvl{
-  width:42px;height:42px;border-radius:12px;display:grid;place-items:center;flex-shrink:0;
-  font-family:var(--mono);font-size:14px;font-weight:700;color:var(--c2);
-  background:color-mix(in srgb,var(--c1) 14%,transparent);border:1px solid color-mix(in srgb,var(--c1) 30%,transparent);
+  width:40px;height:40px;border-radius:9px;display:grid;place-items:center;flex-shrink:0;
+  font-family:var(--mono);font-size:13.5px;font-weight:600;color:var(--accent);
+  background:var(--accent-soft);border:1px solid var(--accent-bd);
 }
 .proj-body{min-width:0;flex:1}
-.proj-kicker{font-family:var(--mono);font-size:11.5px;color:var(--c2);direction:ltr;display:inline-block}
-.proj-body h3{font-family:var(--display);margin:3px 0 4px;font-size:16.5px;font-weight:700;color:#fff}
-.proj-body p{margin:0;font-size:13.5px;color:var(--soft);line-height:1.6}
+.proj-kicker{font-family:var(--mono);font-size:11.5px;color:var(--muted);direction:ltr;display:inline-block}
+.proj-body h3{font-family:var(--display);margin:2px 0 4px;font-size:16px;font-weight:600;color:var(--text)}
+.proj-body p{margin:0;font-size:13.5px;color:var(--text-soft);line-height:1.65}
 .proj-arrow{
-  width:34px;height:34px;border-radius:9px;display:grid;place-items:center;flex-shrink:0;
-  background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--soft);
-  transition:transform .18s var(--ease),background .18s,color .18s;
+  width:34px;height:34px;border-radius:8px;display:grid;place-items:center;flex-shrink:0;
+  background:var(--bg);border:1px solid var(--border);color:var(--text-soft);
+  transition:transform .16s var(--ease),background .16s,border-color .16s,color .16s;
 }
-.proj-card:hover .proj-arrow{transform:translateX(-3px);background:color-mix(in srgb,var(--c1) 18%,transparent);color:#fff;border-color:color-mix(in srgb,var(--c1) 40%,transparent)}
+.proj-card:hover .proj-arrow{transform:translateX(-3px);background:var(--accent-soft);border-color:var(--accent-bd);color:var(--accent)}
 
 footer{
-  margin-top:auto;padding:14px 20px;border-top:1px solid var(--border);
+  margin-top:auto;padding:16px 22px;border-top:1px solid var(--border);background:var(--bg-2);
   text-align:center;font-size:12.5px;color:var(--muted);
 }
 
-@keyframes cardUp{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:translateY(0)}}
 @media (max-width:860px){.grid,.proj-grid{grid-template-columns:1fr}}
-@media (max-width:560px){
-  .shell{padding:14px 12px 20px;gap:14px}
-  .hero{padding:16px}
-  .card{padding:16px}
+@media (max-width:600px){
+  .site-bar-in{padding:0 14px}
+  .brand-sub,.prog-bar-mini,.prog-txt{display:none}
+  .shell{padding:18px 14px 28px;gap:22px}
+  .card{padding:18px}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
@@ -197,65 +190,66 @@ footer{
 </head>
 <body>
 <svg style="display:none" aria-hidden="true">
-  <defs>
-    <linearGradient id="gPortal" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#10b981"/>
-      <stop offset="100%" stop-color="#06b6d4"/>
-    </linearGradient>
-  </defs>
-  <symbol id="i-it" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/></symbol>
-  <symbol id="i-html" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 6 2 12 8 18"/><polyline points="16 6 22 12 16 18"/><line x1="14" y1="4" x2="10" y2="20"/></symbol>
-  <symbol id="i-css" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 12 15 2 8.5 12 2"/><polyline points="2 15.5 12 22 22 15.5"/><polyline points="2 12 12 18.5 22 12"/></symbol>
-  <symbol id="i-js" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4C5 4 4 5 4 7v3c0 1.2-.8 2-2 2 1.2 0 2 .8 2 2v3c0 2 1 3 3 3"/><path d="M17 4c2 0 3 1 3 3v3c0 1.2.8 2 2 2-1.2 0-2 .8-2 2v3c0 2-1 3-3 3"/><polygon points="13 7 9.5 13 12 13 11 17 14.5 11 12 11 13 7" fill="currentColor" stroke="none"/></symbol>
-  <symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="4"/><path d="M6 12h4M8 10v4"/><circle cx="15.5" cy="11" r="1" fill="currentColor" stroke="none"/><circle cx="17.5" cy="13" r="1" fill="currentColor" stroke="none"/></symbol>
-  <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-it" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-html" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 6 2 12 8 18"/><polyline points="16 6 22 12 16 18"/><line x1="14" y1="4" x2="10" y2="20"/></symbol>
+  <symbol id="i-css" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 12 15 2 8.5 12 2"/><polyline points="2 15.5 12 22 22 15.5"/><polyline points="2 12 12 18.5 22 12"/></symbol>
+  <symbol id="i-js" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4C5 4 4 5 4 7v3c0 1.2-.8 2-2 2 1.2 0 2 .8 2 2v3c0 2 1 3 3 3"/><path d="M17 4c2 0 3 1 3 3v3c0 1.2.8 2 2 2-1.2 0-2 .8-2 2v3c0 2-1 3-3 3"/><polygon points="13 7 9.5 13 12 13 11 17 14.5 11 12 11 13 7" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 4 20 12 6 20 6 4"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
   <symbol id="i-bolt" viewBox="0 0 24 24" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
-  <symbol id="i-studio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="12" y1="3" x2="12" y2="21" stroke-opacity=".35"/></symbol>
+  <symbol id="i-studio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
 </svg>
 
-<div class="shell">
-  <header class="hero">
-    <svg class="hero-grid-svg" viewBox="0 0 900 180" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 45H900M0 90H900M0 135H900M150 0V180M300 0V180M450 0V180M600 0V180M750 0V180" stroke="currentColor" stroke-opacity=".3" stroke-dasharray="4 6"/>
-      <circle cx="150" cy="45" r="4" fill="currentColor"/><circle cx="450" cy="90" r="5" fill="currentColor"/><circle cx="750" cy="135" r="4" fill="currentColor"/>
-    </svg>
-    <div class="hero-left">
-      <div class="studio-mark"><svg aria-hidden="true"><use href="#i-studio"/></svg></div>
-      <div class="hero-txt">
-        <h1>أساسيات تكنولوجيا المعلومات والويب — CodeHub Studio</h1>
-        <p>٤ محاضرات تفاعلية بالعامية المصرية: شرح منظّم وتجارب حية + ألعاب تطبيقية وتحديات كود بدون ملل أو Scroll طويل.</p>
+<header class="site-bar">
+  <div class="site-bar-in">
+    <div class="brand">
+      <span class="brand-mark"><svg aria-hidden="true"><use href="#i-studio"/></svg></span>
+      <div>
+        <div class="brand-name">CodeHub Basics Studio</div>
+        <div class="brand-sub">أساسيات تكنولوجيا المعلومات والويب</div>
       </div>
     </div>
-    <div class="hero-stats">
-      <div class="stat-box">
-        <svg class="ring-svg" viewBox="0 0 36 36" aria-hidden="true">
-          <circle class="ring-bg" cx="18" cy="18" r="14"/>
-          <circle class="ring-fg" id="totalRing" cx="18" cy="18" r="14" stroke-dasharray="87.96" stroke-dashoffset="87.96"/>
-        </svg>
-        <div>
-          <div class="stat-val" id="totalPct">٠%</div>
-          <div class="stat-lbl">تقدّم الكورس</div>
-        </div>
+    <div class="bar-stats">
+      <div class="stat-pill" aria-label="إجمالي تقدم الكورس">
+        <span class="prog-txt">التقدّم</span>
+        <div class="prog-bar-mini"><div class="prog-fill-mini" id="totalBar" style="width:0%"></div></div>
+        <span class="mono-val" id="totalPct">0%</span>
       </div>
-      <div class="stat-box">
-        <svg class="ic" style="color:#fde68a;width:22px;height:22px" aria-hidden="true"><use href="#i-bolt"/></svg>
-        <div>
-          <div class="stat-val" id="totalXp" style="color:#fde68a">0 XP</div>
-          <div class="stat-lbl">إجمالي النقط</div>
-        </div>
+      <div class="stat-pill">
+        <span class="xp-val" id="totalXp"><svg class="ic" style="width:13px;height:13px" aria-hidden="true"><use href="#i-bolt"/></svg> 0 XP</span>
       </div>
     </div>
-  </header>
+  </div>
+</header>
 
-  <main class="grid" id="courseGrid"></main>
+<div class="shell">
+  <section class="intro">
+    <div>
+      <h1>أساسيات تكنولوجيا المعلومات والويب</h1>
+      <p>مسار تعليمي تفاعلي بالعامية المصرية يجمع الشرح المنظّم، استكشاف الكود، المعاينة الحية، التحديات العملية، و ٤ مشاريع متدرجة.</p>
+    </div>
+    <div class="intro-meta">
+      <span><strong>٤</strong> محاضرات تفاعلية</span>
+      <span><strong>١٤١</strong> تحدي عملي</span>
+      <span><strong>٤</strong> مشاريع تطبيقية</span>
+    </div>
+  </section>
+
+  <section aria-labelledby="lectures-title">
+    <div class="sec-head">
+      <h2 id="lectures-title">المحاضرات التفاعلية</h2>
+      <p>كل الأقسام مفتوحة للتنقل الحر بين الشرح والتطبيق</p>
+    </div>
+    <main class="grid" id="courseGrid"></main>
+  </section>
 
   <section aria-labelledby="projects-title">
     <div class="sec-head">
-      <h2 id="projects-title"><svg class="ic" style="color:#38bdf8" aria-hidden="true"><use href="#i-studio"/></svg> المشاريع العملية المتدرجة (Practical Projects)</h2>
-      <p>٤ مشاريع حقيقية بتدرج من HTML + CSS لحد تطبيق JavaScript كامل بـ LocalStorage</p>
+      <h2 id="projects-title">المشاريع العملية المتدرجة</h2>
+      <p>٤ مشاريع مستقلة بتدرج من HTML + CSS لحد تطبيق JavaScript كامل بـ LocalStorage</p>
     </div>
-    <div class="proj-grid" style="margin-top:12px">
-      <a class="proj-card" href="project-one/index.html" style="--c1:#f97316;--c2:#fbbf24">
+    <div class="proj-grid">
+      <a class="proj-card" href="project-one/index.html">
         <span class="proj-lvl">01</span>
         <div class="proj-body">
           <span class="proj-kicker">HTML + CSS Foundations</span>
@@ -264,7 +258,7 @@ footer{
         </div>
         <span class="proj-arrow" aria-hidden="true">←</span>
       </a>
-      <a class="proj-card" href="project-two/index.html" style="--c1:#818cf8;--c2:#e879f9">
+      <a class="proj-card" href="project-two/index.html">
         <span class="proj-lvl">02</span>
         <div class="proj-body">
           <span class="proj-kicker">Responsive UI + DOM Basics</span>
@@ -273,7 +267,7 @@ footer{
         </div>
         <span class="proj-arrow" aria-hidden="true">←</span>
       </a>
-      <a class="proj-card" href="project-three/index.html" style="--c1:#34d399;--c2:#06b6d4">
+      <a class="proj-card" href="project-three/index.html">
         <span class="proj-lvl">03</span>
         <div class="proj-body">
           <span class="proj-kicker">Interactive JavaScript App</span>
@@ -282,7 +276,7 @@ footer{
         </div>
         <span class="proj-arrow" aria-hidden="true">←</span>
       </a>
-      <a class="proj-card" href="project-four/index.html" style="--c1:#facc15;--c2:#38bdf8">
+      <a class="proj-card" href="project-four/index.html">
         <span class="proj-lvl">04</span>
         <div class="proj-body">
           <span class="proj-kicker">Complete Frontend Application</span>
@@ -295,7 +289,7 @@ footer{
   </section>
 </div>
 
-<footer>Basics Fundamentals Studio — CodeHub.Monster &copy; 2026 · كل المحاضرات مفتوحة للتنقل الحر</footer>
+<footer>Basics Fundamentals Studio — CodeHub.Monster &copy; 2026</footer>
 
 <script>
 (() => {
@@ -303,28 +297,28 @@ footer{
   const ar = n => String(n).replace(/\d/g, d => AR[+d]);
   const COURSES = [
     {
-      id: 'basics-lect01', num: '01', icon: 'i-it', c1: '#38bdf8', c2: '#f59e0b',
+      id: 'basics-lect01', num: '01', icon: 'i-it',
       title: 'مقدمة في تكنولوجيا المعلومات والويب', en: 'Introduction to IT & Web Basics',
       desc: 'مفهوم الـ IT، تأثيره على التعليم والطب والفلوس، Internet vs Web، الهاردوير والسوفتوير، ومفاتيح HTML و CSS و JS.',
       tags: ['IT Core', 'Hardware', 'Internet vs Web', 'Web Triad'],
       total: 34, game: 'lect01.html', read: 'draft/lect01.html'
     },
     {
-      id: 'basics-lect02', num: '02', icon: 'i-html', c1: '#f97316', c2: '#fbbf24',
+      id: 'basics-lect02', num: '02', icon: 'i-html',
       title: 'HTML من الألف للياء', en: 'HTML5 In-Depth Studio',
       desc: 'الهيكل الأساسي، العناصر و Block vs Inline، الـ Attributes، النصوص والروابط، القوائم والجداول، Forms، Semantic HTML و Accessibility.',
       tags: ['HTML5', 'Forms', 'Semantic', 'Accessibility'],
       total: 42, game: 'lect02.html', read: 'draft/lect02.html'
     },
     {
-      id: 'basics-lect03', num: '03', icon: 'i-css', c1: '#818cf8', c2: '#e879f9',
+      id: 'basics-lect03', num: '03', icon: 'i-css',
       title: 'CSS من الألف للياء', en: 'CSS In-Depth Studio',
       desc: 'Selectors و Specificity، الـ Box Model و border-box، الألوان والخطوط، Position، Flexbox، Grid، Responsive، Animations و Variables.',
-      tags: ['Box Model', 'Flexbox', 'CSS Grid', 'Glassmorphism'],
+      tags: ['Box Model', 'Flexbox', 'CSS Grid', 'Variables'],
       total: 34, game: 'lect03.html', read: 'draft/lect03.html'
     },
     {
-      id: 'basics-lect04', num: '04', icon: 'i-js', c1: '#facc15', c2: '#34d399',
+      id: 'basics-lect04', num: '04', icon: 'i-js',
       title: 'JavaScript من الألف للياء', en: 'JavaScript In-Depth Studio',
       desc: 'المتغيرات، === vs ==، الشروط والـ Loops، Arrow Functions، map/filter/reduce، Objects، الـ DOM، الـ Events ومشروع Todo List.',
       tags: ['let/const', 'map/filter', 'DOM', 'Events'],
@@ -347,12 +341,12 @@ footer{
     allTotal += c.total;
     allXp += xp;
 
-    return `<article class="card" style="--c1:${c.c1};--c2:${c.c2}">
+    return `<article class="card">
       <div class="card-top">
         <div class="card-id">
           <span class="emblem"><svg aria-hidden="true"><use href="#${c.icon}"/></svg></span>
           <div>
-            <h2>${c.title}</h2>
+            <h3>${c.title}</h3>
             <span class="card-en">${c.en}</span>
           </div>
         </div>
@@ -363,14 +357,14 @@ footer{
       <div class="prog-row">
         <div class="prog-meta">
           <span>${ar(solved)} من ${ar(c.total)} تحدي مكتمل</span>
-          <span style="color:var(--c2)">${ar(pct)}% · ${xp} XP</span>
+          <span class="mono-val">${pct}% · ${xp} XP</span>
         </div>
-        <div class="prog-track"><div class="prog-bar" style="width:${pct}%"></div></div>
+        <div class="prog-track"><div class="prog-bar ${pct===100?'full':''}" style="width:${pct}%"></div></div>
       </div>
       <div class="actions">
         <a class="btn-launch" href="${c.game}">
           <svg class="ic" aria-hidden="true"><use href="#i-play"/></svg>
-          <span>${solved > 0 ? 'كمّل الاستوديو التفاعلي' : 'ابدأ الاستوديو التفاعلي'}</span>
+          <span>${solved > 0 ? 'كمّل المحاضرة التفاعلية' : 'ابدأ المحاضرة التفاعلية'}</span>
         </a>
         <a class="btn-read" href="${c.read}">
           <svg class="ic" aria-hidden="true"><use href="#i-book"/></svg>
@@ -381,10 +375,11 @@ footer{
   }).join('');
 
   const totalPct = allTotal ? Math.round((allDone / allTotal) * 100) : 0;
-  document.getElementById('totalPct').textContent = `${ar(totalPct)}%`;
-  document.getElementById('totalXp').textContent = `${allXp} XP`;
-  const C = 87.96;
-  document.getElementById('totalRing').setAttribute('stroke-dashoffset', (C - (C * totalPct / 100)).toFixed(1));
+  document.getElementById('totalPct').textContent = `${totalPct}%`;
+  const tb = document.getElementById('totalBar');
+  tb.style.width = `${totalPct}%`;
+  if (totalPct === 100) tb.classList.add('full');
+  document.getElementById('totalXp').innerHTML = `<svg class="ic" style="width:13px;height:13px" aria-hidden="true"><use href="#i-bolt"/></svg> ${allXp} XP`;
 })();
 </script>
 </body>
